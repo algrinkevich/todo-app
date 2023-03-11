@@ -112,6 +112,32 @@ body {
     letter-spacing: 0.07rem;
 }
 
+.unlock-slide {
+    position: absolute;
+    bottom: 75px;
+    width: 100%;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.07rem;
+    text-align: center;
+
+    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.5) 30%, rgba(255, 255, 255, 0.5) 70%, rgba(255, 255, 255, 1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 350px;
+    animation: slide 2s linear infinite;
+}
+
+@keyframes slide {
+    0% {
+        background-position: 100px 0;
+    }
+
+    100% {
+        background-position: 440px 0;
+    }
+}
+
 .camera-img {
     position: absolute;
     bottom: 8px;
