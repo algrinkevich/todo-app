@@ -1,15 +1,18 @@
-*, *:after, *:before {
+*,
+*:after,
+*:before {
     box-sizing: border-box;
- }
+}
 
-  body {
+body {
     margin: 0;
     height: 100vh;
     background-image: url(images/wooden-bg.jpg);
     background-size: cover;
     background-repeat: repeat-y;
- }
-  .phone {
+}
+
+.phone {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -21,20 +24,23 @@
     border-radius: 50px;
     box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px #ccb8a6, 0 0 50px 0px rgba(0, 0, 0, 0.8);
     padding: 15px;
- }
-  .phone-top {
+}
+
+.phone-top {
     padding: 5px 110px 40px;
     position: relative;
- }
-  .speaker {
+}
+
+.speaker {
     display: block;
     width: 70px;
     height: 6px;
     margin: 0 auto;
     border-radius: 6px;
     background: #292728;
- }
-  .camera {
+}
+
+.camera {
     display: block;
     margin: 0 auto;
     height: 10px;
@@ -42,8 +48,9 @@
     border-radius: 50%;
     margin-bottom: 13px;
     background: #333;
- }
-  .sensor {
+}
+
+.sensor {
     display: block;
     width: 15px;
     height: 15px;
@@ -51,8 +58,10 @@
     background: #333;
     margin-top: -5px;
     border-radius: 50%;
- }
-  .top-bar, .bottom-bar {
+}
+
+.top-bar,
+.bottom-bar {
     display: block;
     width: 423px;
     height: 15px;
@@ -60,14 +69,17 @@
     border-right: 3px solid #e7ded6;
     position: absolute;
     left: -3px;
- }
-  .top-bar {
+}
+
+.top-bar {
     top: 65px;
- }
-  .bottom-bar {
+}
+
+.bottom-bar {
     bottom: 65px;
- }
-  .phone-screen {
+}
+
+.phone-screen {
     height: 677px;
     width: 375px;
     margin: 0 auto;
@@ -77,43 +89,57 @@
     background-image: url(images/phone-bg-1.png);
     background-size: cover;
     background-repeat: no-repeat;
- }
-  .phone-screen img {
+}
+
+.phone-screen img {
     width: 100%;
- }
-  .buttons .on-off, .buttons .up, .buttons .down, .buttons .sleep {
+}
+
+.buttons .on-off,
+.buttons .up,
+.buttons .down,
+.buttons .sleep {
     display: block;
     background: #e7ded6;
     position: absolute;
     border-radius: 4px 0px 0px 4px;
- }
-  .buttons .on-off {
+}
+
+.buttons .on-off {
     height: 40px;
     width: 3px;
     top: 100px;
     left: -6px;
- }
-  .buttons .up, .buttons .down, .buttons .sleep {
+}
+
+.buttons .up,
+.buttons .down,
+.buttons .sleep {
     height: 60px;
     width: 5px;
     left: -8px;
- }
-  .buttons .up {
+}
+
+.buttons .up {
     top: 170px;
- }
-  .buttons .down {
+}
+
+.buttons .down {
     top: 250px;
- }
-  .buttons .sleep {
+}
+
+.buttons .sleep {
     left: auto;
     right: -8px;
     top: 170px;
     border-radius: 0px 4px 4px 0px;
- }
-  .phone-bottom {
+}
+
+.phone-bottom {
     padding: 15px 0 0;
- }
-  .phone-bottom span {
+}
+
+.phone-bottom span {
     display: block;
     margin: 0 auto;
     width: 68px;
@@ -122,8 +148,9 @@
     border-radius: 50%;
     background: linear-gradient(300deg, #8a7058 0%, #e7ded6 73%, #fff 98%);
     position: relative;
- }
-  .phone-bottom span:after {
+}
+
+.phone-bottom span:after {
     content: "";
     display: block;
     width: 60px;
@@ -134,5 +161,4 @@
     left: 4px;
     top: 4px;
     cursor: pointer;
- }
-  
+}
