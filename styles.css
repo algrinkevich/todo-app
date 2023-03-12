@@ -18,6 +18,7 @@ body {
     background-repeat: repeat-y;
     font-family: 'Helvetica', sans-serif;
     color: white;
+    letter-spacing: 0.07em;
 }
 
 .phone {
@@ -91,6 +92,7 @@ body {
     height: 677px;
     width: 375px;
     margin: 0 auto;
+    padding: 8px;
     border: 2px solid rgba(0, 0, 0, 0.9);
     border-radius: 3px;
     overflow: hidden;
@@ -99,17 +101,48 @@ body {
     background-repeat: no-repeat;
 }
 
+.signal-container {
+    position: absolute;
+    top: 2px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.signal-circle {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffffffE6;
+    border: 1px solid #fff;
+    margin-right: 2px;
+}
+
+.signal-title {
+    margin-left: 2px;
+    font-size: 12px;
+}
+
+.signal-wifi {
+    margin-left: 2px;
+}
+
+.battery-img {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
 .time {
     font-size: 75px;
     text-align: center;
-    margin-top: 65px;
+    margin-top: 42px;
 }
 
 .date {
     font-size: 17px;
     font-weight: 600;
     text-align: center;
-    letter-spacing: 0.07rem;
 }
 
 .unlock-slide {
@@ -118,7 +151,6 @@ body {
     width: 100%;
     font-size: 24px;
     font-weight: 600;
-    letter-spacing: 0.07rem;
     text-align: center;
 
     background: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.5) 30%, rgba(255, 255, 255, 0.5) 70%, rgba(255, 255, 255, 1) 100%);
@@ -138,6 +170,26 @@ body {
     }
 }
 
+.top-swipe {
+    width: 36px;
+    height: 7px;
+    margin: 0 auto;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.bottom-swipe {
+    position: absolute;
+    bottom: 8px;
+    width: 36px;
+    height: 7px;
+    left: 0; 
+    right: 0; 
+    margin: auto;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
 .camera-img {
     position: absolute;
     bottom: 8px;
@@ -149,7 +201,7 @@ body {
 .down,
 .sleep {
     display: block;
-    background: #e7ded6;
+    background: linear-gradient(to left, #ccb8a6 0%, #ccb8a6 30%, #e7ded6 60%);
     position: absolute;
     border-radius: 4px 0px 0px 4px;
 }
@@ -182,6 +234,7 @@ body {
     right: -8px;
     top: 170px;
     border-radius: 0px 4px 4px 0px;
+    background: linear-gradient(to right, #ccb8a6 0%, #ccb8a6 10%, #e7ded6 60%);
 }
 
 .phone-bottom {
