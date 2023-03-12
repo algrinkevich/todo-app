@@ -31,74 +31,88 @@ body {
     background: #f8f8f8;
     border: 3px solid #ccb8a6;
     border-radius: 3.125em;
-    box-shadow: inset 6px 1px 16px 0 rgba(91, 87, 84, 0.42), 0 0 0 1px #ccb8a6, -25px -25px 50px 0px rgba(0, 0, 0, 0.8);
+    box-shadow: inset 6px 1px 16px 0 #5B57546B, 0 0 0 1px #ccb8a6, -25px -25px 50px 0px #000000CC;
     padding: 0.938em;
 }
 
-.phone-top {
+.header {
     position: relative;
     padding: 0.313em 6.875em 2.5em;
 }
 
-.speaker {
+.sensor {
+    height: 0.625em;
+    width: 0.625em;
+    border-radius: 50%;
+    background: #333;
+}
+
+.header__sensor {
     display: block;
+    margin: 0 auto 0.813em;
+}
+
+.speaker {
     width: 4.375em;
     height: 0.375em;
-    margin: 0 auto;
     border-radius: 0.375em;
     background: #292728;
 }
 
-.camera {
+.header__speaker {
     display: block;
     margin: 0 auto;
-    height: 0.625em;
-    width: 0.625em;
-    border-radius: 50%;
-    margin-bottom: 0.813em;
-    background: #333;
 }
 
-.sensor {
-    display: block;
+.camera {
     width: 0.938em;
     height: 0.938em;
-    float: left;
     background: #333;
-    margin-top: -0.313em;
     border-radius: 50%;
 }
 
-.top-bar,
-.bottom-bar {
+.header__camera {
+    display: block;
+    float: left;
+    margin-top: -0.313em;
+}
+
+.stripe {
     width: 26.438em;
     height: 0.938em;
     border-left: 3px solid #e7ded6;
     border-right: 3px solid #e7ded6;
+}
+
+.phone__top-stripe,
+.phone__bottom-stripe {
     position: absolute;
     left: -0.188em;
 }
 
-.top-bar {
+.phone__top-stripe {
     top: 4.063em;
 }
 
-.bottom-bar {
+.phone__bottom-stripe {
     bottom: 4.063em;
 }
 
-.phone-screen {
-    position: relative;
+.screen {
+    padding: 0.5em;
     height: 42.313em;
     width: 23.438em;
-    margin: 0 auto;
-    padding: 0.5em;
-    border: 2px solid rgba(0, 0, 0, 0.9);
+    border: 2px solid #000000E6;
     border-radius: 0.188em;
     overflow: hidden;
     background-image: url(images/phone-bg-1.png);
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.phone__screen {
+    position: relative;
+    margin: 0 auto;
 }
 
 .signal-container {
@@ -109,7 +123,7 @@ body {
     align-items: center;
 }
 
-.signal-circle {
+.signal-dot {
     width: 0.375em;
     height: 0.375em;
     border-radius: 50%;
@@ -120,14 +134,11 @@ body {
 
 .signal-title {
     margin-left: 0.125em;
+    margin-right: 0.125em;
     font-size: 0.75rem;
 }
 
-.signal-wifi {
-    margin-left: 0.125em;
-}
-
-.battery-img {
+.screen__battery-img {
     position: absolute;
     top: 0.5em;
     right: 0.5em;
@@ -136,29 +147,38 @@ body {
 .time {
     font-size: 4.688rem;
     text-align: center;
+}
+
+.screen__time {
     margin-top: 0.56em;
 }
 
 .date {
     font-size: 1.063rem;
     font-weight: 600;
+}
+
+.screen__date {
     text-align: center;
 }
 
 .unlock-slide {
-    position: absolute;
-    bottom: 3.125em;
-    width: 100%;
     font-size: 1.5rem;
     font-weight: 600;
     text-align: center;
 
-    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.5) 30%, rgba(255, 255, 255, 0.5) 70%, rgba(255, 255, 255, 1) 100%);
+    background: -webkit-linear-gradient(left, #ffffffff 0%, #ffffff80 30%, #ffffff80 70%, #ffffffff 100%);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
     background-size: 21.875em;
     animation: slide 2s linear infinite;
+}
+
+.screen__unlock-slide {
+    position: absolute;
+    bottom: 3.125em;
+    width: 100%;
 }
 
 @keyframes slide {
@@ -171,47 +191,35 @@ body {
     }
 }
 
-.top-swipe {
+.swipe-control {
     width: 2.25em;
     height: 0.438em;
-    margin: 0 auto;
     border-radius: 0.313em;
     background: rgba(255, 255, 255, 0.5);
 }
 
-.bottom-swipe {
+.screen__top-swipe-control {
+    margin: 0 auto;
+}
+
+.screen__bottom-swipe-control {
     position: absolute;
     bottom: 0.5em;
-    width: 2.25em;
-    height: 0.438em;
     left: 0;
     right: 0;
     margin: auto;
-    border-radius: 0.313em;
-    background: rgba(255, 255, 255, 0.5);
 }
 
-.camera-img {
+.screen__camera-img {
     position: absolute;
     bottom: 0.5em;
     right: 0.5em;
 }
 
-.on-off,
-.up,
-.down,
-.sleep {
-    display: block;
-    background: linear-gradient(to left, #ccb8a6 0%, #ccb8a6 30%, #e7ded6 60%);
-    position: absolute;
-    border-radius: 0.25em 0em 0em 0.25em;
-}
-
 .on-off {
     height: 2.5em;
     width: 0.188em;
-    top: 6.25em;
-    left: -0.375em;
+
 }
 
 .up,
@@ -219,38 +227,64 @@ body {
 .sleep {
     height: 3.75em;
     width: 0.313em;
-    left: -0.5em;
 }
 
-.up {
-    top: 10.625em;
-}
-
+.on-off,
+.up,
 .down {
-    top: 15.625em;
+    background: linear-gradient(to left, #ccb8a6 0%, #ccb8a6 30%, #e7ded6 60%);
+    border-radius: 0.25em 0em 0em 0.25em;
 }
 
 .sleep {
-    left: auto;
-    right: -0.5em;
-    top: 10.625em;
     border-radius: 0em 0.25em 0.25em 0em;
     background: linear-gradient(to right, #ccb8a6 0%, #ccb8a6 10%, #e7ded6 60%);
 }
 
-.phone-bottom {
+.phone__on-off,
+.phone__up,
+.phone__down,
+.phone__sleep {
+    position: absolute;
+    display: block;
+}
+
+.phone__on-off {
+    top: 6.25em;
+    left: -0.375em;
+}
+
+.phone__up {
+    top: 10.625em;
+    left: -0.5em;
+}
+
+.phone__down {
+    top: 15.625em;
+    left: -0.5em;
+}
+
+.phone__sleep {
+    left: auto;
+    right: -0.5em;
+    top: 10.625em;
+}
+
+.footer {
     padding: 0.938em 0 0;
+}
+
+.phone__home-button {
+    position: relative;
+    margin: 0 auto;
 }
 
 .home-button {
     display: block;
-    margin: 0 auto;
     width: 4.25em;
     height: 4.25em;
-    background: #ccc;
     border-radius: 50%;
     background: linear-gradient(300deg, #8a7058 0%, #e7ded6 73%, #fff 98%);
-    position: relative;
 }
 
 .home-button:after {
