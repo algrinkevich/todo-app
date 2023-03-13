@@ -18,44 +18,44 @@ body {
     background-repeat: repeat-y;
     font-family: 'Helvetica', sans-serif;
     color: white;
-    letter-spacing: 0.07em;
+    letter-spacing: 0.056em;
 }
 
 .phone {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    height: 54.813em;
-    width: 26.438em;
+    transform: translate(-50%, -50%); 
+    height: 43.85em;
+    width: 21.15em;
     background: #f8f8f8;
     border: 3px solid #ccb8a6;
-    border-radius: 3.125em;
+    border-radius: 2.5em;
     box-shadow: inset 6px 1px 16px 0 #5B57546B, 0 0 0 1px #ccb8a6, -25px -25px 50px 0px #000000CC;
-    padding: 0.938em;
+    padding: 0.75em;
 }
 
 .header {
     position: relative;
-    padding: 0.313em 6.875em 2.5em;
+    padding: 0.25em 5.5em 2em;
 }
 
 .sensor {
-    height: 0.625em;
-    width: 0.625em;
+    height: 0.5em;
+    width: 0.5em;
     border-radius: 50%;
     background: #333;
 }
 
 .header__sensor {
     display: block;
-    margin: 0 auto 0.813em;
+    margin: 0 auto 0.65em;
 }
 
 .speaker {
-    width: 4.375em;
-    height: 0.375em;
-    border-radius: 0.375em;
+    width: 3.5em;
+    height: 0.3em;
+    border-radius: 0.3em;
     background: #292728;
 }
 
@@ -65,8 +65,8 @@ body {
 }
 
 .camera {
-    width: 0.938em;
-    height: 0.938em;
+    width: 0.75em;
+    height: 0.75em;
     background: #333;
     border-radius: 50%;
 }
@@ -74,12 +74,12 @@ body {
 .header__camera {
     display: block;
     float: left;
-    margin-top: -0.313em;
+    margin-top: -0.25em;
 }
 
 .stripe {
-    width: 26.438em;
-    height: 0.938em;
+    width: 21.15em;
+    height: 0.75em;
     border-left: 3px solid #e7ded6;
     border-right: 3px solid #e7ded6;
 }
@@ -87,23 +87,23 @@ body {
 .phone__top-stripe,
 .phone__bottom-stripe {
     position: absolute;
-    left: -0.188em;
+    left: -0.15em;
 }
 
 .phone__top-stripe {
-    top: 4.063em;
+    top: 3.25em;
 }
 
 .phone__bottom-stripe {
-    bottom: 4.063em;
+    bottom: 3.25em;
 }
 
 .screen {
-    padding: 0.5em;
-    height: 42.313em;
-    width: 23.438em;
+    padding: 0.4em;
+    height: 33.85em;
+    width: 18.75em;
     border: 2px solid #000000E6;
-    border-radius: 0.188em;
+    border-radius: 0.15em;
     overflow: hidden;
     background-image: url(images/phone-bg.jpg);
     background-size: cover;
@@ -117,44 +117,44 @@ body {
 
 .signal-container {
     position: absolute;
-    top: 0.125em;
+    top: 0.1em;
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
 .signal-dot {
-    width: 0.375em;
-    height: 0.375em;
+    width: 0.3em;
+    height: 0.3em;
     border-radius: 50%;
     background: #ffffffE6;
     border: 1px solid #fff;
-    margin-right: 0.125em;
+    margin-right: 0.1em;
 }
 
 .signal-title {
-    margin-left: 0.125em;
-    margin-right: 0.125em;
-    font-size: 0.75rem;
+    margin-left: 0.1em;
+    margin-right: 0.1em;
+    font-size: 0.6rem;
 }
 
 .screen__battery-img {
     position: absolute;
-    top: 0.5em;
-    right: 0.5em;
+    top: 0.4em;
+    right: 0.4em;
 }
 
 .time {
-    font-size: 4.688rem;
+    font-size: 3.75rem;
     text-align: center;
 }
 
 .screen__time {
-    margin-top: 0.56em;
+    margin-top: 0.8em;
 }
 
 .date {
-    font-size: 1.063rem;
+    font-size: 0.85rem;
     font-weight: 600;
 }
 
@@ -163,7 +163,7 @@ body {
 }
 
 .unlock-slide {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 600;
     text-align: center;
 
@@ -171,30 +171,30 @@ body {
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    background-size: 21.875em;
+    background-size: 17.5em;
     animation: slide 2s linear infinite;
 }
 
 .screen__unlock-slide {
     position: absolute;
-    bottom: 3.125em;
+    bottom: 2.5em;
     width: 100%;
 }
 
 @keyframes slide {
     0% {
-        background-position: 6.25em 0;
+        background-position: 5em 0;
     }
 
     100% {
-        background-position: 27.5em 0;
+        background-position: 22em 0;
     }
 }
 
 .swipe-control {
-    width: 2.25em;
-    height: 0.438em;
-    border-radius: 0.313em;
+    width: 1.8em;
+    height: 0.35em;
+    border-radius: 0.25em;
     background: rgba(255, 255, 255, 0.5);
 }
 
@@ -204,7 +204,7 @@ body {
 
 .screen__bottom-swipe-control {
     position: absolute;
-    bottom: 0.5em;
+    bottom: 0.4em;
     left: 0;
     right: 0;
     margin: auto;
@@ -212,32 +212,32 @@ body {
 
 .screen__camera-img {
     position: absolute;
-    bottom: 0.5em;
-    right: 0.5em;
+    bottom: 0.4em;
+    right: 0.4em;
 }
 
 .on-off {
-    height: 2.5em;
-    width: 0.188em;
+    height: 2em;
+    width: 0.15em;
 
 }
 
 .up,
 .down,
 .sleep {
-    height: 3.75em;
-    width: 0.313em;
+    height: 3em;
+    width: 0.25em;
 }
 
 .on-off,
 .up,
 .down {
     background: linear-gradient(to left, #ccb8a6 0%, #ccb8a6 30%, #e7ded6 60%);
-    border-radius: 0.25em 0em 0em 0.25em;
+    border-radius: 0.2em 0em 0em 0.2em;
 }
 
 .sleep {
-    border-radius: 0em 0.25em 0.25em 0em;
+    border-radius: 0em 0.2em 0.2em 0em;
     background: linear-gradient(to right, #ccb8a6 0%, #ccb8a6 10%, #e7ded6 60%);
 }
 
@@ -250,28 +250,28 @@ body {
 }
 
 .phone__on-off {
-    top: 6.25em;
-    left: -0.375em;
+    top: 5em;
+    left: -0.3em;
 }
 
 .phone__up {
-    top: 10.625em;
-    left: -0.5em;
+    top: 8.5em;
+    left: -0.4em;
 }
 
 .phone__down {
-    top: 15.625em;
-    left: -0.5em;
+    top: 12.5em;
+    left: -0.4em;
 }
 
 .phone__sleep {
     left: auto;
-    right: -0.5em;
-    top: 10.625em;
+    right: -0.4em;
+    top: 8.5em;
 }
 
 .footer {
-    padding: 0.938em 0 0;
+    padding: 0.75em 0 0;
 }
 
 .phone__home-button {
@@ -281,20 +281,20 @@ body {
 
 .home-button {
     display: block;
-    width: 4.25em;
-    height: 4.25em;
+    width: 3.4em;
+    height: 3.4em;
     border-radius: 50%;
     background: linear-gradient(300deg, #8a7058 0%, #e7ded6 73%, #fff 98%);
 }
 
 .home-button:after {
     position: absolute;
-    left: 0.25em;
-    top: 0.25em;
+    left: 0.2em;
+    top: 0.2em;
     content: "";
     display: block;
-    width: 3.75em;
-    height: 3.75em;
+    width: 3em;
+    height: 3em;
     background: #fff;
     border-radius: 50%;
     cursor: pointer;
