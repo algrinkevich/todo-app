@@ -31,9 +31,9 @@
             </div>
             <img src="images/battery.svg" class="screen__battery-img">
 
-            <div class="swiper">
+            <div class="swiper" dir="rtl">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
+                    <div class="swiper-slide" dir="ltr">
                         <div class="swipe-control screen__top-swipe-control"></div>
                         <div class="time screen__time" data-phone-datetime data-phone-datetime-format="HH:mm"></div>
                         <div class="date screen__date" data-phone-datetime data-phone-datetime-format="dddd, DD MMMM">
@@ -42,7 +42,7 @@
                         <div class="swipe-control screen__bottom-swipe-control"></div>
                         <img src="images/camera.svg" class="screen__camera-img">
                     </div>
-                    <div class="swiper-slide passcode-container">
+                    <div class="swiper-slide passcode-container" dir="ltr">
 
                         <p class="passcode-text">Enter Passcode</p>
                         <div id="vibrate">
@@ -143,25 +143,8 @@
     <script type="text/javascript">
 
         const swiper = new Swiper('.swiper', {
-            // Optional parameters
             direction: 'horizontal',
-            loop: true,
-
-            // If we need pagination
-            pagination: {
-                el: '.swiper-pagination',
-            },
-
-            // Navigation arrows
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-
-            // And if we need scrollbar
-            scrollbar: {
-                el: '.swiper-scrollbar',
-            },
+            loop: false
         });
     </script>
     <script>
