@@ -379,6 +379,10 @@ body {
     margin-top: 4em;
 }
 
+.entered-pin {
+    background-color: #fff;
+}
+
 .row-num {
     display: flex;
     justify-content: center;
