@@ -36,12 +36,86 @@
                     <div class="swiper-slide">
                         <div class="swipe-control screen__top-swipe-control"></div>
                         <div class="time screen__time" data-phone-datetime data-phone-datetime-format="HH:mm"></div>
-                        <div class="date screen__date" data-phone-datetime data-phone-datetime-format="dddd, DD MMMM"></div>
+                        <div class="date screen__date" data-phone-datetime data-phone-datetime-format="dddd, DD MMMM">
+                        </div>
                         <div class="unlock-slide screen__unlock-slide">〉 slide to unlock</div>
                         <div class="swipe-control screen__bottom-swipe-control"></div>
                         <img src="images/camera.svg" class="screen__camera-img">
                     </div>
-                    <div class="swiper-slide" style="background-color:rgba(0, 0, 0 ,0.5)"></div>
+                    <div class="swiper-slide passcode-container">
+
+                        <p class="passcode-text">Enter Passcode</p>
+                        <div class="vibration" id="vibrate">
+                            <span class="pin" style="background-color: rgb(255, 255, 255);"></span>
+                            <span class="pin" style="background-color: rgb(255, 255, 255);"></span>
+                            <span class="pin" style=""></span>
+                            <span class="pin" style=""></span>
+                        </div>
+
+                        <div class="row-num">
+                            <div class="num">1</div>
+                            <div class="num">
+                                <div class="center-this">
+                                    <div class="digit">2</div>
+                                    <div class="lower">ABC</div>
+                                </div>
+                            </div>
+                            <div class="num">
+                                <div class="center-this">
+                                    <div class="digit">3</div>
+                                    <div class="lower">DEF</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-num">
+                            <div class="num">
+                                <div class="center-this">
+                                    <div class="digit">4</div>
+                                    <div class="lower">GHI</div>
+                                </div>
+                            </div>
+                            <div class="num">
+                                <div class="center-this">
+                                    <div class="digit">5</div>
+                                    <div class="lower">JKL</div>
+                                </div>
+                            </div>
+                            <div class="num">
+                                <div class="center-this">
+                                    <div class="digit">6</div>
+                                    <div class="lower">MNO</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-num">
+                            <div class="num">
+                                <div class="center-this">
+                                    <div class="digit">7</div>
+                                    <div class="lower">PQRS</div>
+                                </div>
+                            </div>
+                            <div class="num">
+                                <div class="center-this">
+                                    <div class="digit">8</div>
+                                    <div class="lower">TUV</div>
+                                </div>
+                            </div>
+                            <div class="num">
+                                <div class="center-this">
+                                    <div class="digit">9</div>
+                                    <div class="lower">WXYZ</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-num">
+                            <div class="num">0</div>
+                        </div>
+
+                        <div class="bottom-btns">
+                            <div class="emergency-btn">Emergency</div>
+                            <div class="cancel-btn">Cancel</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,7 +126,7 @@
             <span class="up phone__up"></span>
             <span class="down phone__down"></span>
         </div>
-        
+
         <div class="stripe phone__bottom-left-stripe"></div>
         <div class="stripe phone__bottom-right-stripe"></div>
         <div class="footer">
