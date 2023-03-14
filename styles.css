@@ -80,11 +80,11 @@ body {
 .stripe {
     width: 0.1875em;
     height: 0.75em;
-    background-color: #e7ded6;;
+    background-color: #e7ded6;
 }
 
 .phone__top-left-stripe,
-.phone__bottom-left-stripe{
+.phone__bottom-left-stripe {
     position: absolute;
     left: -0.1875em;
 }
@@ -95,7 +95,7 @@ body {
     right: -0.1875em;
 }
 
-.phone__top-left-stripe, 
+.phone__top-left-stripe,
 .phone__top-right-stripe {
     top: 3.25em;
 }
@@ -105,7 +105,6 @@ body {
 }
 
 .screen {
-    padding: 0.4em;
     height: 33.85em;
     width: 18.75em;
     border: 2px solid #000000E6;
@@ -116,6 +115,12 @@ body {
     background-repeat: no-repeat;
 }
 
+.swiper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
 .phone__screen {
     position: relative;
     margin: 0 auto;
@@ -124,6 +129,7 @@ body {
 .signal-container {
     position: absolute;
     top: 0.1em;
+    left: 0.4em;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -210,7 +216,7 @@ body {
 }
 
 .screen__top-swipe-control {
-    margin: 0 auto;
+    margin: 0.4em auto 0;
 }
 
 .screen__bottom-swipe-control {

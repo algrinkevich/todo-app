@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <title>Smartphone</title>
 </head>
 
@@ -17,9 +18,8 @@
         </div>
         <div class="stripe phone__top-left-stripe"></div>
         <div class="stripe phone__top-right-stripe"></div>
-        <div class="screen phone__screen">
-            <div class="swipe-control screen__top-swipe-control"></div>
 
+        <div class="screen phone__screen">
             <div class="signal-container">
                 <div class="signal-dot"></div>
                 <div class="signal-dot"></div>
@@ -31,28 +31,63 @@
             </div>
             <img src="images/battery.svg" class="screen__battery-img">
 
-            <div class="time screen__time" data-phone-datetime data-phone-datetime-format="HH:mm"></div>
-            <div class="date screen__date" data-phone-datetime data-phone-datetime-format="dddd, DD MMMM"></div>
-            <div class="unlock-slide screen__unlock-slide">〉 slide to unlock</div>
-            <div class="swipe-control screen__bottom-swipe-control"></div>
-            <img src="images/camera.svg" class="screen__camera-img">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="swipe-control screen__top-swipe-control"></div>
+                        <div class="time screen__time" data-phone-datetime data-phone-datetime-format="HH:mm"></div>
+                        <div class="date screen__date" data-phone-datetime data-phone-datetime-format="dddd, DD MMMM"></div>
+                        <div class="unlock-slide screen__unlock-slide">〉 slide to unlock</div>
+                        <div class="swipe-control screen__bottom-swipe-control"></div>
+                        <img src="images/camera.svg" class="screen__camera-img">
+                    </div>
+                    <div class="swiper-slide" style="background-color:rgba(0, 0, 0 ,0.5)"></div>
+                </div>
+            </div>
         </div>
+
         <div class="buttons-container">
             <span class="on-off phone__on-off"></span>
             <span class="sleep phone__sleep"></span>
             <span class="up phone__up"></span>
             <span class="down phone__down"></span>
         </div>
+        
         <div class="stripe phone__bottom-left-stripe"></div>
         <div class="stripe phone__bottom-right-stripe"></div>
         <div class="footer">
             <span class="home-button phone__home-button"></span>
         </div>
     </div>
-    </div>
 
     <script src="https://unpkg.com/moment@2.18.1/min/moment-with-locales.min.js"></script>
     <script src="js/phone-datetime.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script type="text/javascript">
+
+        const swiper = new Swiper('.swiper', {
+            // Optional parameters
+            direction: 'horizontal',
+            loop: true,
+
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            // And if we need scrollbar
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+        });
+    </script>
+
 </body>
 
 </html>
