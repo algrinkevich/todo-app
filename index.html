@@ -31,8 +31,8 @@
             </div>
             <img src="images/battery.svg" class="screen__battery-img">
 
-            <div class="time screen__time" data-phone-time></div>
-            <div class="date screen__date" data-phone-date></div>
+            <div class="time screen__time" data-phone-datetime data-phone-datetime-format="HH:mm"></div>
+            <div class="date screen__date" data-phone-datetime data-phone-datetime-format="dddd, DD MMMM"></div>
             <div class="unlock-slide screen__unlock-slide">〉 slide to unlock</div>
             <div class="swipe-control screen__bottom-swipe-control"></div>
             <img src="images/camera.svg" class="screen__camera-img">
@@ -52,8 +52,7 @@
     </div>
 
     <script src="https://unpkg.com/moment@2.18.1/min/moment-with-locales.min.js"></script>
-    <script src="js/phone-time.js"></script>
-    <script src="js/phone-date.js"></script>
+    <script src="js/phone-datetime.js"></script>
 </body>
 
 </html>
