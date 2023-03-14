@@ -146,6 +146,9 @@
             direction: 'horizontal',
             loop: false
         });
+
+        const cancelBtn = document.querySelector(".cancel-btn");
+        cancelBtn.addEventListener('click', () => swiper.slidePrev());
     </script>
     <script>
         const passcodeDigitPaneElements = document.querySelectorAll("[data-phone-passcode-digits]");
