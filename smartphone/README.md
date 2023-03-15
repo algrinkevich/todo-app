@@ -12,3 +12,7 @@ This repository contains a static web page representing an iPhone 6 lying on a w
 - Clone repository;
 - Open `smartphone` directory;
 - Open `index.html`
+
+## Demo
+
+![demo](demo.jpg)
