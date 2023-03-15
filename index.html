@@ -11,10 +11,10 @@
 
 <body>
     <div class="phone">
-        <div class="header">
-            <span class="sensor header__sensor"></span>
-            <span class="camera header__camera"></span>
-            <span class="speaker header__speaker"></span>
+        <div class="phone-top">
+            <span class="sensor phone-top__sensor"></span>
+            <span class="camera phone-top__camera"></span>
+            <span class="speaker phone-top__speaker"></span>
         </div>
         <div class="stripe phone__top-left-stripe"></div>
         <div class="stripe phone__top-right-stripe"></div>
@@ -33,88 +33,88 @@
 
             <div class="swiper" dir="rtl">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide" dir="ltr">
-                        <div class="swipe-control screen__top-swipe-control"></div>
+
+                    <div class="swiper-slide home-screen" dir="ltr">
+                        <div class="swipe-control home-screen__top-swipe-control"></div>
                         <div class="time screen__time" data-phone-datetime data-phone-datetime-format="HH:mm"></div>
                         <div class="date screen__date" data-phone-datetime data-phone-datetime-format="dddd, DD MMMM">
                         </div>
                         <div class="unlock-slide screen__unlock-slide">〉 slide to unlock</div>
-                        <div class="swipe-control screen__bottom-swipe-control"></div>
-                        <img src="images/camera.svg" class="screen__camera-img">
+                        <div class="swipe-control home-screen__bottom-swipe-control"></div>
+                        <img src="images/camera.svg" class="home-screen__camera-img">
                     </div>
-                    <div class="swiper-slide passcode-container" dir="ltr">
 
-                        <p class="passcode-text">Enter Passcode</p>
-                        <div id="vibrate">
-                            <span class="pin"></span>
-                            <span class="pin"></span>
-                            <span class="pin"></span>
-                            <span class="pin"></span>
+                    <div class="swiper-slide passcode-screen" dir="ltr">
+                        <h2 class="passcode-screen__passcode-heading">Enter Passcode</h2>
+                        <div>
+                            <span class="passcode-dot"></span>
+                            <span class="passcode-dot"></span>
+                            <span class="passcode-dot"></span>
+                            <span class="passcode-dot"></span>
                         </div>
 
-                        <div data-phone-passcode-digits>
-                            <div class="row-num">
-                                <div class="num">1</div>
-                                <div class="num">
-                                    <div class="center-this">
-                                        <div class="digit">2</div>
-                                        <div class="lower">ABC</div>
+                        <div class="passcode-screen__passcode-digits" data-phone-passcode-digits>
+                            <div class="passcode-buttons-row">
+                                <div class="passcode-button">1</div>
+                                <div class="passcode-button">
+                                    <div>
+                                        <div class="passcode-button__digit">2</div>
+                                        <div class="passcode-button__letters">ABC</div>
                                     </div>
                                 </div>
-                                <div class="num">
-                                    <div class="center-this">
-                                        <div class="digit">3</div>
-                                        <div class="lower">DEF</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row-num">
-                                <div class="num">
-                                    <div class="center-this">
-                                        <div class="digit">4</div>
-                                        <div class="lower">GHI</div>
-                                    </div>
-                                </div>
-                                <div class="num">
-                                    <div class="center-this">
-                                        <div class="digit">5</div>
-                                        <div class="lower">JKL</div>
-                                    </div>
-                                </div>
-                                <div class="num">
-                                    <div class="center-this">
-                                        <div class="digit">6</div>
-                                        <div class="lower">MNO</div>
+                                <div class="passcode-button">
+                                    <div>
+                                        <div class="passcode-button__digit">3</div>
+                                        <div class="passcode-button__letters">DEF</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row-num">
-                                <div class="num">
-                                    <div class="center-this">
-                                        <div class="digit">7</div>
-                                        <div class="lower">PQRS</div>
+                            <div class="passcode-buttons-row">
+                                <div class="passcode-button">
+                                    <div>
+                                        <div class="passcode-button__digit">4</div>
+                                        <div class="passcode-button__letters">GHI</div>
                                     </div>
                                 </div>
-                                <div class="num">
-                                    <div class="center-this">
-                                        <div class="digit">8</div>
-                                        <div class="lower">TUV</div>
+                                <div class="passcode-button">
+                                    <div>
+                                        <div class="passcode-button__digit">5</div>
+                                        <div class="passcode-button__letters">JKL</div>
                                     </div>
                                 </div>
-                                <div class="num">
-                                    <div class="center-this">
-                                        <div class="digit">9</div>
-                                        <div class="lower">WXYZ</div>
+                                <div class="passcode-button">
+                                    <div>
+                                        <div class="passcode-button__digit">6</div>
+                                        <div class="passcode-button__letters">MNO</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row-num">
-                                <div class="num">0</div>
+                            <div class="passcode-buttons-row">
+                                <div class="passcode-button">
+                                    <div>
+                                        <div class="passcode-button__digit">7</div>
+                                        <div class="passcode-button__letters">PQRS</div>
+                                    </div>
+                                </div>
+                                <div class="passcode-button">
+                                    <div>
+                                        <div class="passcode-button__digit">8</div>
+                                        <div class="passcode-button__letters">TUV</div>
+                                    </div>
+                                </div>
+                                <div class="passcode-button">
+                                    <div>
+                                        <div class="passcode-button__digit">9</div>
+                                        <div class="passcode-button__letters">WXYZ</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="passcode-buttons-row">
+                                <div class="passcode-button">0</div>
                             </div>
                         </div>
 
-
-                        <div class="bottom-btns">
+                        <div class="passcode-screen__bottom-container">
                             <div class="emergency-btn">Emergency</div>
                             <div class="cancel-btn">Cancel</div>
                         </div>
@@ -123,7 +123,7 @@
             </div>
         </div>
 
-        <div class="buttons-container">
+        <div class="phone__side-buttons-container">
             <span class="on-off phone__on-off"></span>
             <span class="sleep phone__sleep"></span>
             <span class="up phone__up"></span>
@@ -132,7 +132,7 @@
 
         <div class="stripe phone__bottom-left-stripe"></div>
         <div class="stripe phone__bottom-right-stripe"></div>
-        <div class="footer">
+        <div class="phone-bottom">
             <span class="home-button phone__home-button"></span>
         </div>
     </div>
@@ -160,15 +160,15 @@
         let currentPasscode = "";
 
         function handleClickOnDigit(event) {
-            const closestDigitBtn = event.target.closest(".num");
+            const closestDigitBtn = event.target.closest(".passcode-button");
             if (!closestDigitBtn) {
                 return;
             }
             currentPasscode += "*"; //no matter what was really clicked
-            const pinElements = document.getElementsByClassName("pin");
+            const pinElements = document.getElementsByClassName("passcode-dot");
             for (let i = 0; i < currentPasscode.length; i++) {
                 const pinElement = pinElements[i];
-                pinElement.classList.add("entered-pin");
+                pinElement.classList.add("entered-passcode-dot");
                 pinElement.parentElement.classList.remove("vibration");
             }
 
@@ -176,7 +176,7 @@
                 setTimeout(() => {
                     currentPasscode = "";
                     for (let pinElement of pinElements) {
-                        pinElement.classList.remove("entered-pin");
+                        pinElement.classList.remove("entered-passcode-dot");
                         pinElement.parentElement.classList.add("vibration");
                     }
                 }, 300);
