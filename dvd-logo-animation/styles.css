@@ -1,0 +1,70 @@
+:root {
+  --green: invert(75%) sepia(30%) saturate(7284%) hue-rotate(75deg) brightness(102%) contrast(137%);
+  --blue: invert(8%) sepia(100%) saturate(7476%) hue-rotate(248deg) brightness(97%) contrast(143%);
+  --yellow: invert(90%) sepia(56%) saturate(3495%) hue-rotate(355deg) brightness(105%) contrast(108%);
+  --red: invert(16%) sepia(91%) saturate(7297%) hue-rotate(359deg) brightness(107%) contrast(110%);
+}
+
+body {
+  background-color: #000;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+}
+
+img {
+  position: relative;
+
+
+  -webkit-animation: moveX 2s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate;
+  -moz-animation: moveX 2s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate;
+  -o-animation: moveX 2s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate;
+  animation:
+    moveX 2s linear 0s infinite alternate,
+    moveY 3.4s linear 0s infinite alternate,
+    colorX 4s steps(1, end) 0s infinite alternate,
+    colorY 2.8s steps(1, end) 2s infinite alternate;
+}
+
+@keyframes moveX {
+  from {
+    left: 300px;
+  }
+
+  to {
+    left: 100%;
+    transform: translate(-100%, 0);
+  }
+}
+
+@keyframes colorX {
+  from {
+    filter: var(--blue);
+  }
+
+  50% {
+    filter: var(--green)
+  }
+}
+
+@keyframes colorY {
+  from {
+    filter: var(--yellow);
+  }
+
+  50% {
+    filter: var(--red);
+  }
+}
+
+@keyframes moveY {
+  from {
+    top: 0;
+    transform: translate(-100%, 0);
+  }
+
+  to {
+    top: 100%;
+    transform: translate(-100%, -100%);
+  }
+}
