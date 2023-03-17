@@ -3,6 +3,11 @@
   --blue: invert(8%) sepia(100%) saturate(7476%) hue-rotate(248deg) brightness(97%) contrast(143%);
   --yellow: invert(90%) sepia(56%) saturate(3495%) hue-rotate(355deg) brightness(105%) contrast(108%);
   --red: invert(16%) sepia(91%) saturate(7297%) hue-rotate(359deg) brightness(107%) contrast(110%);
+  --purple: invert(18%) sepia(91%) saturate(7144%) hue-rotate(273deg) brightness(93%) contrast(127%);
+  --orange: invert(65%) sepia(40%) saturate(2407%) hue-rotate(359deg) brightness(102%) contrast(106%);
+  --fuchsia: invert(20%) sepia(45%) saturate(6818%) hue-rotate(294deg) brightness(114%) contrast(128%);
+  --color-num: 7;
+  --duration-x: 2s;
 }
 
 body {
@@ -15,15 +20,14 @@ body {
 img {
   position: relative;
 
-
-  -webkit-animation: moveX 2s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate;
+  /* -webkit-animation: moveX 2s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate;
   -moz-animation: moveX 2s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate;
-  -o-animation: moveX 2s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate;
+  -o-animation: moveX 2s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate; */
   animation:
-    moveX 2s linear 0s infinite alternate,
+    moveX var(--duration-x) linear 0s infinite alternate,
     moveY 3.4s linear 0s infinite alternate,
-    colorX 4s steps(1, end) 0s infinite alternate,
-    colorY 2.8s steps(1, end) 2s infinite alternate;
+    colorX calc(var(--duration-x) * var(--color-num)) steps(1, end) 0s infinite
+    /* colorY 2.8s steps(1, end) 2s infinite alternate; */
 }
 
 @keyframes moveX {
@@ -37,26 +41,6 @@ img {
   }
 }
 
-@keyframes colorX {
-  from {
-    filter: var(--blue);
-  }
-
-  50% {
-    filter: var(--green)
-  }
-}
-
-@keyframes colorY {
-  from {
-    filter: var(--yellow);
-  }
-
-  50% {
-    filter: var(--red);
-  }
-}
-
 @keyframes moveY {
   from {
     top: 0;
@@ -66,5 +50,42 @@ img {
   to {
     top: 100%;
     transform: translate(-100%, -100%);
+  }
+}
+
+
+@keyframes colorX {
+  from {
+    filter: var(--blue);
+  }
+
+  14.3% {
+    filter: var(--yellow);
+  }
+
+  28.6% {
+    filter: var(--red);
+  }
+
+  42.9% {
+    filter: var(--green);
+  }
+
+  57.2% {
+    filter: var(--purple);
+  }
+
+  71.5% {
+    filter: var(--orange);
+  }
+
+  85.8% {
+    filter: var(--fuchsia);
+  }
+}
+
+@keyframes colorY {
+  100% {
+    filter: var(--red);
   }
 }
