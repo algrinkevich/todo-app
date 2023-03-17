@@ -20,11 +20,11 @@ body {
 img {
   position: relative;
 
-  animation-name: moveX, moveY, colorX;
-  animation-duration: var(--duration-x), 3.4s, calc(var(--duration-x) * 4), 13.6s;
-  animation-timing-function: linear, linear, steps(1, end), steps(1, end);
+  animation-name: moveX, moveY, color;
+  animation-duration: 5s, 4s, 80s;
+  animation-timing-function: linear, linear, steps(1, end);
   animation-delay: 0s, 0s, 0s, 0s;
-  animation-iteration-count: infinite, infinite, infinite, infinite;
+  animation-iteration-count: infinite, infinite, infinite;
   animation-direction: alternate, alternate;
 }
 
@@ -52,37 +52,172 @@ img {
 }
 
 
-@keyframes colorX {
-  0% {
+@keyframes color {
+  0.0% {
     filter: var(--blue);
   }
 
-  25% {
+
+  5.0% {
     filter: var(--yellow);
   }
 
-  50% {
-    filter: var(--green);
-  }
 
-  75% {
-    filter: var(--orange);
-  }
-
-}
-
-@keyframes colorY {
-
-  25% {
+  6.25% {
     filter: var(--red);
   }
 
-  50% {
+
+  10.0% {
+    filter: var(--green);
+  }
+
+
+  12.5% {
     filter: var(--purple);
   }
 
-  75% {
+
+  15.0% {
+    filter: var(--orange);
+  }
+
+
+  18.75% {
     filter: var(--fuchsia);
   }
 
+
+  20.0% {
+    filter: var(--blue);
+  }
+
+
+  25.0% {
+    filter: var(--yellow);
+  }
+
+
+  25.0% {
+    filter: var(--red);
+  }
+
+
+  30.0% {
+    filter: var(--green);
+  }
+
+
+  31.25% {
+    filter: var(--purple);
+  }
+
+
+  35.0% {
+    filter: var(--orange);
+  }
+
+
+  37.5% {
+    filter: var(--fuchsia);
+  }
+
+
+  40.0% {
+    filter: var(--blue);
+  }
+
+
+  43.75% {
+    filter: var(--yellow);
+  }
+
+
+  45.0% {
+    filter: var(--red);
+  }
+
+
+  50.0% {
+    filter: var(--green);
+  }
+
+
+  55% {
+    filter: var(--orange);
+  }
+
+
+  56.25% {
+    filter: var(--fuchsia);
+  }
+
+
+  60.0% {
+    filter: var(--blue);
+  }
+
+
+  62.5% {
+    filter: var(--yellow);
+  }
+
+
+  65.0% {
+    filter: var(--red);
+  }
+
+
+  68.75% {
+    filter: var(--green);
+  }
+
+
+  70.0% {
+    filter: var(--purple);
+  }
+
+
+  75.0% {
+    filter: var(--orange);
+  }
+
+
+  80.0% {
+    filter: var(--blue);
+  }
+
+
+  81.25% {
+    filter: var(--yellow);
+  }
+
+
+  85.0% {
+    filter: var(--red);
+  }
+
+
+  87.5% {
+    filter: var(--green);
+  }
+
+
+  90.0% {
+    filter: var(--purple);
+  }
+
+
+  93.75% {
+    filter: var(--orange);
+  }
+
+
+  95.0% {
+    filter: var(--fuchsia);
+  }
+
+  100.0% {
+    filter: var(--blue);
+  }
 }
