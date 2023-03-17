@@ -20,14 +20,12 @@ body {
 img {
   position: relative;
 
-  /* -webkit-animation: moveX 2s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate;
-  -moz-animation: moveX 2s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate;
-  -o-animation: moveX 2s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate; */
-  animation:
-    moveX var(--duration-x) linear 0s infinite alternate,
-    moveY 3.4s linear 0s infinite alternate,
-    colorX calc(var(--duration-x) * var(--color-num)) steps(1, end) 0s infinite
-    /* colorY 2.8s steps(1, end) 2s infinite alternate; */
+  animation-name: moveX, moveY, colorX;
+  animation-duration: var(--duration-x), 3.4s, calc(var(--duration-x) * 4), 13.6s;
+  animation-timing-function: linear, linear, steps(1, end), steps(1, end);
+  animation-delay: 0s, 0s, 0s, 0s;
+  animation-iteration-count: infinite, infinite, infinite, infinite;
+  animation-direction: alternate, alternate;
 }
 
 @keyframes moveX {
@@ -55,37 +53,36 @@ img {
 
 
 @keyframes colorX {
-  from {
+  0% {
     filter: var(--blue);
   }
 
-  14.3% {
+  25% {
     filter: var(--yellow);
   }
 
-  28.6% {
-    filter: var(--red);
-  }
-
-  42.9% {
+  50% {
     filter: var(--green);
   }
 
-  57.2% {
-    filter: var(--purple);
-  }
-
-  71.5% {
+  75% {
     filter: var(--orange);
   }
 
-  85.8% {
-    filter: var(--fuchsia);
-  }
 }
 
 @keyframes colorY {
-  100% {
+
+  25% {
     filter: var(--red);
   }
+
+  50% {
+    filter: var(--purple);
+  }
+
+  75% {
+    filter: var(--fuchsia);
+  }
+
 }
