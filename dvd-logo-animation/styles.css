@@ -20,64 +20,13 @@ body {
 img {
   position: relative;
 
-  animation-name:
-    moveX,      moveY,      colorBlue,      colorYellow,    colorRed,       colorFuchsia,   colorGreen,     colorOrange,    colorPurple;
-  animation-duration:
-    5s,         4s,         20s,            12s,            20s,            12s,            20s,            12s,            20s;
-  animation-timing-function:
-    linear,     linear,     steps(1, end),  steps(1, end),  steps(1, end),  steps(1, end),  steps(1, end),  steps(1, end),  steps(1, end);
-  animation-delay:
-    0s,         0s,         0s,             4s,             0s,             4s,             0s,             4s,             0s;
-  animation-iteration-count:
-    infinite,   infinite,   infinite,       infinite,       infinite,       infinite,       infinite,       infinite,       infinite;
-  animation-direction:
-    alternate,  alternate;
+  animation-name: moveX, moveY, color;
+  animation-duration: 5s, 4s, 80s;
+  animation-timing-function: linear, linear, steps(1, end);
+  animation-delay: 0s, 0s, 0s, 0s;
+  animation-iteration-count: infinite, infinite, infinite;
+  animation-direction: alternate, alternate;
 }
-
-@keyframes colorBlue {
-  0% {
-    filter: var(--blue);
-  }
-}
-
-@keyframes colorYellow {
-  2% {
-    filter: var(--yellow);
-  }
-}
-
-@keyframes colorRed {
-  25% {
-    filter: var(--red);
-  }
-}
-
-@keyframes colorFuchsia {
-  33.3% {
-    filter: var(--fuchsia);
-  }
-}
-
-@keyframes colorGreen {
-  50% {
-    filter: var(--green);
-  }
-}
-
-@keyframes colorOrange {
-  66.6% {
-    filter: var(--orange);
-  }
-}
-
-@keyframes colorPurple {
-  75% {
-    filter: var(--purple);
-  }
-}
-
-
-
 
 @keyframes moveX {
   from {
@@ -99,5 +48,176 @@ img {
   to {
     top: 100%;
     transform: translate(-100%, -100%);
+  }
+}
+
+
+@keyframes color {
+  0.0% {
+    filter: var(--blue);
+  }
+
+
+  5.0% {
+    filter: var(--yellow);
+  }
+
+
+  6.25% {
+    filter: var(--red);
+  }
+
+
+  10.0% {
+    filter: var(--green);
+  }
+
+
+  12.5% {
+    filter: var(--purple);
+  }
+
+
+  15.0% {
+    filter: var(--orange);
+  }
+
+
+  18.75% {
+    filter: var(--fuchsia);
+  }
+
+
+  20.0% {
+    filter: var(--blue);
+  }
+
+
+  25.0% {
+    filter: var(--yellow);
+  }
+
+
+  25.0% {
+    filter: var(--red);
+  }
+
+
+  30.0% {
+    filter: var(--green);
+  }
+
+
+  31.25% {
+    filter: var(--purple);
+  }
+
+
+  35.0% {
+    filter: var(--orange);
+  }
+
+
+  37.5% {
+    filter: var(--fuchsia);
+  }
+
+
+  40.0% {
+    filter: var(--blue);
+  }
+
+
+  43.75% {
+    filter: var(--yellow);
+  }
+
+
+  45.0% {
+    filter: var(--red);
+  }
+
+
+  50.0% {
+    filter: var(--green);
+  }
+
+
+  55% {
+    filter: var(--orange);
+  }
+
+
+  56.25% {
+    filter: var(--fuchsia);
+  }
+
+
+  60.0% {
+    filter: var(--blue);
+  }
+
+
+  62.5% {
+    filter: var(--yellow);
+  }
+
+
+  65.0% {
+    filter: var(--red);
+  }
+
+
+  68.75% {
+    filter: var(--green);
+  }
+
+
+  70.0% {
+    filter: var(--purple);
+  }
+
+
+  75.0% {
+    filter: var(--orange);
+  }
+
+
+  80.0% {
+    filter: var(--blue);
+  }
+
+
+  81.25% {
+    filter: var(--yellow);
+  }
+
+
+  85.0% {
+    filter: var(--red);
+  }
+
+
+  87.5% {
+    filter: var(--green);
+  }
+
+
+  90.0% {
+    filter: var(--purple);
+  }
+
+
+  93.75% {
+    filter: var(--orange);
+  }
+
+
+  95.0% {
+    filter: var(--fuchsia);
+  }
+
+  100.0% {
+    filter: var(--blue);
   }
 }
