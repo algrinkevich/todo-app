@@ -5,16 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    
+
     <title>Bouncing DVD Logo Animation</title>
 </head>
 
 <body>
-    <img src="dvd_logo.png" width="300px" height="150px" id="logo" class="dvd-logo">
-    <audio id="audio" controls loop style="display:none">
-        <source src="laser.mp3" type="audio/mpeg">
-    </audio>
+    <h1 id="message">Click on any area to enable animation</h1>
 
+    <div id="animation" class="animation-area">
+        <img src="dvd_logo.png" width="300px" height="150px" id="logo" class="dvd-logo">
+        <audio id="audio" class="audio" controls loop>
+            <source src="laser.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script src="start-message.js"></script>
     <script src="audio.js"></script>
 </body>
+
 </html>

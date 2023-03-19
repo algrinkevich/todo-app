@@ -26,10 +26,3 @@ logo.addEventListener("animationstart", () => {
     setInterval(triggerSound, durationX);
     setInterval(triggerSound, durationY);
 });
-
-
-
-
-
-
-
