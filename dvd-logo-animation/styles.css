@@ -6,19 +6,16 @@
   --purple: invert(18%) sepia(91%) saturate(7144%) hue-rotate(273deg) brightness(93%) contrast(127%);
   --orange: invert(65%) sepia(40%) saturate(2407%) hue-rotate(359deg) brightness(102%) contrast(106%);
   --fuchsia: invert(20%) sepia(45%) saturate(6818%) hue-rotate(294deg) brightness(114%) contrast(128%);
-  --color-num: 7;
-  --duration-x: 2s;
 }
 
 body {
+  margin: 0;
   background-color: #000;
   height: 100vh;
-  width: 100vw;
-  margin: 0;
 }
 
-img {
-  position: relative;
+.dvd-logo {
+  position: absolute;
 
   animation-name: moveX, moveY, color;
   animation-duration: 5s, 4s, 80s;
