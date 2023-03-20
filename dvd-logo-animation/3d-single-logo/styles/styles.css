@@ -7,6 +7,7 @@
     --orange: invert(65%) sepia(40%) saturate(2407%) hue-rotate(359deg) brightness(102%) contrast(106%);
     --fuchsia: invert(20%) sepia(45%) saturate(6818%) hue-rotate(294deg) brightness(114%) contrast(128%);
     --image-width: 20vw;
+    --image-height: calc(var(--image-width) / 1.96);
 }
 
 body {
@@ -18,10 +19,7 @@ body {
 .dvd-logo {
     position: absolute;
     width: var(--image-width);
-    height: auto;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotateX(-70deg) translateY(-85px);
+    height: var(--image-height);
 
     animation-name: moveX, moveY, color;
     animation-duration: 5s, 4s, 80s;
@@ -29,6 +27,7 @@ body {
     animation-delay: 0s, 0s, 0s, 0s;
     animation-iteration-count: infinite, infinite, infinite;
     animation-direction: alternate, alternate, normal;
+    border: solid black;
 }
 
 .surface {
@@ -36,9 +35,9 @@ body {
     background: gray;
     width: 100%;
     height: 100%;
-    perspective: 500px;
-    perspective-origin: center;
-    
+    perspective: 800px;
+    perspective-origin: top;
+
 }
 
 .surface-inner {
@@ -46,33 +45,36 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotateX(30deg);
+    transform: translate(-50%, -50%) rotateX(90deg);
     background-color: greenyellow;
-    width: 65%;
-    height: 50%;
+    width: 65vw;
+    height: 50vh;
     transform-style: preserve-3d;
 }
 
 @keyframes moveX {
     from {
-        left: var(--image-width);
+        left: 0;
+        transform: rotateX(-90deg) translateY(calc(0vw - var(--image-height) / 2));
     }
 
     to {
-        left: 100%;
-        transform: translate(-100%, 0) rotateX(-70deg) translateY(-85px);
+        left: calc(100% - var(--image-width));
+        transform: rotateX(-90deg) translateY(calc(0vw - var(--image-height) / 2));
     }
 }
 
 @keyframes moveY {
     from {
-        top: 0;
-        transform: translate(-100%, 0) rotateX(-70deg) translateY(-85px);
+        top: calc(0vw - var(--image-height) / 2);
+        transform: rotateX(-90deg) translateY(calc(0vw - var(--image-height) / 2));
+        
     }
 
     to {
-        top: 100%;
-        transform: translate(-100%, -100%) rotateX(-70deg) translateY(-85px);
+        top: calc(100% - var(--image-height) / 2);
+        transform: rotateX(-90deg) translateY(calc(0vw - var(--image-height) / 2));
+
     }
 }
 
