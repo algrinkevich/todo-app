@@ -25,7 +25,7 @@ body {
   animation-timing-function: linear, linear, steps(1, end);
   animation-delay: 0s, 0s, 0s, 0s;
   animation-iteration-count: infinite, infinite, infinite;
-  animation-direction: alternate, alternate;
+  animation-direction: alternate, alternate, normal;
 }
 
 @keyframes moveX {
