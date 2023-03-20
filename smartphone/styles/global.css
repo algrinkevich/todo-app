@@ -1,0 +1,22 @@
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: Helvetica;
+    src: url(../fonts/HelveticaNeue-UltraLight.otf) format('TrueType');
+    font-weight: 300;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background-image: url(../images/wooden-bg.jpg);
+    background-size: cover;
+    background-repeat: repeat-y;
+    font-family: 'Helvetica', sans-serif;
+    color: white;
+    letter-spacing: 0.056em;
+}

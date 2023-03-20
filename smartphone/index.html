@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/phone.css">
+    <link rel="stylesheet" href="styles/shared-screen.css">
+    <link rel="stylesheet" href="styles/home-screen.css">
+    <link rel="stylesheet" href="styles/passcode-screen.css">
+    <link rel="stylesheet" href="styles/responsivity.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <title>Smartphone</title>
+</head>
+
+<body>
+    <div class="phone">
+        <div class="phone-top">
+            <span class="sensor phone-top__sensor"></span>
+            <span class="camera phone-top__camera"></span>
+            <span class="speaker phone-top__speaker"></span>
+        </div>
+        <div class="stripe phone__top-left-stripe"></div>
+        <div class="stripe phone__top-right-stripe"></div>
+
+        <div class="screen phone__screen">
+            <div class="signal-container">
+                <div class="signal-dot"></div>
+                <div class="signal-dot"></div>
+                <div class="signal-dot"></div>
+                <div class="signal-dot"></div>
+                <div class="signal-dot"></div>
+                <div class="signal-title">SingTel</div>
+                <img src="images/wifi.svg" class="screen__wifi-img">
+            </div>
+            <img src="images/battery.svg" class="screen__battery-img">
+
+            <div class="swiper" dir="rtl">
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide home-screen" dir="ltr">
+                        <div class="swipe-control home-screen__top-swipe-control"></div>
+                        <div class="time screen__time" data-phone-datetime data-phone-datetime-format="HH:mm"></div>
+                        <div class="date screen__date" data-phone-datetime data-phone-datetime-format="dddd, DD MMMM">
+                        </div>
+                        <div class="unlock-slide screen__unlock-slide">〉 slide to unlock</div>
+                        <div class="swipe-control home-screen__bottom-swipe-control"></div>
+                        <img src="images/camera.svg" class="home-screen__camera-img">
+                    </div>
+
+                    <div class="swiper-slide passcode-screen" dir="ltr">
+                        <h2 class="passcode-screen__passcode-heading">Enter Passcode</h2>
+                        <div>
+                            <span class="passcode-dot"></span>
+                            <span class="passcode-dot"></span>
+                            <span class="passcode-dot"></span>
+                            <span class="passcode-dot"></span>
+                        </div>
+
+                        <div class="passcode-screen__passcode-digits" data-phone-passcode-digits>
+                            <div class="passcode-buttons-row">
+                                <div class="passcode-button">1</div>
+                                <div class="passcode-button">
+                                    <div>
+                                        <div class="passcode-button__digit">2</div>
+                                        <div class="passcode-button__letters">ABC</div>
+                                    </div>
+                                </div>
+                                <div class="passcode-button">
+                                    <div>
+                                        <div class="passcode-button__digit">3</div>
+                                        <div class="passcode-button__letters">DEF</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="passcode-buttons-row">
+                                <div class="passcode-button">
+                                    <div>
+                                        <div class="passcode-button__digit">4</div>
+                                        <div class="passcode-button__letters">GHI</div>
+                                    </div>
+                                </div>
+                                <div class="passcode-button">
+                                    <div>
+                                        <div class="passcode-button__digit">5</div>
+                                        <div class="passcode-button__letters">JKL</div>
+                                    </div>
+                                </div>
+                                <div class="passcode-button">
+                                    <div>
+                                        <div class="passcode-button__digit">6</div>
+                                        <div class="passcode-button__letters">MNO</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="passcode-buttons-row">
+                                <div class="passcode-button">
+                                    <div>
+                                        <div class="passcode-button__digit">7</div>
+                                        <div class="passcode-button__letters">PQRS</div>
+                                    </div>
+                                </div>
+                                <div class="passcode-button">
+                                    <div>
+                                        <div class="passcode-button__digit">8</div>
+                                        <div class="passcode-button__letters">TUV</div>
+                                    </div>
+                                </div>
+                                <div class="passcode-button">
+                                    <div>
+                                        <div class="passcode-button__digit">9</div>
+                                        <div class="passcode-button__letters">WXYZ</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="passcode-buttons-row">
+                                <div class="passcode-button">0</div>
+                            </div>
+                        </div>
+
+                        <div class="passcode-screen__bottom-container">
+                            <div class="emergency-btn">Emergency</div>
+                            <div class="cancel-btn">Cancel</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="phone__side-buttons-container">
+            <span class="on-off phone__on-off"></span>
+            <span class="sleep phone__sleep"></span>
+            <span class="up phone__up"></span>
+            <span class="down phone__down"></span>
+        </div>
+
+        <div class="stripe phone__bottom-left-stripe"></div>
+        <div class="stripe phone__bottom-right-stripe"></div>
+        <div class="phone-bottom">
+            <span class="home-button phone__home-button"></span>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/moment@2.18.1/min/moment-with-locales.min.js"></script>
+    <script src="js/phone-datetime.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="js/swiper.js"></script>
+    <script src="js/passcode-screen.js"></script>
+</body>
+
+</html>
