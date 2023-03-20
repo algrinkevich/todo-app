@@ -12,24 +12,6 @@ body {
   margin: 0;
   background-color: #000;
   height: 100vh;
-  font-family: 'Courier New', Courier, monospace;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-h1 {
-  margin: 0;
-  text-align: center;
-  color:aliceblue;
-}
-
-.animation-area {
-  display: none;
-}
-
-.audio {
-  display: none;
 }
 
 .dvd-logo {
