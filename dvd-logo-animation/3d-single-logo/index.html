@@ -5,19 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/styles.css">
-
+    
     <title>Bouncing DVD Logo Animation On 3D Surface</title>
 </head>
 
-<body>
-    
+<body>  
     <audio id="audio" preload="auto">
         <source src="media/laser.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="surface">
-        <div class="surface-inner">
-            <img src="media/dvd_logo.png" id="logo" class="dvd-logo" alt="dvd-logo">
+    <div class="container-3d">
+        <div class="surface container-3d__surface">
+            <img src="media/dvd_logo.png" id="logo" class="dvd-logo surface__dvd-logo" alt="dvd-logo">
+            <div class="shadow dvd-logo__shadow"></div>
         </div>
     </div>
 
