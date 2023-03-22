@@ -1,4 +1,4 @@
-This directory contains a static web page representing DVD logo bouncing with the screend borders.
+This directory contains a static web page representing DVD logo bouncing with the screen borders.
 
 ## Features:
 - Color is changed after every hit;
@@ -37,4 +37,4 @@ Over attempts fail, since autoplay doesn't work for embed;
 - <iframe> tag and switching `display` attribute: autoplay doesn't work at all
   
 In this work I modified audio file to be the same length as animation and say "beep" in accordance with hits.
-See commit "7522b54d99bc4776182a24e80828ffe475d08ab2" for JS version, that doesn't use any hacks.
+JS version without any hacks could be enabled by switching to commit "7522b54d99bc4776182a24e80828ffe475d08ab2".
