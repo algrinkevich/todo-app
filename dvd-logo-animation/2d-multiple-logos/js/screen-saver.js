@@ -41,6 +41,15 @@ function getLogoHeight() {
   return LOGO_HEIGHT * findLogoScale();
 }
 
+function setLogoVelocity(logo) {
+  const maxDimension = Math.max(canvas.width, canvas.height);
+  logo.targetSpeed = getRandomInt(maxDimension / 300, maxDimension / 100);
+  Body.setVelocity(logo, {
+    x: logo.targetSpeed / Math.sqrt(2),
+    y: logo.targetSpeed / Math.sqrt(2),
+  });
+}
+
 function createDVDLogo(x, y) {
   const color = COLORS[getRandomInt(0, COLORS.length)];
   const logoScale = findLogoScale();
@@ -60,11 +69,7 @@ function createDVDLogo(x, y) {
   });
 
   logo.logoColor = color;
-  logo.targetSpeed = getRandomInt(5, 15);
-  Body.setVelocity(logo, {
-    x: logo.targetSpeed / Math.sqrt(2),
-    y: logo.targetSpeed / Math.sqrt(2),
-  });
+  setLogoVelocity(logo);
   Body.setMass(logo, 1);
   return logo;
 }
@@ -162,12 +167,24 @@ const wallLeft = createWall(
 );
 const logoWidth = getLogoWidth();
 const logoHeight = getLogoHeight();
+const alignWithWall = (value) => {
+  return WALL_THICKNESS + value / 2;
+};
 
 const dvdLogos = [
-  createDVDLogo(logoWidth / 2, logoHeight / 2),
-  createDVDLogo(logoWidth / 2, canvas.height - logoHeight / 2),
-  createDVDLogo(canvas.width - logoWidth / 2, logoHeight / 2),
-  createDVDLogo(canvas.width - logoWidth / 2, canvas.height - logoHeight / 2),
+  createDVDLogo(alignWithWall(logoWidth), alignWithWall(logoHeight)),
+  createDVDLogo(
+    alignWithWall(logoWidth),
+    canvas.height - alignWithWall(logoHeight)
+  ),
+  createDVDLogo(
+    canvas.width - alignWithWall(logoWidth),
+    alignWithWall(logoHeight)
+  ),
+  createDVDLogo(
+    canvas.width - alignWithWall(logoWidth),
+    canvas.height - alignWithWall(logoHeight)
+  ),
 ];
 
 Events.on(engine, "afterUpdate", keepSpeed);
