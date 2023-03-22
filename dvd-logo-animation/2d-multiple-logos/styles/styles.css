@@ -4,3 +4,8 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+
+canvas {
+  width: 100%;
+  
+}
