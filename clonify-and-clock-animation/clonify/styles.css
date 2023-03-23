@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+
+/* @font-face {
+    font-family: Helvetica;
+    src: url(../fonts/HelveticaNeue-UltraLight.otf) format('TrueType');
+    font-weight: 300;
+} */
+
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Inter';
+    background-color: #F2F4F7;
+}
