@@ -392,7 +392,7 @@ body {
 
 /* Chart */
 
-.chart {
+.info-section{
   width: 100%;
   border-radius: 0.75em;
   background: #ffffff;
@@ -402,7 +402,7 @@ body {
   gap: 2em;
 }
 
-.chart__header {
+.info-section__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -412,7 +412,7 @@ body {
   padding-right: 1.5em;
 }
 
-.chart__title {
+.info-section__title {
   margin: 0;
   font-family: "Inter-SemiBold";
   font-weight: 600;
@@ -421,16 +421,20 @@ body {
   color: #282828;
 }
 
-.chart__kebab-menu-btn {
+.info-section__kebab-menu-btn {
   width: 1.5em;
   height: 1.5em;
   padding: 0.125em;
 }
 
-.chart__content {
+.chart {
   position: relative;
   padding: 0em 1.5em;
   height: 17.875em;
+}
+
+.chart__container {
+  position: relative;
 }
 
 .chart__y-axis {
@@ -485,10 +489,6 @@ body {
   bottom: 1.125em;
 }
 
-.chart__y-axis-curves {
-  position: relative;
-}
-
 .legend {
   display: flex;
   flex-direction: row;
@@ -517,3 +517,7 @@ body {
 .legend__indicator--facebook {
   background: #20c997;
 }
+
+/* Table */
+
+
