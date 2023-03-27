@@ -174,7 +174,7 @@ body {
   padding: 0 1em 0 2.75em;
   font-family: "Inter-Regular";
   font-size: 14px;
-  min-width: 56.5625rem;
+  width: 100%;
   height: 2.875em;
 
   background: url(images/search.svg) no-repeat 1em center;
@@ -210,7 +210,7 @@ body {
   border-radius: 50% 50%;
 }
 
-.top-bar__items {
+.items-wrapper {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -218,10 +218,14 @@ body {
   align-items: center;
   padding: 0px;
   gap: 2em;
-  margin-right: 2em;
 }
 
-.top-bar__items img {
+.top-bar__items-wrapper {
+  margin-right: 2em;
+  margin-left: 2em;
+}
+
+.top-bar__items-wrapper img {
   cursor: pointer;
 }
 
@@ -329,9 +333,8 @@ body {
   flex-direction: row;
   align-items: flex-start;
   padding: 0px;
-  gap: 32px;
+  gap: 2em;
   width: 100%;
-  /* height: 10.125em; */
 }
 
 .card {
@@ -340,8 +343,6 @@ body {
   align-items: flex-start;
   justify-content: space-between;
   padding: 1.25em;
-  /* gap: 0.5em; */
-
   width: 16.375em;
   height: 10.125em;
 
@@ -446,7 +447,6 @@ body {
 .chart {
   position: relative;
   padding: 0em 1.5em;
-  height: 17.875em;
 }
 
 .chart__container {
@@ -457,7 +457,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 3.33em;
+  gap: 2.54vw;
   width: -moz-fit-content;
   width: fit-content;
 
@@ -471,7 +471,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: space-between;
+  gap: 10.35vw;
   margin-top: 0.5em;
   margin-left: 4.4167em;
 
@@ -486,8 +486,8 @@ body {
   top: 0;
   right: 1.5em;
   left: 3.3125em;
-  height: 100%;
-  width: calc(100% - 3.3125em);
+  height: 16.152vw; 
+  width: 72.43vw;
   overflow: hidden;
 }
 
@@ -502,7 +502,7 @@ body {
 
 .chart__curve-blue {
   position: absolute;
-  bottom: 1.125em;
+  bottom: 0;
 }
 
 .legend {
@@ -538,7 +538,7 @@ body {
 
 .info-section__table {
   gap: 0;
-  margin-bottom: 32px;
+  margin-bottom: 2em;
 }
 
 .table-wrapper {
@@ -548,6 +548,7 @@ body {
 .table-app {
   border-collapse: collapse;
   width: 100%;
+  table-layout: fixed;
 }
 
 .table-app thead {
@@ -562,7 +563,7 @@ body {
 .table-app > thead th {
   font-weight: normal;
   text-align: left;
-  padding-left: 24px;
+  padding-left: 1.5rem;
 }
 
 .table-app > tbody tr {
@@ -570,8 +571,12 @@ body {
   height: 4.8125em;
 }
 
+.table-app > tbody tr:hover {
+  background-color: #f2f4f7;
+}
+
 .table-app > tbody td {
-  padding-left: 24px;
+  padding-left: 1.5rem;
   font-family: "Inter-Regular";
   font-size: 14px;
   line-height: 1.57em;
@@ -587,29 +592,27 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 44px;
-  height: 44px;
-  margin-right: 12px;
+  width: 3.143em;
+  height: 3.143em;
+  margin-right: 0.857em;
 
   background: #FFFFFF;
-  /* Shadow/01 */
-
-  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.06);
-  border-radius: 9.42857px;
+  box-shadow: 0em 0.07143em 0.7143em rgba(0, 0, 0, 0.06);
+  border-radius: 0.67347em;
 }
 
 .table-app__app-title {
   margin: 0;
   font-family: "Inter-SemiBold";
   font-size: 14px;
-  line-height: 22px;
+  line-height: 1.5714em;
   color: #282828;
 }
 
 .table-app__badge {
   display: inline-block;
-  padding: 2px 10px;
-  border-radius: 100px;
+  padding: 0.1429em 0.7143em;
+  border-radius: 7.1429em;
 }
 
 .table-app__status {
@@ -617,8 +620,7 @@ body {
   display: inline;
   font-family: "Inter-SemiBold";
   font-size: 12px;
-  line-height: 20px;
-  
+  line-height: 1.6667em;
 }
 
 .table-app__badge--active {
@@ -641,15 +643,15 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 12px;
-  padding-top: 24px;
+  gap: 0.75em;
+  padding-top: 1.5em;
 }
 
 .table-navigation__page-number {
   margin: 0;
   font-family: "Inter-Regular";
   font-size: 18px;
-  line-height: 30px;
+  line-height: 1.6667em;
   color: #282828;
 }
 
