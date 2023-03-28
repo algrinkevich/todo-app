@@ -27,7 +27,6 @@ body {
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
 }
 
 .sidebar {
@@ -59,7 +58,6 @@ body {
   display: flex;
   width: 100%;
   flex-direction: column;
-  align-items: flex-start;
   gap: 2em;
   padding: 0 1.25em;
   font-family: "Inter-SemiBold";
@@ -68,7 +66,6 @@ body {
 .menu__section {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 1em;
   width: 100%;
 }
@@ -82,7 +79,6 @@ body {
 .menu__links {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   width: 100%;
   color: #5f6980;
 }
@@ -132,7 +128,6 @@ body {
 .menu-link__links {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   padding-left: 1.75em;
   gap: 0.75em;
   font-size: 0.875rem;
@@ -152,7 +147,6 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
   padding: 0.75em 1.25em;
   gap: 3.875em;
   border-top: 1px solid #eaecf0;
@@ -336,8 +330,6 @@ body {
 .banner__message {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
   gap: 0.5em;
   color: #ffffff;
 }
@@ -361,8 +353,6 @@ body {
 .metrics {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  padding: 0px;
   gap: 2em;
   width: 100%;
 }
@@ -370,10 +360,10 @@ body {
 .card {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: space-between;
   padding: 1.25em;
-  width: 16.375em;
+  /* width: 16.375em; */
+  width: 25%;
   height: 10.125em;
 
   background: #ffffff;
@@ -438,7 +428,7 @@ body {
 
 /* Chart */
 
-.info-section{
+.info-section {
   width: 100%;
   border-radius: 0.75em;
   background: #ffffff;
@@ -479,44 +469,42 @@ body {
   padding: 0em 1.5em;
 }
 
-.chart__container {
+.chart-container {
   position: relative;
 }
 
 .chart__y-axis {
   display: flex;
   flex-direction: column;
-  gap: 2.54vw;
+  gap: 3.333em;
   width: -moz-fit-content;
   width: fit-content;
 
   font-family: "Inter-Regular";
   font-size: 0.75rem;
-  line-height: 1.389vw;
+  line-height: 1.6667em;
   color: #9d9fa2;
 }
 
 .chart__x-axis {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  gap: 10.35vw;
+  justify-content: space-between;
   margin-top: 0.5em;
   margin-left: 4.4167em;
 
   font-family: "Inter-Regular";
   font-size: 0.75rem;
-  line-height: 1.389vw;
+  line-height: 1.6667em;
   color: #9d9fa2;
 }
 
 .chart__curves {
   position: absolute;
   top: 0;
-  right: 1.5em;
-  left: 3.3125em;
-  height: 100%; 
-  width: 72.43vw;
+  right: 0;
+  height: calc(100% - 2.875em);
+  width: calc(100% - 3.3125em);
   overflow: hidden;
 }
 
@@ -527,11 +515,13 @@ body {
 .chart__curve-green {
   position: absolute;
   bottom: 0;
+  height: 100%;
 }
 
 .chart__curve-blue {
   position: absolute;
   bottom: 0;
+  height: 67.8%;
 }
 
 .legend {
@@ -572,7 +562,7 @@ body {
 
 .table-wrapper {
   overflow-x: auto;
- }
+}
 
 .table-app {
   border-collapse: collapse;
@@ -582,11 +572,11 @@ body {
 
 .table-app thead {
   height: 3.375em;
-  background: #F9FAFB;
+  background: #f9fafb;
   font-family: "Inter-Regular";
   font-size: 0.875rem;
   line-height: 1.57em;
-  color: #5F6980; 
+  color: #5f6980;
 }
 
 .table-app > thead th {
@@ -596,7 +586,7 @@ body {
 }
 
 .table-app > tbody tr {
-  border-bottom: 1px solid #EAECF0;
+  border-bottom: 1px solid #eaecf0;
   height: 4.8125em;
 }
 
@@ -609,7 +599,7 @@ body {
   font-family: "Inter-Regular";
   font-size: 0.875rem;
   line-height: 1.57em;
-  color: #5F6980; 
+  color: #5f6980;
 }
 
 .table-app__brand {
@@ -625,7 +615,7 @@ body {
   height: 3.143em;
   margin-right: 0.857em;
 
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0em 0.07143em 0.7143em rgba(0, 0, 0, 0.06);
   border-radius: 0.67347em;
 }
@@ -658,18 +648,18 @@ body {
 }
 
 .table-app__badge--active {
-  background: #DCFFF5;
-  color: #20C997;
+  background: #dcfff5;
+  color: #20c997;
 }
 
 .table-app__badge--pending {
-  background: #FFEAD8;
-  color: #FD7E14;
+  background: #ffead8;
+  color: #fd7e14;
 }
 
 .table-app__badge--cancelled {
-  background: #F2F4F7;
-  color: #5F6980;
+  background: #f2f4f7;
+  color: #5f6980;
 }
 
 .table-navigation {
@@ -695,16 +685,9 @@ body {
   cursor: pointer;
 }
 
-
-
-
-
-
-
-
 @media screen and (min-width: 100px) and (max-width: 485px) {
   html {
-      font-size: 1rem;
+    font-size: 1rem;
   }
 
   body {
@@ -724,9 +707,9 @@ body {
     border-bottom: none;
   }
 
-  .info-section:first-of-type {
+  /* .info-section:first-of-type {
     display: none;
-  }
+  } */
 
   .top-bar__logo {
     display: block;
@@ -767,7 +750,7 @@ body {
   .upgrade-btn__img--desktop {
     display: none;
   }
-  
+
   .upgrade-btn__img--mobile {
     display: block;
   }
@@ -784,7 +767,7 @@ body {
     height: 8.25em;
   }
 
-  .card__title { 
+  .card__title {
     font-size: 0.875rem;
     line-height: 1.5714em;
   }
@@ -794,70 +777,82 @@ body {
     line-height: 1.727272em;
   }
 
+  .chart__curves {
+    width: calc(100% - 1.9375em);
+  }
+
+  .chart__x-axis {
+    margin-left: 2.583333em;
+  }
+
   .table-app {
     table-layout: auto;
     min-width: 60em;
   }
-
 }
-
-
 
 @media screen and (min-width: 486px) and (max-width: 640px) {
   html {
-      font-size: 0.5rem;
+    font-size: 0.5rem;
   }
 }
 
 @media screen and (min-width: 641px) and (max-width: 1007px) {
   html {
-      font-size: 0.6rem;
+    font-size: 0.6rem;
   }
 }
 
 @media screen and (min-width: 1008px) and (max-width: 1279px) {
   html {
-      font-size: 0.7rem;
+    font-size: 0.7rem;
   }
 }
 
 @media screen and (min-width: 1280px) and (max-width: 1365px) {
   html {
-      font-size: 0.8rem;
+    font-size: 0.8rem;
   }
 }
 
 @media screen and (min-width: 1366px) and (max-width: 1439px) {
   html {
-      font-size: 0.9rem;
+    font-size: 0.9rem;
   }
 }
 
 @media screen and (min-width: 1440px) and (max-width: 1920px) {
   html {
-      font-size: 1rem;
+    font-size: 1rem;
   }
 }
 
-@media screen and (min-width: 1921px) and (max-width: 2559px) {
+@media screen and (min-width: 1921px) and (max-width: 2249px) {
   html {
-      font-size: 1.3rem;
+    font-size: 1.3rem;
   }
 }
 
-@media screen and (min-width: 2560px) and (max-width: 3839px) {
+@media screen and (min-width: 2250px) and (max-width: 2559px) {
   html {
-      font-size: 1.7rem;
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 2560px) and (max-width: 2999px) {
+  html {
+    font-size: 1.7rem;
+  }
+}
+
+@media screen and (min-width: 3000px) and (max-width: 3839px) {
+  html {
+    font-size: 2rem;
   }
 }
 
 @media screen and (min-width: 3840px) {
   html {
-      font-size: 2.6rem;
+    font-size: 2.6rem;
   }
 }
-
-
-
-
-
