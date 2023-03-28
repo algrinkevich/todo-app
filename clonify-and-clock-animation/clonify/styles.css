@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: Inter-Regular;
-  src: url(fonts/inter_Inter-Regular.woff) format("TrueType");
+  src: url(fonts/Inter-Regular.woff2) format("TrueType");
   font-weight: 400;
 }
 
@@ -104,6 +104,11 @@ body {
   gap: 0.5em;
 }
 
+.menu-link__icon {
+  width: 1.07143em;
+  height: 1.07143em;
+}
+
 .menu-link__arrow {
   width: 1.25em;
   height: 1.25em;
@@ -173,11 +178,12 @@ body {
 .search {
   padding: 0 1em 0 2.75em;
   font-family: "Inter-Regular";
-  font-size: 14px;
+  font-size: 0.875rem;
   width: 100%;
   height: 2.875em;
 
   background: url(images/search.svg) no-repeat 1em center;
+  background-size: 1em 1em;
   border: 1px solid #eaecf0;
   border-radius: 0.375em;
 }
@@ -194,17 +200,23 @@ body {
   margin-left: 2em;
 }
 
-.notification-container > img {
+.top-bar__right-icon {
+  width: 1.5em;
+  height: 1.5em;
+  padding: 0.1em;
+}
+
+.notification-container img {
   display: block;
 }
 
 .notification-container:after {
   content: "";
   position: absolute;
-  width: 6.86px;
-  height: 6.86px;
-  left: 16px;
-  top: 6px;
+  width: 0.4288em;
+  height: 0.4288em;
+  left: 1.2em;
+  top: 0.3em;
 
   background: #e25563;
   border-radius: 50% 50%;
@@ -299,8 +311,13 @@ body {
   border-radius: 2.4375em;
   padding: 0.5625em 1.5em;
   font-family: "Inter-SemiBold";
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
+}
+
+.upgrade-btn img {
+  width: 1.25em;
+  height: 1.25em;
 }
 
 .banner__message {
@@ -315,14 +332,14 @@ body {
 .banner__title {
   margin: 0;
   font-family: "Inter-SemiBold";
-  font-size: 28px;
+  font-size: 1.75rem;
   letter-spacing: -0.0375em;
 }
 
 .banner__subtitle {
   margin: 0;
   font-family: "Inter-Regular";
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.375em;
 }
 
@@ -354,7 +371,7 @@ body {
 .card__title {
   margin: 0;
   font-family: "Inter-Regular";
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.625em;
   color: #5f6980;
 }
@@ -362,7 +379,7 @@ body {
 .card__subtitle {
   margin: 0;
   font-family: "Inter-SemiBold";
-  font-size: 26px;
+  font-size: 1.625rem;
   line-height: 2.5em;
   color: #282828;
 }
@@ -374,7 +391,7 @@ body {
   padding: 0px;
   gap: 0.5em;
   font-family: "Inter-SemiBold";
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 1.25em;
 }
 
@@ -432,7 +449,7 @@ body {
   margin: 0;
   font-family: "Inter-SemiBold";
   font-weight: 600;
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 1.875em;
   color: #282828;
 }
@@ -456,14 +473,13 @@ body {
 .chart__y-axis {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 2.54vw;
   width: -moz-fit-content;
   width: fit-content;
 
   font-family: "Inter-Regular";
-  font-size: 12px;
-  line-height: 1.667em;
+  font-size: 0.75rem;
+  line-height: 1.389vw;
   color: #9d9fa2;
 }
 
@@ -476,8 +492,8 @@ body {
   margin-left: 4.4167em;
 
   font-family: "Inter-Regular";
-  font-size: 12px;
-  line-height: 1.667em;
+  font-size: 0.75rem;
+  line-height: 1.389vw;
   color: #9d9fa2;
 }
 
@@ -486,7 +502,7 @@ body {
   top: 0;
   right: 1.5em;
   left: 3.3125em;
-  height: 16.152vw; 
+  height: 100%; 
   width: 72.43vw;
   overflow: hidden;
 }
@@ -497,7 +513,7 @@ body {
 
 .chart__curve-green {
   position: absolute;
-  top: 0;
+  bottom: 0;
 }
 
 .chart__curve-blue {
@@ -513,7 +529,7 @@ body {
   gap: 2em;
 
   font-family: "Inter-Regular";
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.57em;
   color: #5f6980;
 }
@@ -555,7 +571,7 @@ body {
   height: 3.375em;
   background: #F9FAFB;
   font-family: "Inter-Regular";
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.57em;
   color: #5F6980; 
 }
@@ -578,7 +594,7 @@ body {
 .table-app > tbody td {
   padding-left: 1.5rem;
   font-family: "Inter-Regular";
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.57em;
   color: #5F6980; 
 }
@@ -601,10 +617,15 @@ body {
   border-radius: 0.67347em;
 }
 
+.table-app__logo-box img {
+  width: 1.9em;
+  height: 1.9em;
+}
+
 .table-app__app-title {
   margin: 0;
   font-family: "Inter-SemiBold";
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.5714em;
   color: #282828;
 }
@@ -619,7 +640,7 @@ body {
   margin: 0;
   display: inline;
   font-family: "Inter-SemiBold";
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 1.6667em;
 }
 
@@ -650,7 +671,7 @@ body {
 .table-navigation__page-number {
   margin: 0;
   font-family: "Inter-Regular";
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 1.6667em;
   color: #282828;
 }
@@ -664,3 +685,86 @@ body {
 
 
 
+
+@media screen and (min-width: 1280px) and (max-width: 1365px) {
+  html {
+      font-size: 0.8rem;
+  }
+}
+
+@media screen and (min-width: 1366px) and (max-width: 1439px) {
+  html {
+      font-size: 0.9rem;
+  }
+}
+
+@media screen and (min-width: 1440px) and (max-width: 1920px) {
+  html {
+      font-size: 1rem;
+  }
+}
+
+@media screen and (min-width: 1921px) and (max-width: 2559px) {
+  html {
+      font-size: 1.3rem;
+  }
+}
+
+@media screen and (min-width: 2560px) and (max-width: 3839px) {
+  html {
+      font-size: 1.7rem;
+  }
+}
+
+@media screen and (min-width: 3840px) {
+  html {
+      font-size: 2.6rem;
+  }
+}
+
+
+
+
+
+
+/* @media screen and (min-height: 0px) and (max-height: 768px) {
+  html {
+      font-size: 0.8rem;
+  }
+}
+
+@media screen and (min-height: 769px) and (max-height: 900px) {
+  html {
+      font-size: 1rem;
+  }
+}
+
+@media screen and (min-height: 901px) and (max-height: 1080px) {
+  html {
+      font-size: 1.2rem;
+  }
+}
+
+@media screen and (min-height: 1081px) and (max-height: 1200px) {
+  html {
+      font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-height: 1201px) and (max-height: 1440px) {
+  html {
+      font-size: 1.7rem;
+  }
+}
+
+@media screen and (min-height: 1441px) and (max-height: 1600px) {
+  html {
+      font-size: 2rem;
+  }
+}
+
+@media screen and (min-height: 1601px) and (max-height: 2160px) {
+  html {
+      font-size: 2.2rem;
+  }
+} */
