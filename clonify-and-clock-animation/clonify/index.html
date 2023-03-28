@@ -10,12 +10,12 @@
   <body>
     <div class="page">
       <div class="sidebar">
-        <div class="sidebar-wrapper">
-          <img src="images/logo.svg" class="logo sidebar-wrapper__logo" />
+        <div class="sidebar-body">
+          <img src="images/logo.svg" class="logo sidebar-body__logo" />
           <div class="menu">
-            <div class="menu__section">
+            <div class="menu-section">
               <div class="menu__title">D A S H B O A R D</div>
-              <div class="menu__links">
+              <div class="menu-links">
                 <div class="menu-link">
                   <div class="menu-link__header menu-link__header--active">
                     <div class="menu-link__frame">
@@ -30,10 +30,14 @@
                       class="menu-link__arrow"
                     />
                   </div>
-                  <div class="menu-link__links">
-                    <p class="menu-links__item--active">Analytics</p>
-                    <p>Finance</p>
-                    <p>Job Board</p>
+                  <div class="menu-sublinks">
+                    <p
+                      class="menu-sublinks__title menu-sublinks__title--active"
+                    >
+                      Analytics
+                    </p>
+                    <p class="menu-sublinks__title">Finance</p>
+                    <p class="menu-sublinks__title">Job Board</p>
                   </div>
                 </div>
                 <div class="menu-link">
@@ -65,9 +69,9 @@
                 </div>
               </div>
             </div>
-            <div class="menu__section">
+            <div class="menu-section">
               <div class="menu__title">P A G E S</div>
-              <div class="menu__links">
+              <div class="menu-links">
                 <div class="menu-link">
                   <div class="menu-link__header">
                     <div class="menu-link__frame">
@@ -113,28 +117,34 @@
           <div class="top-bar__items-wrapper items-wrapper">
             <div class="top-bar__icons">
               <div class="notification-container">
-                <img src="images/notification.svg" class="top-bar__right-icon" />
+                <img src="images/notification.svg" class="top-bar__icon" />
               </div>
-              <img src="images/calendar.svg" class="top-bar__right-icon" />
-              <img src="images/grid.svg" class="top-bar__right-icon" />
+              <img src="images/calendar.svg" class="top-bar__icon" />
+              <img src="images/grid.svg" class="top-bar__icon" />
             </div>
-            <div class="avatar-placeholder">
+            <div class="top-bar__avatar">
               <img src="images/avatar.png" />
             </div>
           </div>
         </div>
 
         <div class="wrapper">
-          <div class="banner">
-            <div class="banner__message">
+          <div class="banner wrapper__banner">
+            <div class="banner-message">
               <h6 class="banner__title">Unlock premium stats</h6>
               <p class="banner__subtitle">
                 Get up to 10TB of storage for a limited time
               </p>
             </div>
             <button class="upgrade-btn">
-              <img src="images/bolt.svg" class="upgrade-btn__img--desktop upgrade-btn__img" />
-              <img src="images/bolt-mobile.svg" class="upgrade-btn__img--mobile upgrade-btn__img" />
+              <img
+                src="images/bolt.svg"
+                class="upgrade-btn__img--desktop upgrade-btn__img"
+              />
+              <img
+                src="images/bolt-mobile.svg"
+                class="upgrade-btn__img--mobile upgrade-btn__img"
+              />
               <span>Upgrade</span>
             </button>
           </div>
@@ -198,8 +208,7 @@
                   <div>100</div>
                   <div>0</div>
                 </div>
-               
-                <div class="chart__curves">
+                <div class="chart-curves">
                   <img
                     src="images/curve-green.svg"
                     class="chart__curve-green"
@@ -216,19 +225,17 @@
                   <div>Sat</div>
                 </div>
               </div>
-              </div>
-             
-           
+            </div>
             <div class="legend">
               <div class="legend-instagram">
                 <span
-                  class="legend__indicator legend__indicator--instagram"
+                  class="indicator legend__indicator legend__indicator--instagram"
                 ></span
                 >Instagram
               </div>
               <div class="legend-facebook">
                 <span
-                  class="legend__indicator legend__indicator--facebook"
+                  class="indicator legend__indicator legend__indicator--facebook"
                 ></span
                 >Facebook
               </div>
@@ -244,7 +251,7 @@
               />
             </div>
             <div class="table-wrapper">
-              <table class="table-app">
+              <table class="table">
                 <thead>
                   <tr>
                     <th>Source</th>
@@ -258,17 +265,17 @@
                 <tbody>
                   <tr>
                     <td>
-                      <div class="table-app__brand">
-                        <div class="table-app__logo-box">
-                          <img src="images/zeplin.svg">
+                      <div class="table__brand">
+                        <div class="table__logo-box">
+                          <img src="images/zeplin.svg" />
                         </div>
-                        <p class="table-app__app-title">Zeplin</p>
+                        <p class="table__app-title">Zeplin</p>
                       </div>
                     </td>
                     <td>686.00</td>
                     <td>
-                      <div class="table-app__badge table-app__badge--active">
-                        <p class="table-app__status">Active</p>
+                      <div class="table__badge table__badge--active">
+                        <p class="table__status">Active</p>
                       </div>
                     </td>
                     <td>114423</td>
@@ -277,17 +284,17 @@
                   </tr>
                   <tr>
                     <td>
-                      <div class="table-app__brand">
-                        <div class="table-app__logo-box">
-                          <img src="images/figma.svg">
+                      <div class="table__brand">
+                        <div class="table__logo-box">
+                          <img src="images/figma.svg" />
                         </div>
-                        <p class="table-app__app-title">Figma</p>
+                        <p class="table__app-title">Figma</p>
                       </div>
                     </td>
                     <td>864.00</td>
                     <td>
-                      <div class="table-app__badge table-app__badge--pending">
-                        <p class="table-app__status">Pending</p>
+                      <div class="table__badge table__badge--pending">
+                        <p class="table__status">Pending</p>
                       </div>
                     </td>
                     <td>76223</td>
@@ -296,17 +303,17 @@
                   </tr>
                   <tr>
                     <td>
-                      <div class="table-app__brand">
-                        <div class="table-app__logo-box">
-                          <img src="images/meta.svg">
+                      <div class="table__brand">
+                        <div class="table__logo-box">
+                          <img src="images/meta.svg" />
                         </div>
-                        <p class="table-app__app-title">Meta</p>
+                        <p class="table__app-title">Meta</p>
                       </div>
                     </td>
                     <td>176.00</td>
                     <td>
-                      <div class="table-app__badge table-app__badge--cancelled">
-                        <p class="table-app__status">Cancelled</p>
+                      <div class="table__badge table__badge--cancelled">
+                        <p class="table__status">Cancelled</p>
                       </div>
                     </td>
                     <td>89453</td>
@@ -315,17 +322,17 @@
                   </tr>
                   <tr>
                     <td>
-                      <div class="table-app__brand">
-                        <div class="table-app__logo-box">
-                          <img src="images/angular.svg">
+                      <div class="table__brand">
+                        <div class="table__logo-box">
+                          <img src="images/angular.svg" />
                         </div>
-                        <p class="table-app__app-title">Angular</p>
+                        <p class="table__app-title">Angular</p>
                       </div>
                     </td>
                     <td>49.00</td>
                     <td>
-                      <div class="table-app__badge table-app__badge--active">
-                        <p class="table-app__status">Active</p>
+                      <div class="table__badge table__badge--active">
+                        <p class="table__status">Active</p>
                       </div>
                     </td>
                     <td>11467</td>
@@ -334,17 +341,17 @@
                   </tr>
                   <tr>
                     <td>
-                      <div class="table-app__brand">
-                        <div class="table-app__logo-box">
-                          <img src="images/vue.svg">
+                      <div class="table__brand">
+                        <div class="table__logo-box">
+                          <img src="images/vue.svg" />
                         </div>
-                        <p class="table-app__app-title">Vue</p>
+                        <p class="table__app-title">Vue</p>
                       </div>
                     </td>
                     <td>999.00</td>
                     <td>
-                      <div class="table-app__badge table-app__badge--active">
-                        <p class="table-app__status">Active</p>
+                      <div class="table__badge table__badge--active">
+                        <p class="table__status">Active</p>
                       </div>
                     </td>
                     <td>67385</td>
@@ -356,11 +363,11 @@
             </div>
             <div class="table-navigation">
               <button class="arrow-btn">
-                <img src="images/arrow-left.svg">
+                <img src="images/arrow-left.svg" />
               </button>
               <p class="table-navigation__page-number">1/15</p>
               <button class="arrow-btn">
-                <img src="images/arrow-right.svg">
+                <img src="images/arrow-right.svg" />
               </button>
             </div>
           </section>
