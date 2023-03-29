@@ -4,7 +4,7 @@ The 1st task represents a static web page that was made from the provided Figma 
 
 ## Features:
 - Responsivity. The site is optimized to work well on a variety of screen sizes and devices;
-- It works good in Chrome, Firefox, Safari, Edge, Opera browsers;
+- Works good in Chrome, Firefox, Safari, Edge, Opera browsers;
 - The BEM is used;
 - Rows in the table are highlighted on hover, also added cursor pointer to the icons
 
@@ -16,7 +16,7 @@ The 1st task represents a static web page that was made from the provided Figma 
 
 ## Demo
 
-![demo](demo-desktop.gif)
+![demo](demo-desktop.gif) ![demo](demo-mobile.gif)
 
 --------------------------------------------------------------------------------------------
 
