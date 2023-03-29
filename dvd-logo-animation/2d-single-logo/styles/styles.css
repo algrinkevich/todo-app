@@ -1,0 +1,218 @@
+:root {
+  --green: invert(75%) sepia(30%) saturate(7284%) hue-rotate(75deg) brightness(102%) contrast(137%);
+  --blue: invert(8%) sepia(100%) saturate(7476%) hue-rotate(248deg) brightness(97%) contrast(143%);
+  --yellow: invert(90%) sepia(56%) saturate(3495%) hue-rotate(355deg) brightness(105%) contrast(108%);
+  --red: invert(16%) sepia(91%) saturate(7297%) hue-rotate(359deg) brightness(107%) contrast(110%);
+  --purple: invert(18%) sepia(91%) saturate(7144%) hue-rotate(273deg) brightness(93%) contrast(127%);
+  --orange: invert(65%) sepia(40%) saturate(2407%) hue-rotate(359deg) brightness(102%) contrast(106%);
+  --fuchsia: invert(20%) sepia(45%) saturate(6818%) hue-rotate(294deg) brightness(114%) contrast(128%);
+  --image-width: 20vw;
+}
+
+body {
+  margin: 0;
+  background-color: #000;
+  height: 100vh;
+}
+
+.dvd-logo {
+  position: absolute;
+  width: var(--image-width);
+  height: auto;
+
+  animation-name: moveX, moveY, color;
+  animation-duration: 5s, 4s, 80s;
+  animation-timing-function: linear, linear, steps(1, end);
+  animation-delay: 0s, 0s, 0s, 0s;
+  animation-iteration-count: infinite, infinite, infinite;
+  animation-direction: alternate, alternate, normal;
+}
+
+@keyframes moveX {
+  from {
+    left: var(--image-width);
+  }
+
+  to {
+    left: 100%;
+    transform: translate(-100%, 0);
+  }
+}
+
+@keyframes moveY {
+  from {
+    top: 0;
+    transform: translate(-100%, 0);
+  }
+
+  to {
+    top: 100%;
+    transform: translate(-100%, -100%);
+  }
+}
+
+
+@keyframes color {
+  0% {
+    filter: var(--blue);
+  }
+
+
+  5% {
+    filter: var(--yellow);
+  }
+
+
+  6.25% {
+    filter: var(--red);
+  }
+
+
+  10% {
+    filter: var(--green);
+  }
+
+
+  12.5% {
+    filter: var(--purple);
+  }
+
+
+  15% {
+    filter: var(--orange);
+  }
+
+
+  18.75% {
+    filter: var(--fuchsia);
+  }
+
+
+  20% {
+    filter: var(--blue);
+  }
+
+
+  25% {
+    filter: var(--red);
+  }
+
+
+  30.0% {
+    filter: var(--green);
+  }
+
+
+  31.25% {
+    filter: var(--purple);
+  }
+
+
+  35% {
+    filter: var(--orange);
+  }
+
+
+  37.5% {
+    filter: var(--fuchsia);
+  }
+
+
+  40.0% {
+    filter: var(--blue);
+  }
+
+
+  43.75% {
+    filter: var(--yellow);
+  }
+
+
+  45.0% {
+    filter: var(--red);
+  }
+
+
+  50% {
+    filter: var(--green);
+  }
+
+
+  55% {
+    filter: var(--orange);
+  }
+
+
+  56.25% {
+    filter: var(--fuchsia);
+  }
+
+
+  60% {
+    filter: var(--blue);
+  }
+
+
+  62.5% {
+    filter: var(--yellow);
+  }
+
+
+  65% {
+    filter: var(--red);
+  }
+
+
+  68.75% {
+    filter: var(--green);
+  }
+
+
+  70% {
+    filter: var(--purple);
+  }
+
+
+  75% {
+    filter: var(--orange);
+  }
+
+
+  80% {
+    filter: var(--blue);
+  }
+
+
+  81.25% {
+    filter: var(--yellow);
+  }
+
+
+  85% {
+    filter: var(--red);
+  }
+
+
+  87.5% {
+    filter: var(--green);
+  }
+
+
+  90% {
+    filter: var(--purple);
+  }
+
+
+  93.75% {
+    filter: var(--orange);
+  }
+
+
+  95% {
+    filter: var(--fuchsia);
+  }
+
+  100% {
+    filter: var(--blue);
+  }
+}
