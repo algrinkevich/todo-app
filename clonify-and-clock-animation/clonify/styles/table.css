@@ -14,13 +14,16 @@
 }
 
 .table thead {
-  height: 3.375em;
   background: #f9fafb;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.57em;
   color: #5f6980;
+}
+
+.table thead tr {
+  height: 3.375rem;
 }
 
 .table > thead th {
