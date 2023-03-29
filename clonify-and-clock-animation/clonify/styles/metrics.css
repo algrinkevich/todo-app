@@ -19,7 +19,8 @@
 
 .card__title {
   margin: 0;
-  font-family: "Inter-Regular";
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
   font-size: 1rem;
   line-height: 1.625em;
   color: #5f6980;
@@ -27,7 +28,8 @@
 
 .card__subtitle {
   margin: 0;
-  font-family: "Inter-SemiBold";
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
   font-size: 1.625rem;
   line-height: 2.5em;
   color: #282828;
@@ -39,7 +41,8 @@
   align-items: center;
   padding: 0px;
   gap: 0.5em;
-  font-family: "Inter-SemiBold";
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
   font-size: 0.75rem;
   line-height: 1.25em;
 }

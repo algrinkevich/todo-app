@@ -14,7 +14,8 @@
   width: -moz-fit-content;
   width: fit-content;
 
-  font-family: "Inter-Regular";
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
   font-size: 0.75rem;
   line-height: 1.6667em;
   color: #9d9fa2;
@@ -27,7 +28,8 @@
   margin-top: 0.5em;
   margin-left: 4.4167em;
 
-  font-family: "Inter-Regular";
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
   font-size: 0.75rem;
   line-height: 1.6667em;
   color: #9d9fa2;
@@ -64,7 +66,8 @@
   justify-content: center;
   align-items: center;
   gap: 2em;
-  font-family: "Inter-Regular";
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.57em;
   color: #5f6980;

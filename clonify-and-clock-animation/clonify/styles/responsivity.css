@@ -9,7 +9,7 @@
   }
 
   .wrapper {
-    padding: 4.375em 1em 0;
+    padding: 5.515625em 1em 0;
   }
 
   .sidebar {
@@ -19,6 +19,7 @@
   .top-bar {
     padding: 1em 1em 0 1em;
     border-bottom: none;
+    height: 3.5em;
   }
 
   .top-bar__logo {
@@ -36,7 +37,7 @@
 
   .top-bar__search {
     position: absolute;
-    top: 5em;
+    top: 5.4em;
     margin-left: 0;
     width: calc(100% - 2em);
   }

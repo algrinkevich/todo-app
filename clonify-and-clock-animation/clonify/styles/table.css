@@ -16,7 +16,8 @@
 .table thead {
   height: 3.375em;
   background: #f9fafb;
-  font-family: "Inter-Regular";
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.57em;
   color: #5f6980;
@@ -39,7 +40,8 @@
 
 .table > tbody td {
   padding-left: 1.5rem;
-  font-family: "Inter-Regular";
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.57em;
   color: #5f6980;
@@ -69,7 +71,8 @@
 
 .table__app-title {
   margin: 0;
-  font-family: "Inter-SemiBold";
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
   font-size: 0.875rem;
   line-height: 1.5714em;
   color: #282828;
@@ -84,7 +87,8 @@
 .table__status {
   margin: 0;
   display: inline;
-  font-family: "Inter-SemiBold";
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
   font-size: 0.75rem;
   line-height: 1.6667em;
 }
@@ -115,7 +119,8 @@
 
 .table-navigation__page-number {
   margin: 0;
-  font-family: "Inter-Regular";
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
   font-size: 1.125rem;
   line-height: 1.6667em;
   color: #282828;

@@ -26,7 +26,8 @@
     border-style: none;
     border-radius: 2.4375em;
     padding: 0.5625em 1.5em;
-    font-family: "Inter-SemiBold";
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
   }
@@ -53,14 +54,16 @@
   
   .banner__title {
     margin: 0;
-    font-family: "Inter-SemiBold";
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
     font-size: 1.75rem;
     letter-spacing: -0.0375em;
   }
   
   .banner__subtitle {
     margin: 0;
-    font-family: "Inter-Regular";
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
     font-size: 0.875rem;
     line-height: 1.375em;
   }
