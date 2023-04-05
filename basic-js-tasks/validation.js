@@ -21,7 +21,7 @@ function validateIsArray(array) {
 }
 
 function validateItemsType(array, type) {
-  const doAllHaveType = array.every((item) => typeof item === type);
+  const doAllHaveType = array.every(item => typeof item === type);
   if (!doAllHaveType) {
     throw new Error(`Array contains non-${type} values`);
   }
@@ -30,14 +30,14 @@ function validateItemsType(array, type) {
 function validateFishes(fishes) {
   validateObjects(
     fishes,
-    (fish) => typeof fish.name === "string" && typeof fish.likes === "string"
+    fish => typeof fish.name === "string" && typeof fish.likes === "string"
   );
 }
 
 function validateProducts(products) {
   validateObjects(
     products,
-    (product) =>
+    product =>
       typeof product.price === "number" && typeof product.count === "number"
   );
 }
@@ -93,7 +93,7 @@ function validateMultiplyTo(numbers, multiplier) {
 function validateCharacterNames(characters, franchise) {
   validateObjects(
     characters,
-    (character) =>
+    character =>
       typeof character.name === "string" &&
       typeof character.franchise === "string"
   );
@@ -107,20 +107,20 @@ function validateCharacterNames(characters, franchise) {
 }
 
 function validateMultiDimensionalArray(array2D) {
-  array2D.forEach((row) => validateNumbers(row));
+  array2D.forEach(row => validateNumbers(row));
 }
 
 module.exports = {
-    validateString,
-    validateStrings,
-    validateNumbers,
-    validateIsArray,
-    validateFishes,
-    validateProducts,
-    validate2BiggestSmallestValues,
-    validateCode,
-    validateFullName,
-    validateMultiDimensionalArray,
-    validateCharacterNames,
-    validateMultiplyTo
+  validateString,
+  validateStrings,
+  validateNumbers,
+  validateIsArray,
+  validateFishes,
+  validateProducts,
+  validate2BiggestSmallestValues,
+  validateCode,
+  validateFullName,
+  validateMultiDimensionalArray,
+  validateCharacterNames,
+  validateMultiplyTo,
 };

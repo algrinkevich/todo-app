@@ -1,6 +1,7 @@
 const main = require("./main");
 const assert = require("assert").strict;
 
+
 describe("Get odd values", function () {
   it("should return odd output from provided example", function () {
     assert.deepEqual(main.getOddValues([1, 2, 3, 4]), [1, 3]);
@@ -32,6 +33,7 @@ describe("Get odd values", function () {
     );
   });
 });
+
 
 describe("Get smallest value from array", function () {
   it("should return smallest value from provided example", function () {
@@ -69,6 +71,7 @@ describe("Get smallest value from array", function () {
   });
 });
 
+
 describe("Get biggest value from array", function () {
   it("should return biggest value from provided example", function () {
     assert.equal(main.getBiggestValue([5, 22, 9, 43]), 43);
@@ -104,6 +107,7 @@ describe("Get biggest value from array", function () {
     );
   });
 });
+
 
 describe("Get shortest strings", function () {
   it("should return the shortest string from provided example", function () {
@@ -147,6 +151,7 @@ describe("Get shortest strings", function () {
   });
 });
 
+
 describe("Get computed strings", function () {
   it("should return computed string from provided example", function () {
     assert.deepEqual(
@@ -185,6 +190,7 @@ describe("Get computed strings", function () {
   });
 });
 
+
 describe("Get merged object", function () {
   it("should return merged object from provided example", function () {
     assert.deepEqual(main.mergeObjects([{ name: "Alice" }, { age: 11 }]), {
@@ -222,6 +228,7 @@ describe("Get merged object", function () {
   });
 });
 
+
 describe("Get smallest value from array 2", function () {
   it("should return smallest value from provided example", function () {
     assert.equal(main.getSmallestValue2([5, 200, -5, 41]), -5);
@@ -258,6 +265,7 @@ describe("Get smallest value from array 2", function () {
   });
 });
 
+
 describe("Get odd values 2", function () {
   it("should return odd output from provided example", function () {
     assert.deepEqual(main.getOddValues2([77, 2, 30, 51]), [77, 51]);
@@ -289,6 +297,7 @@ describe("Get odd values 2", function () {
     );
   });
 });
+
 
 describe("Calculate total", function () {
   it("should return calculated total from provided example", function () {
@@ -329,6 +338,7 @@ describe("Calculate total", function () {
   });
 });
 
+
 describe("Get unique values", function () {
   it("should return unique output from provided example", function () {
     assert.deepEqual(main.getUniqueValues([1, 2, 2, 4, 5, 5]), [1, 2, 4, 5]);
@@ -361,6 +371,7 @@ describe("Get unique values", function () {
   });
 });
 
+
 describe("Get error message", function () {
   it("should return error message for existing code", function () {
     assert.equal(main.getErrorMessage(500), "Server Error");
@@ -374,6 +385,7 @@ describe("Get error message", function () {
     assert.throws(() => main.getErrorMessage(null), /^Error: Invalid code$/);
   });
 });
+
 
 describe("Get 2 smallest values", function () {
   it("should return 2 smallest values from provided example", function () {
@@ -406,6 +418,7 @@ describe("Get 2 smallest values", function () {
   });
 });
 
+
 describe("Get unique values", function () {
   it("should return unique output from provided example", function () {
     assert.deepEqual(main.getUniqueValues([1, 2, 2, 4, 5, 5]), [1, 2, 4, 5]);
@@ -438,6 +451,7 @@ describe("Get unique values", function () {
   });
 });
 
+
 describe("Get error message", function () {
   it("should return error message for existing code", function () {
     assert.equal(main.getErrorMessage(500), "Server Error");
@@ -451,6 +465,7 @@ describe("Get error message", function () {
     assert.throws(() => main.getErrorMessage(null), /^Error: Invalid code$/);
   });
 });
+
 
 describe("Get full name", function () {
   it("should return full name from provided example", function () {
@@ -475,6 +490,7 @@ describe("Get full name", function () {
     );
   });
 });
+
 
 describe("Multiply to", function () {
   it("should return output from provided example", function () {
@@ -513,6 +529,7 @@ describe("Multiply to", function () {
     );
   });
 });
+
 
 describe("Get character names", function () {
   it("should return character names from provided example", function () {
@@ -555,6 +572,7 @@ describe("Get character names", function () {
     );
   });
 });
+
 
 describe("Get smallest row", function () {
   it("should return smallest row from provided example", function () {
@@ -599,6 +617,7 @@ describe("Get smallest row", function () {
   });
 });
 
+
 describe("Get smallest column", function () {
   it("should return smallest column from provided example", function () {
     assert.deepEqual(
@@ -642,6 +661,7 @@ describe("Get smallest column", function () {
   });
 });
 
+
 describe("Get 2 biggest values", function () {
   it("should return 2 biggest values from provided example", function () {
     assert.deepEqual(main.get2BiggestValues([4, 3, 2, 1]), [4, 3]);
@@ -673,6 +693,7 @@ describe("Get 2 biggest values", function () {
   });
 });
 
+
 describe("Get number of vowels", function () {
   it("should return number of vowels from provided example", function () {
     assert.equal(
@@ -699,6 +720,7 @@ describe("Get number of vowels", function () {
   });
 });
 
+
 describe("Get capitalized strings", function () {
   it("should return capitalized strings from provided example", function () {
     assert.deepEqual(main.getCapitalizedStrings("abcdef"), [
@@ -722,6 +744,7 @@ describe("Get capitalized strings", function () {
     );
   });
 });
+
 
 describe("Get correct string", function () {
   it("should return correct string from provided example 1", function () {
@@ -755,6 +778,7 @@ describe("Get correct string", function () {
     );
   });
 });
+
 
 describe("Get flattened array", function () {
   it("should return flattened array from provided example", function () {

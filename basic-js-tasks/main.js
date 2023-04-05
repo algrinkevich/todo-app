@@ -24,9 +24,9 @@ const validation = require("./validation");
  * Write a function that returns odd array values.
  * [1,2,3,4] => [1,3]
  */
-const getOddValues = (numbers) => {
+const getOddValues = numbers => {
   validation.validateNumbers(numbers);
-  return numbers.filter((number) => number % 2);
+  return numbers.filter(number => number % 2);
 };
 /**
  * Exercise 2
@@ -34,7 +34,7 @@ const getOddValues = (numbers) => {
  * Write a function that returns the smallest value of an array
  * [4,2,10,27] => 2
  */
-const getSmallestValue = (numbers) => {
+const getSmallestValue = numbers => {
   // Math.min is not used as it's explicitly asked in the exercise 7
 
   validation.validateNumbers(numbers);
@@ -49,7 +49,7 @@ const getSmallestValue = (numbers) => {
  * Write a function that returns the biggest value of an array
  * [5,22,9,43] => 43
  */
-const getBiggestValue = (numbers) => {
+const getBiggestValue = numbers => {
   validation.validateNumbers(numbers);
   return numbers.length ? Math.max(...numbers) : undefined;
 };
@@ -72,7 +72,7 @@ const getBiggestValue = (numbers) => {
  */
 const getShorterStrings = (strings, characters = 20) => {
   validation.validateStrings(strings);
-  return strings.filter((string) => string.length < characters);
+  return strings.filter(string => string.length < characters);
 };
 /**
  * Exercise 5
@@ -91,9 +91,9 @@ const getShorterStrings = (strings, characters = 20) => {
  *
  * Use: map
  */
-const getComputedStrings = (fish) => {
+const getComputedStrings = fish => {
   validation.validateFishes(fish);
-  return fish.map((item) => `${item.name} likes ${item.likes}`);
+  return fish.map(item => `${item.name} likes ${item.likes}`);
 };
 /**
  * Exercise 6
@@ -105,7 +105,7 @@ const getComputedStrings = (fish) => {
  *
  * We use: ...
  */
-const mergeObjects = (objects) => {
+const mergeObjects = objects => {
   validation.validateIsArray(objects);
   return objects.reduce(
     (currentMerged, obj) => ({ ...currentMerged, ...obj }),
@@ -120,7 +120,7 @@ const mergeObjects = (objects) => {
  *
  * Use: operator ... and Math.min
  */
-const getSmallestValue2 = (numbers) => {
+const getSmallestValue2 = numbers => {
   validation.validateNumbers(numbers);
   return numbers.length ? Math.min(...numbers) : undefined;
 };
@@ -132,7 +132,7 @@ const getSmallestValue2 = (numbers) => {
  *
  * Use: reduce
  */
-const getOddValues2 = (numbers) => {
+const getOddValues2 = numbers => {
   validation.validateNumbers(numbers);
   return numbers.reduce(
     (resultArray, value) => resultArray.concat(value % 2 ? [value] : []),
@@ -156,7 +156,7 @@ const getOddValues2 = (numbers) => {
  *
  * Use: reduce
  */
-const calculateTotal = (products) => {
+const calculateTotal = products => {
   validation.validateProducts(products);
   return products.reduce((sum, item) => sum + item.price * item.count, 0);
 };
@@ -168,7 +168,7 @@ const calculateTotal = (products) => {
  *
  * Use: reduce and indexOf
  */
-const getUniqueValues = (numbers) => {
+const getUniqueValues = numbers => {
   validation.validateNumbers(numbers);
 
   return numbers.reduce(
@@ -191,7 +191,7 @@ const getUniqueValues = (numbers) => {
  *
  * Use: switch case or object like a map structure
  */
-const getErrorMessage = (code) => {
+const getErrorMessage = code => {
   const codeToMessage = {
     500: "Server Error",
     401: "Authorization failed",
@@ -211,9 +211,11 @@ const getErrorMessage = (code) => {
  *
  * Use: .sort()
  */
-const get2SmallestValues = (numbers) => {
+const get2SmallestValues = numbers => {
   validation.validate2BiggestSmallestValues(numbers);
-  return numbers.sort((num1, num2) => num1 - num2).slice(0, 2);
+  return numbers
+    .sort((num1, num2) => num1 - num2)
+    .slice(0, 2);
 };
 /**
  * Exercise 13
@@ -226,7 +228,7 @@ const get2SmallestValues = (numbers) => {
  *}
  * output line with the message 'Name: Petr Ivanovich Vasiliev'
  */
-const getFullName = (user) => {
+const getFullName = user => {
   validation.validateFullName(user);
   return `Name: ${user.firstName} ${user.patronymic} ${user.secondName}`;
 };
@@ -242,7 +244,7 @@ const getFullName = (user) => {
  */
 const multiplyTo = (numbers, multiplier) => {
   validation.validateMultiplyTo(numbers, multiplier);
-  return numbers.map((number) => number * multiplier);
+  return numbers.map(number => number * multiplier);
 };
 /**
  * Exercise 15
@@ -268,8 +270,8 @@ const getCharacterNames = (characters, franchise) => {
   validation.validateCharacterNames(characters, franchise);
 
   return characters
-    .filter((hero) => franchise === hero.franchise)
-    .map((hero) => hero.name)
+    .filter(hero => franchise === hero.franchise)
+    .map(hero => hero.name)
     .join(", ");
 };
 // ----==== Advanced exercises (8 items) ====----
@@ -285,12 +287,12 @@ const getCharacterNames = (characters, franchise) => {
  *]
  * => [1,2,3,4]
  */
-const getSmallestRow = (numbers) => {
+const getSmallestRow = numbers => {
   if (!numbers.length) {
     return undefined;
   }
   validation.validateMultiDimensionalArray(numbers);
-  return numbers.map((row) => row.length ? Math.min(...row) : undefined);
+  return numbers.map(row => row.length ? Math.min(...row) : undefined);
 };
 /**
  * Exercise 17
@@ -304,7 +306,7 @@ const getSmallestRow = (numbers) => {
  *]
  * => [1,2,3,4]
  */
-const getSmallestColumn = (numbers) => {
+const getSmallestColumn = numbers => {
   if (!numbers.length) {
     return undefined;
   }
@@ -328,7 +330,7 @@ const getSmallestColumn = (numbers) => {
  * Write a function that returns the 2 biggest value of an array
  * [4,3,2,1] => [4,3]
  */
-const get2BiggestValues = (numbers) => {
+const get2BiggestValues = numbers => {
   /*
   Can be solved via .sort but it's not optimal
 
@@ -351,11 +353,14 @@ const get2BiggestValues = (numbers) => {
  *
  * 'Return the number (count) of vowels in the given string.' => 15
  */
-const getNumberOfVowels = (string) => {
+const getNumberOfVowels = string => {
   validation.validateString(string);
 
   const vowels = ["a", "e", "i", "o", "u"];
-  return string.split("").filter((letter) => vowels.includes(letter)).length;
+  return string
+    .split("")
+    .filter(letter => vowels.includes(letter))
+    .length;
 };
 /**
  * Exercise 20
@@ -365,7 +370,7 @@ const getNumberOfVowels = (string) => {
  * with capital odd.
  * 'abcdef' => ['AbCdEf', 'aBcDeF']
  */
-const getCapitalizedStrings = (string) => {
+const getCapitalizedStrings = string => {
   validation.validateString(string);
 
   function capitalizeStringPartially(replaceConditionFunc) {
@@ -400,7 +405,7 @@ const getCapitalizedStrings = (string) => {
  * N is an integer in the range [1..200,000]
  * S consists only of lowercase letters [a-z]
  */
-const getCorrectString = (string) => {
+const getCorrectString = string => {
   validation.validateString(string);
 
   let equalCharsCounter = 0;
@@ -427,7 +432,7 @@ const getCorrectString = (string) => {
  * and returns an array of all their elements without nesting.
  * [1, 2, [3, 4], 5, [[6, 7], 8], 9] => [1, 2, 3, 4, 5, 6, 7, 8, 9]
  */
-const getFlattenedArray = (numbers) => {
+const getFlattenedArray = numbers => {
   /*
   The shortest solution:
 
@@ -451,7 +456,7 @@ const getFlattenedArray = (numbers) => {
  *
  * [1, 2, 2, 4, 5, 5] => [2, 5]
  */
-const getNotUniqueValues = (numbers) => {
+const getNotUniqueValues = numbers => {
   /*  
   Less effective (O(n^2) vs O(n)), but more readable:
 
@@ -494,27 +499,27 @@ const getNotUniqueValues = (numbers) => {
 
 
 module.exports = {
-  getOddValues: getOddValues,
-  getSmallestValue: getSmallestValue,
-  getBiggestValue: getBiggestValue,
-  getShorterStrings: getShorterStrings,
-  getComputedStrings: getComputedStrings,
-  mergeObjects: mergeObjects,
-  getSmallestValue2: getSmallestValue2,
-  getOddValues2: getOddValues2,
-  calculateTotal: calculateTotal,
-  getUniqueValues: getUniqueValues,
-  getErrorMessage: getErrorMessage,
-  get2SmallestValues: get2SmallestValues,
-  getFullName: getFullName,
-  multiplyTo: multiplyTo,
-  getCharacterNames: getCharacterNames,
-  getSmallestRow: getSmallestRow,
-  getSmallestColumn: getSmallestColumn,
-  get2BiggestValues: get2BiggestValues,
-  getNumberOfVowels: getNumberOfVowels,
-  getCapitalizedStrings: getCapitalizedStrings,
-  getCorrectString: getCorrectString,
-  getFlattenedArray: getFlattenedArray,
-  getNotUniqueValues: getNotUniqueValues
+  getOddValues,
+  getSmallestValue,
+  getBiggestValue,
+  getShorterStrings,
+  getComputedStrings,
+  mergeObjects,
+  getSmallestValue2,
+  getOddValues2,
+  calculateTotal,
+  getUniqueValues,
+  getErrorMessage,
+  get2SmallestValues,
+  getFullName,
+  multiplyTo,
+  getCharacterNames,
+  getSmallestRow,
+  getSmallestColumn,
+  get2BiggestValues,
+  getNumberOfVowels,
+  getCapitalizedStrings,
+  getCorrectString,
+  getFlattenedArray,
+  getNotUniqueValues
 };
