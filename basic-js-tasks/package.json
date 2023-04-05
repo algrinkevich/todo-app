@@ -1,0 +1,14 @@
+{
+  "name": "js-tasks",
+  "version": "1.0.0",
+  "description": "Solutions for js tasks",
+  "main": "main.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^10.2.0"
+  }
+}

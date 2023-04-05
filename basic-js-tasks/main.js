@@ -1,7 +1,8 @@
+const validation = require("./validation");
 // ----==== JS School - Lecture 4 HW ====----
 
 /**
- * Ð¡riteria for assessment
+ * Сriteria for assessment
  *
  * 5 - All tasks are correctly solved (23 items), the code is clean, the solutions are optimal;
  * 4 - Correctly solved all the tasks of the base block (15 tasks), the code is clean;
@@ -24,9 +25,9 @@
  * [1,2,3,4] => [1,3]
  */
 const getOddValues = (numbers) => {
+  validation.validateNumbers(numbers);
   return numbers.filter((number) => number % 2);
 };
-console.log(getOddValues([1, 2, 3, 4]));
 /**
  * Exercise 2
  *
@@ -34,20 +35,24 @@ console.log(getOddValues([1, 2, 3, 4]));
  * [4,2,10,27] => 2
  */
 const getSmallestValue = (numbers) => {
+  // Math.min is not used as it's explicitly asked in the exercise 7
+
+  validation.validateNumbers(numbers);
   return numbers.reduce(
     (currentMin, value) => (currentMin < value ? currentMin : value),
     numbers[0]
   );
 };
-console.log(getSmallestValue([4, 2, 10, 27]));
 /**
  * Exercise 3
  *
  * Write a function that returns the biggest value of an array
  * [5,22,9,43] => 43
  */
-const getBiggestValue = (numbers) => Math.max(...numbers);
-console.log(getBiggestValue([5, 22, 9, 43]));
+const getBiggestValue = (numbers) => {
+  validation.validateNumbers(numbers);
+  return numbers.length ? Math.max(...numbers) : undefined;
+};
 /**
  * Exercise 4
  *
@@ -66,15 +71,9 @@ console.log(getBiggestValue([5, 22, 9, 43]));
  * Use: filter
  */
 const getShorterStrings = (strings, characters = 20) => {
+  validation.validateStrings(strings);
   return strings.filter((string) => string.length < characters);
 };
-console.log(
-  getShorterStrings([
-    "I am a short string",
-    "I seem to be short too",
-    "And I am a long string",
-  ])
-);
 /**
  * Exercise 5
  *
@@ -93,15 +92,9 @@ console.log(
  * Use: map
  */
 const getComputedStrings = (fish) => {
+  validation.validateFishes(fish);
   return fish.map((item) => `${item.name} likes ${item.likes}`);
 };
-console.log(
-  getComputedStrings([
-    { name: "shark", likes: "ocean" },
-    { name: "turtle", likes: "pond" },
-    { name: "otter", likes: "fish biscuits" },
-  ])
-);
 /**
  * Exercise 6
  *
@@ -113,9 +106,12 @@ console.log(
  * We use: ...
  */
 const mergeObjects = (objects) => {
-  return objects.reduce((accum, item) => ({ ...accum, ...item }), {});
+  validation.validateIsArray(objects);
+  return objects.reduce(
+    (currentMerged, obj) => ({ ...currentMerged, ...obj }),
+    {}
+  );
 };
-console.log(mergeObjects([{ name: "Alice" }, { age: 11 }]));
 /**
  * Exercise 7
  *
@@ -124,8 +120,10 @@ console.log(mergeObjects([{ name: "Alice" }, { age: 11 }]));
  *
  * Use: operator ... and Math.min
  */
-const getSmallestValue2 = (numbers) => Math.min(...numbers);
-console.log(getSmallestValue2([5, 200, -5, 41]));
+const getSmallestValue2 = (numbers) => {
+  validation.validateNumbers(numbers);
+  return numbers.length ? Math.min(...numbers) : undefined;
+};
 /**
  * Exercise 8
  *
@@ -135,12 +133,12 @@ console.log(getSmallestValue2([5, 200, -5, 41]));
  * Use: reduce
  */
 const getOddValues2 = (numbers) => {
+  validation.validateNumbers(numbers);
   return numbers.reduce(
-    (accum, value) => accum.concat(value % 2 ? [value] : []),
+    (resultArray, value) => resultArray.concat(value % 2 ? [value] : []),
     []
   );
 };
-console.log(getOddValues2([77, 2, 30, 51]));
 /**
  * Exercise 9
  *
@@ -159,16 +157,9 @@ console.log(getOddValues2([77, 2, 30, 51]));
  * Use: reduce
  */
 const calculateTotal = (products) => {
+  validation.validateProducts(products);
   return products.reduce((sum, item) => sum + item.price * item.count, 0);
 };
-console.log(
-  calculateTotal([
-    { price: 10, count: 2 },
-    { price: 100, count: 1 },
-    { price: 2, count: 5 },
-    { price: 15, count: 6 },
-  ])
-);
 /**
  * Exercise 10
  *
@@ -178,12 +169,16 @@ console.log(
  * Use: reduce and indexOf
  */
 const getUniqueValues = (numbers) => {
+  validation.validateNumbers(numbers);
+
   return numbers.reduce(
-    (accum, item) => (accum.indexOf(item) === -1 ? [...accum, item] : accum),
+    (currentUniqueValues, value) =>
+      currentUniqueValues.indexOf(value) === -1
+        ? [...currentUniqueValues, value]
+        : currentUniqueValues,
     []
   );
 };
-console.log(getUniqueValues([1, 2, 2, 4, 5, 5]));
 /**
  * Exercise 11
  *
@@ -197,29 +192,17 @@ console.log(getUniqueValues([1, 2, 2, 4, 5, 5]));
  * Use: switch case or object like a map structure
  */
 const getErrorMessage = (code) => {
-  let message = null;
-  switch (code) {
-    case 500:
-      message = "Server Error";
-      break;
-    case 401:
-      message = "Authorization failed";
-      break;
-    case 402:
-      message = "Server Error";
-      break;
-    case 403:
-      message = "Access denied";
-      break;
-    case 404:
-      message = "Not found";
-      break;
-    default:
-      message = "Invalid code";
-  }
-  return message;
+  const codeToMessage = {
+    500: "Server Error",
+    401: "Authorization failed",
+    402: "Server Error",
+    403: "Access denied",
+    404: "Not found",
+  };
+  validation.validateCode(codeToMessage, code);
+
+  return codeToMessage[code];
 };
-console.log(getErrorMessage(404));
 /**
  * Exercise 12
  *
@@ -229,11 +212,9 @@ console.log(getErrorMessage(404));
  * Use: .sort()
  */
 const get2SmallestValues = (numbers) => {
-  return numbers
-    .sort((num1, num2) => num1 - num2)
-    .slice(0, 2);
+  validation.validate2BiggestSmallestValues(numbers);
+  return numbers.sort((num1, num2) => num1 - num2).slice(0, 2);
 };
-console.log(get2SmallestValues([4, 3, 2, 1]));
 /**
  * Exercise 13
  *
@@ -246,15 +227,9 @@ console.log(get2SmallestValues([4, 3, 2, 1]));
  * output line with the message 'Name: Petr Ivanovich Vasiliev'
  */
 const getFullName = (user) => {
-  return `Name: ${user.firstName} ${user.secondName} ${user.patronymic}`;
+  validation.validateFullName(user);
+  return `Name: ${user.firstName} ${user.patronymic} ${user.secondName}`;
 };
-console.log(
-  getFullName({
-    firstName: "Peter",
-    secondName: "Vasiliev",
-    patronymic: "Ivanovich",
-  })
-);
 /**
  * Exercise 14
  *
@@ -266,9 +241,9 @@ console.log(
  * Use: map
  */
 const multiplyTo = (numbers, multiplier) => {
+  validation.validateMultiplyTo(numbers, multiplier);
   return numbers.map((number) => number * multiplier);
 };
-console.log(multiplyTo([1, 2, 3, 4], 5));
 /**
  * Exercise 15
  *
@@ -279,7 +254,7 @@ console.log(multiplyTo([1, 2, 3, 4], 5));
  * {name: "Batman", franchise: "DC"},
  * {name: "Ironman", franchise: "Marvel"},
  * {name: "Thor", franchise: "Marvel"},
- * {name: â€œSupermanâ€, franchise: â€œDCâ€}
+ * {name: "Superman", franchise: "DC"}
  *],
  * Marvel
  * => Ironman, Thor
@@ -287,23 +262,16 @@ console.log(multiplyTo([1, 2, 3, 4], 5));
  * Use: filter, map, join
  */
 const getCharacterNames = (characters, franchise) => {
+  if (!characters.length) {
+    return undefined;
+  }
+  validation.validateCharacterNames(characters, franchise);
+
   return characters
-    .filter((item) => franchise === item.franchise)
-    .map((item) => item.name)
+    .filter((hero) => franchise === hero.franchise)
+    .map((hero) => hero.name)
     .join(", ");
 };
-console.log(
-  getCharacterNames(
-    [
-      { name: "Batman", franchise: "DC" },
-      { name: "Ironman", franchise: "Marvel" },
-      { name: "Thor", franchise: "Marvel" },
-      { name: "Superman", franchise: "DC" },
-    ],
-    "Marvel"
-  )
-);
-
 // ----==== Advanced exercises (8 items) ====----
 /**
  * Exercise 16
@@ -318,16 +286,12 @@ console.log(
  * => [1,2,3,4]
  */
 const getSmallestRow = (numbers) => {
-  return numbers.map((row) => Math.min(...row));
+  if (!numbers.length) {
+    return undefined;
+  }
+  validation.validateMultiDimensionalArray(numbers);
+  return numbers.map((row) => row.length ? Math.min(...row) : undefined);
 };
-console.log(
-  getSmallestRow([
-    [10, 1, 300, 4],
-    [20, 200, 2, 400],
-    [30, 3, 300, 4],
-    [40, 20, 300, 0],
-  ])
-);
 /**
  * Exercise 17
  *
@@ -341,6 +305,11 @@ console.log(
  * => [1,2,3,4]
  */
 const getSmallestColumn = (numbers) => {
+  if (!numbers.length) {
+    return undefined;
+  }
+  validation.validateMultiDimensionalArray(numbers);
+
   const numOfColumns = numbers[0]?.length;
   const result = [];
 
@@ -353,14 +322,6 @@ const getSmallestColumn = (numbers) => {
   }
   return result;
 };
-console.log(
-  getSmallestColumn([
-    [1, 2, 3, 4],
-    [1, 2, 3, 4],
-    [1, 2, 30, 4],
-    [1, 2, 3, 40],
-  ])
-);
 /**
  * Exercise 18
  *
@@ -368,11 +329,20 @@ console.log(
  * [4,3,2,1] => [4,3]
  */
 const get2BiggestValues = (numbers) => {
-  return numbers
-    .sort((num1, num2) => num2 - num1)
-    .slice(0, 2);
+  /*
+  Can be solved via .sort but it's not optimal
+
+    return numbers
+      .sort((num1, num2) => num2 - num1)
+      .slice(0, 2);
+  */
+  validation.validate2BiggestSmallestValues(numbers);
+
+  const firstMax = Math.max(...numbers);
+  numbers.splice(numbers.indexOf(firstMax), 1);
+  const secondMax = Math.max(...numbers);
+  return [firstMax, secondMax];
 };
-console.log(get2BiggestValues([4, 3, 2, 1]));
 /**
  * Exercise 19
  *
@@ -382,15 +352,11 @@ console.log(get2BiggestValues([4, 3, 2, 1]));
  * 'Return the number (count) of vowels in the given string.' => 15
  */
 const getNumberOfVowels = (string) => {
+  validation.validateString(string);
+
   const vowels = ["a", "e", "i", "o", "u"];
-  return string
-    .split("")
-    .filter((letter) => vowels.includes(letter))
-    .length;
+  return string.split("").filter((letter) => vowels.includes(letter)).length;
 };
-console.log(
-  getNumberOfVowels("Return the number (count) of vowels in the given string.")
-);
 /**
  * Exercise 20
  *
@@ -400,18 +366,22 @@ console.log(
  * 'abcdef' => ['AbCdEf', 'aBcDeF']
  */
 const getCapitalizedStrings = (string) => {
-  function capitalizeStringPartially(replaceEven) {
+  validation.validateString(string);
+
+  function capitalizeStringPartially(replaceConditionFunc) {
     return string
       .split("")
       .map((letter, index) =>
-        index % 2 != replaceEven ? letter.toUpperCase() : letter
+        replaceConditionFunc(index) ? letter.toUpperCase() : letter
       )
       .join("");
   }
 
-  return [capitalizeStringPartially(true), capitalizeStringPartially(false)];
+  return [
+    capitalizeStringPartially((index) => !(index % 2)),
+    capitalizeStringPartially((index) => index % 2),
+  ];
 };
-console.log(getCapitalizedStrings("abcdef"));
 /**
  * Exercise 21
  *
@@ -431,6 +401,8 @@ console.log(getCapitalizedStrings("abcdef"));
  * S consists only of lowercase letters [a-z]
  */
 const getCorrectString = (string) => {
+  validation.validateString(string);
+
   let equalCharsCounter = 0;
   const correctedChars = [];
 
@@ -448,7 +420,6 @@ const getCorrectString = (string) => {
   }
   return correctedChars.join("");
 };
-console.log(getCorrectString("uuuuxaaaaxuuu"));
 /**
  * Exercise 22
  *
@@ -462,18 +433,17 @@ const getFlattenedArray = (numbers) => {
 
       return numbers.flat(Infinity);
   */
-
+  if (!Array.isArray(numbers)) {
+    return [numbers];
+  }
   return numbers.reduce(
-    (accum, currentItem) =>
-      accum.concat(
-        Array.isArray(currentItem)
-          ? getFlattenedArray(currentItem)
-          : currentItem
-      ),
+    (currentFlattened, item) => [
+      ...currentFlattened,
+      ...getFlattenedArray(item),
+    ],
     []
   );
 };
-console.log(getFlattenedArray([1, 2, [3, 4], 5, [[6, 7], 8], 9]));
 /**
  * Exercise 23
  *
@@ -497,6 +467,7 @@ const getNotUniqueValues = (numbers) => {
       }
       return result; 
   */
+  validation.validateNumbers(numbers);
 
   const countByValue = new Map();
 
@@ -520,4 +491,30 @@ const getNotUniqueValues = (numbers) => {
   }
   return nonUniqueValues;
 };
-console.log(getNotUniqueValues([1, 2, 2, 2, 4, 5, 5]));
+
+
+module.exports = {
+  getOddValues: getOddValues,
+  getSmallestValue: getSmallestValue,
+  getBiggestValue: getBiggestValue,
+  getShorterStrings: getShorterStrings,
+  getComputedStrings: getComputedStrings,
+  mergeObjects: mergeObjects,
+  getSmallestValue2: getSmallestValue2,
+  getOddValues2: getOddValues2,
+  calculateTotal: calculateTotal,
+  getUniqueValues: getUniqueValues,
+  getErrorMessage: getErrorMessage,
+  get2SmallestValues: get2SmallestValues,
+  getFullName: getFullName,
+  multiplyTo: multiplyTo,
+  getCharacterNames: getCharacterNames,
+  getSmallestRow: getSmallestRow,
+  getSmallestColumn: getSmallestColumn,
+  get2BiggestValues: get2BiggestValues,
+  getNumberOfVowels: getNumberOfVowels,
+  getCapitalizedStrings: getCapitalizedStrings,
+  getCorrectString: getCorrectString,
+  getFlattenedArray: getFlattenedArray,
+  getNotUniqueValues: getNotUniqueValues
+};
