@@ -1,0 +1,75 @@
+.metrics {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25em;
+  width: 25%;
+  height: 10.125em;
+  background: #ffffff;
+  box-shadow: 0em 0.0625em 0.625em rgba(0, 0, 0, 0.06);
+  border-radius: 0.75em;
+}
+
+.card__title {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.625em;
+  color: #5f6980;
+}
+
+.card__subtitle {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1.625rem;
+  line-height: 2.5em;
+  color: #282828;
+}
+
+.card__info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 0.5em;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1.25em;
+}
+
+.card__badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.125em 0.625em;
+  width: 3.375rem;
+  height: 1.5rem;
+  background: #dcfff5;
+  border-radius: 6.25em;
+  color: #20c997;
+}
+
+.card__from-percent {
+  margin: 0;
+  color: #9d9fa2;
+}
+
+.card__badge--negative {
+  background: #ffe0e3;
+  color: #dc3545;
+}
+
+.card__badge--zero {
+  background: #f2f4f7;
+  color: #5f6980;
+}

@@ -1,0 +1,136 @@
+.info-section__table {
+  gap: 0;
+  margin-bottom: 2em;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.table thead {
+  background: #f9fafb;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.57em;
+  color: #5f6980;
+}
+
+.table thead tr {
+  height: 3.375rem;
+}
+
+.table > thead th {
+  font-weight: normal;
+  text-align: left;
+  padding-left: 1.5rem;
+}
+
+.table > tbody tr {
+  border-bottom: 1px solid #eaecf0;
+  height: 4.8125em;
+}
+
+.table > tbody tr:hover {
+  background-color: #f2f4f7;
+}
+
+.table > tbody td {
+  padding-left: 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.57em;
+  color: #5f6980;
+}
+
+.table__brand {
+  display: flex;
+  align-items: center;
+}
+
+.table__logo-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.143em;
+  height: 3.143em;
+  margin-right: 0.857em;
+  background: #ffffff;
+  box-shadow: 0em 0.07143em 0.7143em rgba(0, 0, 0, 0.06);
+  border-radius: 0.67347em;
+}
+
+.table__logo-box img {
+  width: 1.9em;
+  height: 1.9em;
+}
+
+.table__app-title {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.5714em;
+  color: #282828;
+}
+
+.table__badge {
+  display: inline-block;
+  padding: 0.1429em 0.7143em;
+  border-radius: 7.1429em;
+}
+
+.table__status {
+  margin: 0;
+  display: inline;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1.6667em;
+}
+
+.table__badge--active {
+  background: #dcfff5;
+  color: #20c997;
+}
+
+.table__badge--pending {
+  background: #ffead8;
+  color: #fd7e14;
+}
+
+.table__badge--cancelled {
+  background: #f2f4f7;
+  color: #5f6980;
+}
+
+.table-navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75em;
+  padding-top: 1.5em;
+}
+
+.table-navigation__page-number {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.6667em;
+  color: #282828;
+}
+
+.arrow-btn {
+  background-color: #ffffff;
+  border: none;
+  cursor: pointer;
+}

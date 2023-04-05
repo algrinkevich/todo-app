@@ -1,0 +1,93 @@
+.chart {
+  position: relative;
+  padding: 0em 1.5em;
+}
+
+.chart-container {
+  position: relative;
+}
+
+.chart__y-axis {
+  display: flex;
+  flex-direction: column;
+  gap: 3.333em;
+  width: -moz-fit-content;
+  width: fit-content;
+
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.6667em;
+  color: #9d9fa2;
+}
+
+.chart__x-axis {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 0.5em;
+  margin-left: 4.4167em;
+
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.6667em;
+  color: #9d9fa2;
+}
+
+.chart-curves {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: calc(100% - 2.875em);
+  width: calc(100% - 3.3125em);
+  overflow: hidden;
+}
+
+.chart-curves > img {
+  width: 100%;
+}
+
+.chart__curve-green {
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+}
+
+.chart__curve-blue {
+  position: absolute;
+  bottom: 0;
+  height: 67.8%;
+}
+
+.legend {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.57em;
+  color: #5f6980;
+}
+
+.indicator {
+  display: inline-block;
+  width: 0.857em;
+  height: 0.857em;
+  border-radius: 50%;
+}
+
+.legend__indicator {
+  margin-right: 0.57em;
+}
+
+.legend__indicator--instagram {
+  background: #5a9cfe;
+}
+
+.legend__indicator--facebook {
+  background: #20c997;
+}
