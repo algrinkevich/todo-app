@@ -36,10 +36,13 @@
    * @param onClick {function}
    * @returns {HTMLButtonElement} - Button element
    */
-  function Button({ text, onClick }) {
+  function Button({ text, onClick, enabled = true }) {
     const button = document.createElement("button");
     button.innerHTML = text;
     button.onclick = onClick;
+    if (!enabled) {
+      disableButton(button);
+    }
     return button;
   }
 
@@ -58,9 +61,11 @@
     return search;
   }
 
-  function InputText({ placeholder }) {
+  function InputText({ placeholder, onInput }) {
     const input = document.createElement("input");
     input.setAttribute("placeholder", placeholder);
+    input.setAttribute("required", "true");
+    input.oninput = onInput;
     return input;
   }
 
@@ -71,17 +76,34 @@
 
     const overlay = Overlay();
     const header = Header({ text: "Add New Task" });
-    const titleInput = InputText({ placeholder: "Task Title" });
+    const titleInput = InputText({
+      placeholder: "Task Title",
+      onInput: () => {
+        if (titleInput.value) {
+          enableButton(addButton);
+        } else {
+          disableButton(addButton);
+        }
+      },
+    });
     const cancelButton = Button({
       text: "Cancel",
       onClick: () => hideComponent(popupContainer),
     });
-    const addButton = Button({ text: "Add Task", onClick: onClickAdd });
-
+    const addButton = Button({
+      text: "Add Task",
+      onClick: () => {
+        if (!titleInput.value) {
+          return;
+        }
+        onClickAdd(titleInput.value);
+      },
+      enabled: false,
+    });
     const popup = document.createElement("div");
     popup.classList.add("popup");
     popup.append(header, titleInput, cancelButton, addButton);
-    
+
     popupContainer.append(popup, overlay);
     return popupContainer;
   }
@@ -100,6 +122,14 @@
     component.classList.add("hidden");
   }
 
+  function disableButton(button) {
+    button.setAttribute("disabled", "true");
+  }
+
+  function enableButton(button) {
+    button.removeAttribute("disabled");
+  }
+
   /**
    * App container
    * @returns {HTMLDivElement} - The app container
@@ -114,13 +144,10 @@
       ],
     });
 
-    function addNewTask() {
+    function addNewTask(value) {
       setAppState({
         ...appState,
-        allTasks: [
-          ...appState.allTasks,
-          `Task ${appState.allTasks.length + 1} Title`,
-        ],
+        allTasks: [...appState.allTasks, value],
       });
     }
 
