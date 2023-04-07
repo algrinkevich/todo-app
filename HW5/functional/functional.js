@@ -65,27 +65,39 @@
   }
 
   //Modal component
-  function Modal(overlay, onClickAdd) {
-    const div = document.createElement("div");
+  function Popup(onClickAdd) {
+    const popupContainer = document.createElement("div");
+    popupContainer.classList.add("hidden");
 
-    function closeModal() {
-      div.classList.add("hidden");
-      overlay.classList.add("hidden");
-    }
-
-    div.classList.add("modal", "hidden");
+    const overlay = Overlay();
     const header = Header({ text: "Add New Task" });
-    const inputModal = InputText({ placeholder: "Task Title" });
-    const cancelButton = Button({ text: "Cancel", onClick: closeModal });
-    const addButton = Button({ text: "Add Task", onClick: onClickAdd});
-    div.append(header, inputModal, cancelButton, addButton);
-    return div;
+    const titleInput = InputText({ placeholder: "Task Title" });
+    const cancelButton = Button({
+      text: "Cancel",
+      onClick: () => hideComponent(popupContainer),
+    });
+    const addButton = Button({ text: "Add Task", onClick: onClickAdd });
+
+    const popup = document.createElement("div");
+    popup.classList.add("popup");
+    popup.append(header, titleInput, cancelButton, addButton);
+    
+    popupContainer.append(popup, overlay);
+    return popupContainer;
   }
 
   function Overlay() {
     const div = document.createElement("div");
-    div.classList.add("overlay", "hidden");
+    div.classList.add("overlay");
     return div;
+  }
+
+  function showComponent(component) {
+    component.classList.remove("hidden");
+  }
+
+  function hideComponent(component) {
+    component.classList.add("hidden");
   }
 
   /**
@@ -105,7 +117,10 @@
     function addNewTask() {
       setAppState({
         ...appState,
-        allTasks: [...appState.allTasks, `Task ${appState.allTasks.length + 1} Title`],
+        allTasks: [
+          ...appState.allTasks,
+          `Task ${appState.allTasks.length + 1} Title`,
+        ],
       });
     }
 
@@ -119,22 +134,18 @@
       });
     }
 
-    function openModal() {
-      modal.classList.remove("hidden");
-      overlay.classList.remove("hidden");
-    }
-
     const div = document.createElement("div");
     const header = Header({ text: "To Do List", level: 1 });
     const search = Search({ placeholder: "Search Task" });
-    const taskButton = Button({ text: "+ New Task", onClick: openModal });
+    const taskButton = Button({
+      text: "+ New Task",
+      onClick: () => showComponent(popup),
+    });
     const allTasksHeader = Header({ text: "All Tasks", level: 2 });
     const unfinishedList = List({ items: appState.allTasks });
-    const itemButton = Button({ text: "Add item", onClick: addNewTask });
     const completedTasksHeader = Header({ text: "Completed Tasks", level: 2 });
     const finishedList = List({ items: appState.completedTasks });
-    const overlay = Overlay();
-    const modal = Modal(overlay, addNewTask);
+    const popup = Popup(addNewTask);
 
     div.append(
       header,
@@ -142,11 +153,9 @@
       taskButton,
       allTasksHeader,
       unfinishedList,
-      itemButton,
       completedTasksHeader,
       finishedList,
-      modal,
-      overlay
+      popup
     );
     return div;
   }
