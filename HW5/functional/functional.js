@@ -36,19 +36,26 @@
    * @param onClick {function}
    * @returns {HTMLButtonElement} - Button element
    */
-  function Button({ text, onClick, enabled = true }) {
+  function Button({ text, onClick, enabled = true, styleClass }) {
     const button = document.createElement("button");
     button.innerHTML = text;
     button.onclick = onClick;
     if (!enabled) {
       disableButton(button);
     }
+    button.classList.add(styleClass);
     return button;
   }
 
   //Header component
   function Header({ text, level }) {
     const header = document.createElement(`h${level || 1}`);
+    if (level === 1) {
+      header.classList.add("app-header");
+    } else if (level === 2) {
+      header.classList.add("subheader");
+    }
+    
     header.innerHTML = text;
     return header;
   }
@@ -56,6 +63,7 @@
   //Search component
   function Search({ placeholder }) {
     const search = document.createElement("input");
+    search.classList.add("search");
     search.setAttribute("type", "search");
     search.setAttribute("placeholder", placeholder);
     return search;
@@ -167,7 +175,12 @@
     const taskButton = Button({
       text: "+ New Task",
       onClick: () => showComponent(popup),
+      styleClass: "add-task-btn"
     });
+    const searchContainer = document.createElement("div");
+    searchContainer.append(search, taskButton);
+    searchContainer.classList.add("search-container");
+
     const allTasksHeader = Header({ text: "All Tasks", level: 2 });
     const unfinishedList = List({ items: appState.allTasks });
     const completedTasksHeader = Header({ text: "Completed Tasks", level: 2 });
@@ -176,8 +189,7 @@
 
     div.append(
       header,
-      search,
-      taskButton,
+      searchContainer,
       allTasksHeader,
       unfinishedList,
       completedTasksHeader,
@@ -193,6 +205,7 @@
    */
   function renderApp() {
     const appContainer = document.getElementById("functional-example");
+    appContainer.classList.add("app-container");
     appContainer.innerHTML = "";
     appContainer.append(App());
   }
