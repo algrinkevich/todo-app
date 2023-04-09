@@ -24,9 +24,14 @@
    * @returns {HTMLElement} - List element
    */
   function List({ items }) {
-    const listItems = items.map((item) => `<li>${item}</li>`).join("");
+    const listItems = items.map((item) => {
+      const li = document.createElement("li");
+      li.append(item);
+      return li;
+    });
+
     const ul = document.createElement("ul");
-    ul.innerHTML = listItems;
+    ul.append(...listItems);
     return ul;
   }
 
@@ -47,6 +52,22 @@
     return button;
   }
 
+  function Task({ title, onComplete }) {
+    const div = document.createElement("div");
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.value = title;
+    const label = document.createElement("label");
+    label.innerHTML = title;
+    checkbox.onchange = () => {
+      if (checkbox.checked) {
+        onComplete();
+      }
+    };
+    div.append(checkbox, label);
+    return div;
+  }
+
   //Header component
   function Header({ text, level }) {
     const header = document.createElement(`h${level || 1}`);
@@ -55,7 +76,7 @@
     } else if (level === 2) {
       header.classList.add("subheader");
     }
-    
+
     header.innerHTML = text;
     return header;
   }
@@ -159,13 +180,11 @@
       });
     }
 
-    function addCompletedTask() {
+    function addCompletedTask(title) {
       setAppState({
         ...appState,
-        completedTasks: [
-          ...appState.completedTasks,
-          `Completed Task ${appState.completedTasks.length + 1} Title`,
-        ],
+        allTasks: appState.allTasks.filter((task) => task !== title),
+        completedTasks: [...appState.completedTasks, title],
       });
     }
 
@@ -175,14 +194,23 @@
     const taskButton = Button({
       text: "+ New Task",
       onClick: () => showComponent(popup),
-      styleClass: "add-task-btn"
+      styleClass: "add-task-btn",
     });
     const searchContainer = document.createElement("div");
     searchContainer.append(search, taskButton);
     searchContainer.classList.add("search-container");
 
     const allTasksHeader = Header({ text: "All Tasks", level: 2 });
-    const unfinishedList = List({ items: appState.allTasks });
+    const unfinishedList = List({
+      items: appState.allTasks.map((title) =>
+        Task({
+          title,
+          onComplete: () => {
+            addCompletedTask(title);
+          },
+        })
+      ),
+    });
     const completedTasksHeader = Header({ text: "Completed Tasks", level: 2 });
     const finishedList = List({ items: appState.completedTasks });
     const popup = Popup(addNewTask);
