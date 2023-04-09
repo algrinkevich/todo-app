@@ -52,19 +52,28 @@
     return button;
   }
 
-  function Task({ title, onComplete }) {
+  function Task({ title, onComplete, onDelete }) {
     const div = document.createElement("div");
+
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.value = title;
-    const label = document.createElement("label");
-    label.innerHTML = title;
     checkbox.onchange = () => {
       if (checkbox.checked) {
         onComplete();
       }
     };
-    div.append(checkbox, label);
+
+    const label = document.createElement("label");
+    label.innerHTML = title;
+
+    const img = document.createElement("img");
+    img.src = "bucket.svg";
+    img.onclick = () => {
+      onDelete();
+    };
+
+    div.append(checkbox, label, img);
     return div;
   }
 
@@ -173,10 +182,10 @@
       ],
     });
 
-    function addNewTask(value) {
+    function addNewTask(title) {
       setAppState({
         ...appState,
-        allTasks: [...appState.allTasks, value],
+        allTasks: [...appState.allTasks, title],
       });
     }
 
@@ -185,6 +194,13 @@
         ...appState,
         allTasks: appState.allTasks.filter((task) => task !== title),
         completedTasks: [...appState.completedTasks, title],
+      });
+    }
+
+    function deleteNewTask(title) {
+      setAppState({
+        ...appState,
+        allTasks: appState.allTasks.filter((task) => task !== title)
       });
     }
 
@@ -208,6 +224,9 @@
           onComplete: () => {
             addCompletedTask(title);
           },
+          onDelete: () => {
+            deleteNewTask(title);
+          }
         })
       ),
     });
