@@ -91,11 +91,22 @@
   }
 
   //Search component
-  function Search({ placeholder }) {
+  function Search({ placeholder, onSearch, query, isFocused }) {
     const search = document.createElement("input");
+
+    if (isFocused) {
+      setTimeout(() => {
+        search.focus();
+      }, 0);
+    }
+
     search.classList.add("search");
     search.setAttribute("type", "search");
     search.setAttribute("placeholder", placeholder);
+    search.value = query;
+    search.oninput = () => {
+      onSearch(search.value);
+    };
     return search;
   }
 
@@ -180,11 +191,14 @@
         "Completed Task 2 Title",
         "Completed Task 3 Title",
       ],
+      searchQuery: "",
+      lastAction: null,
     });
 
     function addNewTask(title) {
       setAppState({
         ...appState,
+        lastAction: "Add Task",
         allTasks: [...appState.allTasks, title],
       });
     }
@@ -192,6 +206,7 @@
     function addCompletedTask(title) {
       setAppState({
         ...appState,
+        lastAction: "Complete Task",
         allTasks: appState.allTasks.filter((task) => task !== title),
         completedTasks: [...appState.completedTasks, title],
       });
@@ -200,13 +215,25 @@
     function deleteNewTask(title) {
       setAppState({
         ...appState,
-        allTasks: appState.allTasks.filter((task) => task !== title)
+        lastAction: "Delete Task",
+        allTasks: appState.allTasks.filter((task) => task !== title),
       });
     }
 
     const div = document.createElement("div");
     const header = Header({ text: "To Do List", level: 1 });
-    const search = Search({ placeholder: "Search Task" });
+    const search = Search({
+      placeholder: "Search Task",
+      onSearch: (query) => {
+        setAppState({
+          ...appState,
+          lastAction: "Search Query",
+          searchQuery: query,
+        });
+      },
+      query: appState.searchQuery,
+      isFocused: appState.lastAction === "Search Query",
+    });
     const taskButton = Button({
       text: "+ New Task",
       onClick: () => showComponent(popup),
@@ -218,17 +245,19 @@
 
     const allTasksHeader = Header({ text: "All Tasks", level: 2 });
     const unfinishedList = List({
-      items: appState.allTasks.map((title) =>
-        Task({
-          title,
-          onComplete: () => {
-            addCompletedTask(title);
-          },
-          onDelete: () => {
-            deleteNewTask(title);
-          }
-        })
-      ),
+      items: appState.allTasks
+        .filter((task) => task.toLowerCase().includes(appState.searchQuery.toLowerCase()))
+        .map((title) =>
+          Task({
+            title,
+            onComplete: () => {
+              addCompletedTask(title);
+            },
+            onDelete: () => {
+              deleteNewTask(title);
+            },
+          })
+        ),
     });
     const completedTasksHeader = Header({ text: "Completed Tasks", level: 2 });
     const finishedList = List({ items: appState.completedTasks });
