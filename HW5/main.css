@@ -23,6 +23,7 @@ body, html {
 }
 
 .subheader {
+    margin: 0;
     font-weight: 700;
     font-size: 24px;
     line-height: 1.375em;
@@ -37,11 +38,21 @@ body, html {
 
 .search {
     width: 100%;
-    height: 52px;
+    height: 3.25rem;
     padding: 16px 21px;
     background: #F5F5F5;
     border: 1px solid #D2D2D2;
-    border-radius: 12px;
+    border-radius: 0.75rem;
+
+    font-family: 'Nunito';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+}
+
+.search:focus {
+    outline: none;
 }
 
 .search::placeholder { 
@@ -50,24 +61,24 @@ body, html {
     font-family: 'Nunito', sans-serif;
     font-weight: 500;
     font-size: 16px;
-    line-height: 20px;
+    line-height: 1.25em;
 }
 
-.add-task-btn {
+.new-task-btn {
     display: inline-block;
     font-family: 'Nunito';
     font-weight: 800;
     font-size: 16px;
-    line-height: 20px;
+    line-height: 1.25em;
     color: #0053CF;
     background: rgba(60, 134, 244, 0.15);
-    border-radius: 12px;
+    border-radius: 0.75em;
     border: none;
     cursor: pointer;
-    margin-left: 40px;
-    padding: 16px 0;
-    width: 203.02px;
+    padding: 1em 0;
+    width: 9.884375em;
     white-space: nowrap;
+    margin-left: 2.5em;
 }
 
 .hidden {
@@ -80,10 +91,75 @@ body, html {
     left: 50%;
     transform: translate(-50%, -50%);
 
-    width: 524px;
-    height: 371px;
+    width: 32.75em;
+    height: 23.1875em;
     background-color: #ffffff;
+    border-radius: 1.5em;
+    padding: 24px 27px 22px 32px;
     z-index: 2;
+}
+
+.popup h1 {
+    text-align: center;
+    margin: 0 0 38px 0;
+}
+
+.cancel-btn {
+    position: absolute;
+    bottom: 22px;
+    left: 32px;
+    width: 43%;
+    height: 3.25em;
+    padding: 0;
+    border: none;
+    background: #fff;
+    color: #0053CF;
+    font-family: 'Nunito';
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 20px;
+    align-items: center;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background: #F5F5F5;
+}
+
+.add-task-btn {
+    position: absolute;
+    bottom: 22px;
+    right: 27px;
+    width: 43%;
+    height: 3.25em;
+    padding: 0;
+    border: none;
+    background: rgba(60, 134, 244, 0.15);
+    color: #0053CF;
+    font-family: 'Nunito';
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    align-items: center;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.confirm-btn[disabled] {
+    color: #fff;
+    background: #D3D3D3;
+    cursor: not-allowed;
+}
+
+.confirm-btn:not([disabled]):hover {
+    color: #0053CF;
+    background: rgba(60, 134, 244, 0.35);
+}
+
+.confirm-btn:not([disabled]):active {
+    color: #fff;
+    background: #3C86F4;
 }
 
 .overlay {
@@ -98,3 +174,60 @@ body, html {
     backdrop-filter: blur(3px);
     z-index: 1;
 }
+
+.tasks-section {
+    margin-top: 2.625em;
+    width: 30.125em;
+}
+
+.tasks-section ul {
+    margin: 1em 0 0 0;
+    padding-left: 0.75em;
+    padding-right: 0.6875em;
+}
+
+.tasks-section li {
+    list-style-type: none;
+}
+
+.task-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 2.375em;
+    margin-bottom: 0.5em;
+}
+
+.task-row input {
+    margin: 0;
+    /* appearance: none; */
+    background: #FFFFFF;
+    border: 2px solid #D3D3D3;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.task-row label {
+    flex-basis: 23.8125em;
+}
+
+.bucket-icon {
+    filter: invert(49%) sepia(54%) saturate(0%) hue-rotate(170deg) brightness(95%) contrast(81%);
+    cursor: pointer;
+}
+
+.bucket-icon:hover {
+    filter: invert(47%) sepia(27%) saturate(4062%) hue-rotate(198deg) brightness(97%) contrast(98%) opacity(60%);
+}
+
+.bucket-icon:active {
+    filter: invert(23%) sepia(49%) saturate(4490%) hue-rotate(209deg) brightness(88%) contrast(106%);
+}
+
+
+
+
+

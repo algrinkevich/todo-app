@@ -48,12 +48,13 @@
     if (!enabled) {
       disableButton(button);
     }
-    button.classList.add(styleClass);
+    button.classList.add(...styleClass);
     return button;
   }
 
   function Task({ title, onComplete, onDelete }) {
     const div = document.createElement("div");
+    div.classList.add("task-row");
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
@@ -69,11 +70,29 @@
 
     const img = document.createElement("img");
     img.src = "bucket.svg";
+    img.classList.add("bucket-icon");
+
     img.onclick = () => {
       onDelete();
     };
 
     div.append(checkbox, label, img);
+    return div;
+  }
+
+  function CompletedTask({ title }) {
+    const div = document.createElement("div");
+    div.classList.add("task-row");
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = "true";
+    checkbox.value = title;
+
+    const label = document.createElement("label");
+    label.innerHTML = title;
+
+    div.append(checkbox, label);
     return div;
   }
 
@@ -114,6 +133,7 @@
     const input = document.createElement("input");
     input.setAttribute("placeholder", placeholder);
     input.setAttribute("required", "true");
+    input.classList.add("search");
     input.oninput = onInput;
     return input;
   }
@@ -138,6 +158,7 @@
     const cancelButton = Button({
       text: "Cancel",
       onClick: () => hideComponent(popupContainer),
+      styleClass: ["cancel-btn"],
     });
     const addButton = Button({
       text: "Add Task",
@@ -148,7 +169,9 @@
         onClickAdd(titleInput.value);
       },
       enabled: false,
+      styleClass: ["add-task-btn", "confirm-btn"],
     });
+
     const popup = document.createElement("div");
     popup.classList.add("popup");
     popup.append(header, titleInput, cancelButton, addButton);
@@ -237,16 +260,18 @@
     const taskButton = Button({
       text: "+ New Task",
       onClick: () => showComponent(popup),
-      styleClass: "add-task-btn",
+      styleClass: ["new-task-btn", "confirm-btn"],
     });
     const searchContainer = document.createElement("div");
-    searchContainer.append(search, taskButton);
     searchContainer.classList.add("search-container");
+    searchContainer.append(search, taskButton);
 
     const allTasksHeader = Header({ text: "All Tasks", level: 2 });
     const unfinishedList = List({
       items: appState.allTasks
-        .filter((task) => task.toLowerCase().includes(appState.searchQuery.toLowerCase()))
+        .filter((task) =>
+          task.toLowerCase().includes(appState.searchQuery.toLowerCase())
+        )
         .map((title) =>
           Task({
             title,
@@ -260,18 +285,20 @@
         ),
     });
     const completedTasksHeader = Header({ text: "Completed Tasks", level: 2 });
-    const finishedList = List({ items: appState.completedTasks });
-    const popup = Popup(addNewTask);
-
-    div.append(
-      header,
-      searchContainer,
+    const finishedList = List({
+      items: appState.completedTasks.map((title) => CompletedTask({ title })),
+    });
+    const tasksSection = document.createElement("div");
+    tasksSection.classList.add("tasks-section");
+    tasksSection.append(
       allTasksHeader,
       unfinishedList,
       completedTasksHeader,
-      finishedList,
-      popup
+      finishedList
     );
+    const popup = Popup(addNewTask);
+
+    div.append(header, searchContainer, tasksSection, popup);
     return div;
   }
 
