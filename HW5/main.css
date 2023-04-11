@@ -42,7 +42,7 @@ body, html {
     line-height: 1.375em;
 }
 
-.search-container {
+.top-panel {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -96,7 +96,7 @@ body, html {
     white-space: nowrap;
 }
 
-.search-container__new-task-btn {
+.top-panel__new-task-btn {
     margin-left: 2.5em;
 }
 

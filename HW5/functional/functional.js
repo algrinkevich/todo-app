@@ -90,7 +90,7 @@
     checkbox.value = title;
     checkbox.onchange = () => {
       if (checkbox.checked) {
-        onComplete();
+        onComplete(title);
       }
     };
 
@@ -103,7 +103,7 @@
     img.classList.add("bucket-icon");
 
     img.onclick = () => {
-      onDelete();
+      onDelete(title);
     };
 
     div.append(checkbox, label, img);
@@ -173,7 +173,7 @@
   }
 
   //Modal component
-  function Popup(onClickAdd) {
+  function Popup({ onClickAdd }) {
     const popupContainer = document.createElement("div");
     popupContainer.classList.add("hidden");
 
@@ -282,7 +282,7 @@
       });
     }
 
-    function deleteNewTask(title) {
+    function deleteTask(title) {
       setAppState({
         ...appState,
         lastAction: "Delete Task",
@@ -290,8 +290,34 @@
       });
     }
 
-    const div = document.createElement("div");
-    div.classList.add("app-wrapper");
+    function updateQuery(query) {
+      setAppState({
+        ...appState,
+        lastAction: "Search Query",
+        searchQuery: query,
+      });
+    }
+
+    function createTasks() {
+      return appState.allTasks
+        .filter((task) =>
+          task.toLowerCase().includes(appState.searchQuery.toLowerCase())
+        )
+        .map((title) =>
+          Task({
+            title,
+            onComplete: addCompletedTask,
+            onDelete: deleteTask,
+          })
+        );
+    }
+
+    function createCompletedTasks() {
+      return appState.completedTasks.map((title) => CompletedTask({ title }));
+    }
+
+    const appWrapper = document.createElement("div");
+    appWrapper.classList.add("app-wrapper");
     const header = Header({
       text: "To Do List",
       level: 1,
@@ -299,28 +325,19 @@
     });
     const search = Search({
       placeholder: "Search Task",
-      onSearch: (query) => {
-        setAppState({
-          ...appState,
-          lastAction: "Search Query",
-          searchQuery: query,
-        });
-      },
+      onSearch: updateQuery,
       query: appState.searchQuery,
       isFocused: appState.lastAction === "Search Query",
     });
+    const showPopup = () => showComponent(popup);
     const taskButton = Button({
       text: "+ New Task",
-      onClick: () => showComponent(popup),
-      styleClass: [
-        "new-task-btn",
-        "search-container__new-task-btn",
-        "confirm-btn",
-      ],
+      onClick: showPopup,
+      styleClass: ["new-task-btn", "top-panel__new-task-btn", "confirm-btn"],
     });
-    const searchContainer = document.createElement("div");
-    searchContainer.classList.add("search-container");
-    searchContainer.append(search, taskButton);
+    const topPanel = document.createElement("div");
+    topPanel.classList.add("top-panel");
+    topPanel.append(search, taskButton);
 
     const allTasksHeader = Header({
       text: "All Tasks",
@@ -328,21 +345,7 @@
       styleClass: "tasks-section__subheader",
     });
     const unfinishedList = List({
-      items: appState.allTasks
-        .filter((task) =>
-          task.toLowerCase().includes(appState.searchQuery.toLowerCase())
-        )
-        .map((title) =>
-          Task({
-            title,
-            onComplete: () => {
-              addCompletedTask(title);
-            },
-            onDelete: () => {
-              deleteNewTask(title);
-            },
-          })
-        ),
+      items: createTasks(),
       styleClass: "task-section",
     });
     const completedTasksHeader = Header({
@@ -351,7 +354,7 @@
       styleClass: "tasks-section__subheader",
     });
     const finishedList = List({
-      items: appState.completedTasks.map((title) => CompletedTask({ title })),
+      items: createCompletedTasks(),
       styleClass: "task-section",
     });
     const tasksSection = document.createElement("div");
@@ -362,10 +365,10 @@
       completedTasksHeader,
       finishedList
     );
-    const popup = Popup(addNewTask);
+    const popup = Popup({ onClickAdd: addNewTask });
 
-    div.append(header, searchContainer, tasksSection, popup);
-    return div;
+    appWrapper.append(header, topPanel, tasksSection, popup);
+    return appWrapper;
   }
 
   /**
