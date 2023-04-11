@@ -2,6 +2,12 @@
     box-sizing: border-box;
 }
 
+:root {
+    --grey-icon: invert(49%) sepia(54%) saturate(0%) hue-rotate(170deg) brightness(95%) contrast(81%);
+    --light-blue-icon: invert(47%) sepia(27%) saturate(4062%) hue-rotate(198deg) brightness(97%) contrast(98%) opacity(60%);
+    --blue-icon: invert(23%) sepia(49%) saturate(4490%) hue-rotate(209deg) brightness(88%) contrast(106%);
+}
+
 body, html {
     margin: 0;
     padding: 0;
@@ -155,10 +161,6 @@ body, html {
     cursor: pointer;
 }
 
-.confirm-btn {
-    
-}
-
 .confirm-btn[disabled] {
     color: #fff;
     background: #D3D3D3;
@@ -254,18 +256,17 @@ body, html {
 }
 
 .bucket-icon {
-    filter: invert(49%) sepia(54%) saturate(0%) hue-rotate(170deg) brightness(95%) contrast(81%);
+    filter: var(--grey-icon);
     cursor: pointer;
 }
 
 .bucket-icon:hover {
-    filter: invert(47%) sepia(27%) saturate(4062%) hue-rotate(198deg) brightness(97%) contrast(98%) opacity(60%);
+    filter: var(--light-blue-icon);
 }
 
 .bucket-icon:active {
-    filter: invert(23%) sepia(49%) saturate(4490%) hue-rotate(209deg) brightness(88%) contrast(106%);
+    filter: var(--blue-icon);
 }
-
 
 
 
