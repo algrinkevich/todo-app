@@ -29,7 +29,7 @@
     if (!savedState) {
       return null;
     }
-    return {...initialValue, ...savedState};
+    return { ...initialValue, ...savedState };
   }
 
   function writeStateToLocalStorage(newState, saveToLS) {
@@ -66,10 +66,13 @@
    * @param onClick {function}
    * @returns {HTMLButtonElement} - Button element
    */
-  function Button({ text, onClick, enabled = true, styleClass }) {
+  function Button({ text, onClick, enabled = true, styleClass, type }) {
     const button = document.createElement("button");
     button.innerHTML = text;
     button.onclick = onClick;
+    if (type) {
+      button.type = type;
+    }
     if (!enabled) {
       disableButton(button);
     }
@@ -159,11 +162,12 @@
     return search;
   }
 
-  function InputText({ placeholder, onInput }) {
+  function InputText({ placeholder, onInput, name }) {
     const input = document.createElement("input");
     input.setAttribute("placeholder", placeholder);
     input.setAttribute("required", "true");
     input.classList.add("input-text");
+    input.name = name;
     input.oninput = onInput;
     return input;
   }
@@ -175,6 +179,14 @@
 
     const overlay = Overlay();
     const header = Header({ text: "Add New Task" });
+    const form = document.createElement("form");
+    form.onsubmit = (event) => {
+      event.preventDefault;
+      if (!titleInput.value) {
+        return;
+      }
+      onClickAdd(titleInput.value);
+    };
     const titleInput = InputText({
       placeholder: "Task Title",
       onInput: () => {
@@ -184,27 +196,29 @@
           disableButton(addButton);
         }
       },
+      name: "taskTitle",
     });
     const cancelButton = Button({
       text: "Cancel",
-      onClick: () => hideComponent(popupContainer),
+      onClick: () => {
+        hideComponent(popupContainer);
+        disableButton(addButton);
+      },
       styleClass: ["cancel-btn"],
+      type: "reset",
     });
     const addButton = Button({
       text: "Add Task",
-      onClick: () => {
-        if (!titleInput.value) {
-          return;
-        }
-        onClickAdd(titleInput.value);
-      },
       enabled: false,
       styleClass: ["add-task-btn", "confirm-btn"],
+      type: "submit",
     });
+
+    form.append(titleInput, cancelButton, addButton);
 
     const popup = document.createElement("div");
     popup.classList.add("popup");
-    popup.append(header, titleInput, cancelButton, addButton);
+    popup.append(header, form);
 
     popupContainer.append(popup, overlay);
     return popupContainer;
