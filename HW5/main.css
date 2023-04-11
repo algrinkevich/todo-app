@@ -8,22 +8,29 @@ body, html {
     font-family: 'Nunito', sans-serif;
 }
 
-.app-container {
-    padding: 2.75em 10.25em 0 10.25em;
-    display: flex;
-    flex-direction: column;
+.hidden {
+    display: none;
 }
 
-.app-header {
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 1.125em;
+.app-container {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    margin: 2.75em auto 0;
+}
+
+.app-wraper__header {
     margin-top: 0;
     margin-bottom: 1.375em;
 }
 
+.header {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.125em;
+}
+
 .subheader {
-    margin: 0;
     font-weight: 700;
     font-size: 24px;
     line-height: 1.375em;
@@ -36,10 +43,11 @@ body, html {
     justify-content: space-between;
 }
 
-.search {
+.input-text {
     width: 100%;
+    min-width: 12.5em;
     height: 3.25rem;
-    padding: 16px 21px;
+    padding: 1em 1.3125em;
     background: #F5F5F5;
     border: 1px solid #D2D2D2;
     border-radius: 0.75rem;
@@ -47,15 +55,15 @@ body, html {
     font-family: 'Nunito';
     font-weight: 500;
     font-size: 16px;
-    line-height: 20px;
+    line-height: 1.25em;
     color: #000000;
 }
 
-.search:focus {
+.input-text:focus {
     outline: none;
 }
 
-.search::placeholder { 
+.input-text::placeholder { 
     color: #838383;
     opacity: 1;
     font-family: 'Nunito', sans-serif;
@@ -64,8 +72,11 @@ body, html {
     line-height: 1.25em;
 }
 
+.input-text::-webkit-search-cancel-button {
+    cursor: pointer;
+}
+
 .new-task-btn {
-    display: inline-block;
     font-family: 'Nunito';
     font-weight: 800;
     font-size: 16px;
@@ -75,14 +86,12 @@ body, html {
     border-radius: 0.75em;
     border: none;
     cursor: pointer;
-    padding: 1em 0;
-    width: 9.884375em;
+    padding: 1em 2.2em;
     white-space: nowrap;
-    margin-left: 2.5em;
 }
 
-.hidden {
-    display: none;
+.search-container__new-task-btn {
+    margin-left: 2.5em;
 }
 
 .popup {
@@ -110,6 +119,7 @@ body, html {
     left: 32px;
     width: 43%;
     height: 3.25em;
+
     padding: 0;
     border: none;
     background: #fff;
@@ -117,9 +127,8 @@ body, html {
     font-family: 'Nunito';
     font-weight: 800;
     font-size: 16px;
-    line-height: 20px;
-    align-items: center;
-    border-radius: 12px;
+    line-height: 1.25em;
+    border-radius: 0.75em;
     cursor: pointer;
 }
 
@@ -133,6 +142,7 @@ body, html {
     right: 27px;
     width: 43%;
     height: 3.25em;
+
     padding: 0;
     border: none;
     background: rgba(60, 134, 244, 0.15);
@@ -140,10 +150,13 @@ body, html {
     font-family: 'Nunito';
     font-weight: 600;
     font-size: 16px;
-    line-height: 20px;
-    align-items: center;
-    border-radius: 12px;
+    line-height: 1.25em;
+    border-radius: 0.75em;
     cursor: pointer;
+}
+
+.confirm-btn {
+    
 }
 
 .confirm-btn[disabled] {
@@ -180,8 +193,12 @@ body, html {
     width: 30.125em;
 }
 
-.tasks-section ul {
-    margin: 1em 0 0 0;
+.tasks-section__subheader {
+    margin: 0;
+}
+
+.task-section {
+    margin: 1em 0 2em 0;
     padding-left: 0.75em;
     padding-right: 0.6875em;
 }
@@ -194,24 +211,46 @@ body, html {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    gap: 1.25em;
     height: 2.375em;
     margin-bottom: 0.5em;
 }
 
-.task-row input {
+.checkbox {
+    appearance: none;
+    position: relative;
     margin: 0;
-    /* appearance: none; */
     background: #FFFFFF;
     border: 2px solid #D3D3D3;
     width: 1.5em;
     height: 1.5em;
     border-radius: 0.25rem;
     cursor: pointer;
+    display: inline-block;
 }
 
-.task-row label {
+.checkbox:checked { 
+    background: #3C86F4;
+    border: 2px solid #3C86F4;
+    background-image: url(check.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.checkbox:disabled {
+    background: #D3D3D3;
+    background-image: url(check.svg);
+    border: 2px solid #D3D3D3;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.task-row__title {
     flex-basis: 23.8125em;
+}
+
+.task-row__title--completed {
+    color: #838383;
 }
 
 .bucket-icon {

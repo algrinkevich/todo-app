@@ -23,7 +23,7 @@
    * @param items {string[]}
    * @returns {HTMLElement} - List element
    */
-  function List({ items }) {
+  function List({ items, styleClass }) {
     const listItems = items.map((item) => {
       const li = document.createElement("li");
       li.append(item);
@@ -31,6 +31,7 @@
     });
 
     const ul = document.createElement("ul");
+    ul.classList.add(styleClass);
     ul.append(...listItems);
     return ul;
   }
@@ -57,6 +58,7 @@
     div.classList.add("task-row");
 
     const checkbox = document.createElement("input");
+    checkbox.classList.add("checkbox");
     checkbox.type = "checkbox";
     checkbox.value = title;
     checkbox.onchange = () => {
@@ -66,6 +68,7 @@
     };
 
     const label = document.createElement("label");
+    label.classList.add("task-row__title");
     label.innerHTML = title;
 
     const img = document.createElement("img");
@@ -85,11 +88,14 @@
     div.classList.add("task-row");
 
     const checkbox = document.createElement("input");
+    checkbox.classList.add("checkbox");
     checkbox.type = "checkbox";
     checkbox.checked = "true";
+    checkbox.disabled = "true";
     checkbox.value = title;
 
     const label = document.createElement("label");
+    label.classList.add("task-row__title", "task-row__title--completed");
     label.innerHTML = title;
 
     div.append(checkbox, label);
@@ -97,12 +103,12 @@
   }
 
   //Header component
-  function Header({ text, level }) {
+  function Header({ text, level, styleClass }) {
     const header = document.createElement(`h${level || 1}`);
     if (level === 1) {
-      header.classList.add("app-header");
+      header.classList.add("header", styleClass);
     } else if (level === 2) {
-      header.classList.add("subheader");
+      header.classList.add("subheader", styleClass);
     }
 
     header.innerHTML = text;
@@ -119,7 +125,7 @@
       }, 0);
     }
 
-    search.classList.add("search");
+    search.classList.add("input-text");
     search.setAttribute("type", "search");
     search.setAttribute("placeholder", placeholder);
     search.value = query;
@@ -133,7 +139,7 @@
     const input = document.createElement("input");
     input.setAttribute("placeholder", placeholder);
     input.setAttribute("required", "true");
-    input.classList.add("search");
+    input.classList.add("input-text");
     input.oninput = onInput;
     return input;
   }
@@ -244,7 +250,12 @@
     }
 
     const div = document.createElement("div");
-    const header = Header({ text: "To Do List", level: 1 });
+    div.classList.add("app-wrapper");
+    const header = Header({
+      text: "To Do List",
+      level: 1,
+      styleClass: "app-wraper__header",
+    });
     const search = Search({
       placeholder: "Search Task",
       onSearch: (query) => {
@@ -260,13 +271,17 @@
     const taskButton = Button({
       text: "+ New Task",
       onClick: () => showComponent(popup),
-      styleClass: ["new-task-btn", "confirm-btn"],
+      styleClass: ["new-task-btn", "search-container__new-task-btn", "confirm-btn"],
     });
     const searchContainer = document.createElement("div");
     searchContainer.classList.add("search-container");
     searchContainer.append(search, taskButton);
 
-    const allTasksHeader = Header({ text: "All Tasks", level: 2 });
+    const allTasksHeader = Header({
+      text: "All Tasks",
+      level: 2,
+      styleClass: "tasks-section__subheader",
+    });
     const unfinishedList = List({
       items: appState.allTasks
         .filter((task) =>
@@ -283,10 +298,16 @@
             },
           })
         ),
+        styleClass: "task-section"
     });
-    const completedTasksHeader = Header({ text: "Completed Tasks", level: 2 });
+    const completedTasksHeader = Header({
+      text: "Completed Tasks",
+      level: 2,
+      styleClass: "tasks-section__subheader",
+    });
     const finishedList = List({
       items: appState.completedTasks.map((title) => CompletedTask({ title })),
+      styleClass: "task-section"
     });
     const tasksSection = document.createElement("div");
     tasksSection.classList.add("tasks-section");
