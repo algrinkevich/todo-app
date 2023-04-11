@@ -7,15 +7,39 @@
    * @param {T} initialValue
    * @returns {[T, function(T): void]}
    */
-  function useState(initialValue) {
+  function useState(initialValue, { saveToLS }) {
+    if (!state && saveToLS) {
+      state = readStateFromLocalStorage(initialValue);
+      if (!state) {
+        writeStateToLocalStorage(initialValue, saveToLS);
+      }
+    }
     state = state || initialValue;
 
     function setValue(newValue) {
       state = newValue;
+      writeStateToLocalStorage(newValue, saveToLS);
       renderApp();
     }
-
     return [state, setValue];
+  }
+
+  function readStateFromLocalStorage(initialValue) {
+    const savedState = JSON.parse(localStorage.getItem("taskAppState"));
+    if (!savedState) {
+      return null;
+    }
+    return {...initialValue, ...savedState};
+  }
+
+  function writeStateToLocalStorage(newState, saveToLS) {
+    if (!saveToLS) {
+      return;
+    }
+    const stateToKeep = Object.fromEntries(
+      Object.entries(newState).filter(([key]) => saveToLS.includes(key))
+    );
+    localStorage.setItem("taskAppState", JSON.stringify(stateToKeep));
   }
 
   /**
@@ -213,16 +237,19 @@
    * @returns {HTMLDivElement} - The app container
    */
   function App() {
-    const [appState, setAppState] = useState({
-      allTasks: ["Task 1 Title", "Task 2 Title", "Task 3 Title"],
-      completedTasks: [
-        "Completed Task 1 Title",
-        "Completed Task 2 Title",
-        "Completed Task 3 Title",
-      ],
-      searchQuery: "",
-      lastAction: null,
-    });
+    const [appState, setAppState] = useState(
+      {
+        allTasks: ["Task 1 Title", "Task 2 Title", "Task 3 Title"],
+        completedTasks: [
+          "Completed Task 1 Title",
+          "Completed Task 2 Title",
+          "Completed Task 3 Title",
+        ],
+        searchQuery: "",
+        lastAction: null,
+      },
+      { saveToLS: ["allTasks", "completedTasks"] }
+    );
 
     function addNewTask(title) {
       setAppState({
@@ -271,7 +298,11 @@
     const taskButton = Button({
       text: "+ New Task",
       onClick: () => showComponent(popup),
-      styleClass: ["new-task-btn", "search-container__new-task-btn", "confirm-btn"],
+      styleClass: [
+        "new-task-btn",
+        "search-container__new-task-btn",
+        "confirm-btn",
+      ],
     });
     const searchContainer = document.createElement("div");
     searchContainer.classList.add("search-container");
@@ -298,7 +329,7 @@
             },
           })
         ),
-        styleClass: "task-section"
+      styleClass: "task-section",
     });
     const completedTasksHeader = Header({
       text: "Completed Tasks",
@@ -307,7 +338,7 @@
     });
     const finishedList = List({
       items: appState.completedTasks.map((title) => CompletedTask({ title })),
-      styleClass: "task-section"
+      styleClass: "task-section",
     });
     const tasksSection = document.createElement("div");
     tasksSection.classList.add("tasks-section");
