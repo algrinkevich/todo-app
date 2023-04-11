@@ -3,19 +3,19 @@
 }
 
 :root {
-    --grey-icon: invert(49%) sepia(54%) saturate(0%) hue-rotate(170deg) brightness(95%) contrast(81%);
-    --light-blue-icon: invert(47%) sepia(27%) saturate(4062%) hue-rotate(198deg) brightness(97%) contrast(98%) opacity(60%);
-    --blue-icon: invert(23%) sepia(49%) saturate(4490%) hue-rotate(209deg) brightness(88%) contrast(106%);
+    --grey-icon: invert(49%) sepia(54%) saturate(0%) hue-rotate(170deg)
+        brightness(95%) contrast(81%);
+    --light-blue-icon: invert(47%) sepia(27%) saturate(4062%) hue-rotate(198deg)
+        brightness(97%) contrast(98%) opacity(60%);
+    --blue-icon: invert(23%) sepia(49%) saturate(4490%) hue-rotate(209deg)
+        brightness(88%) contrast(106%);
 }
 
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
-    font-family: 'Nunito', sans-serif;
-}
-
-.hidden {
-    display: none;
+    font-family: "Nunito", sans-serif;
 }
 
 .app-container {
@@ -54,11 +54,11 @@ body, html {
     min-width: 12.5em;
     height: 3.25rem;
     padding: 1em 1.3125em;
-    background: #F5F5F5;
-    border: 1px solid #D2D2D2;
+    background: #f5f5f5;
+    border: 1px solid #d2d2d2;
     border-radius: 0.75rem;
 
-    font-family: 'Nunito';
+    font-family: "Nunito";
     font-weight: 500;
     font-size: 16px;
     line-height: 1.25em;
@@ -69,10 +69,10 @@ body, html {
     outline: none;
 }
 
-.input-text::placeholder { 
+.input-text::placeholder {
     color: #838383;
     opacity: 1;
-    font-family: 'Nunito', sans-serif;
+    font-family: "Nunito", sans-serif;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.25em;
@@ -83,11 +83,11 @@ body, html {
 }
 
 .new-task-btn {
-    font-family: 'Nunito';
+    font-family: "Nunito";
     font-weight: 800;
     font-size: 16px;
     line-height: 1.25em;
-    color: #0053CF;
+    color: #0053cf;
     background: rgba(60, 134, 244, 0.15);
     border-radius: 0.75em;
     border: none;
@@ -129,8 +129,8 @@ body, html {
     padding: 0;
     border: none;
     background: #fff;
-    color: #0053CF;
-    font-family: 'Nunito';
+    color: #0053cf;
+    font-family: "Nunito";
     font-weight: 800;
     font-size: 16px;
     line-height: 1.25em;
@@ -139,7 +139,7 @@ body, html {
 }
 
 .cancel-btn:hover {
-    background: #F5F5F5;
+    background: #f5f5f5;
 }
 
 .add-task-btn {
@@ -152,8 +152,8 @@ body, html {
     padding: 0;
     border: none;
     background: rgba(60, 134, 244, 0.15);
-    color: #0053CF;
-    font-family: 'Nunito';
+    color: #0053cf;
+    font-family: "Nunito";
     font-weight: 600;
     font-size: 16px;
     line-height: 1.25em;
@@ -163,18 +163,18 @@ body, html {
 
 .confirm-btn[disabled] {
     color: #fff;
-    background: #D3D3D3;
+    background: #d3d3d3;
     cursor: not-allowed;
 }
 
 .confirm-btn:not([disabled]):hover {
-    color: #0053CF;
+    color: #0053cf;
     background: rgba(60, 134, 244, 0.35);
 }
 
 .confirm-btn:not([disabled]):active {
     color: #fff;
-    background: #3C86F4;
+    background: #3c86f4;
 }
 
 .overlay {
@@ -222,8 +222,8 @@ body, html {
     appearance: none;
     position: relative;
     margin: 0;
-    background: #FFFFFF;
-    border: 2px solid #D3D3D3;
+    background: #ffffff;
+    border: 2px solid #d3d3d3;
     width: 1.5em;
     height: 1.5em;
     border-radius: 0.25rem;
@@ -231,18 +231,18 @@ body, html {
     display: inline-block;
 }
 
-.checkbox:checked { 
-    background: #3C86F4;
-    border: 2px solid #3C86F4;
+.checkbox:checked {
+    background: #3c86f4;
+    border: 2px solid #3c86f4;
     background-image: url(check.svg);
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .checkbox:disabled {
-    background: #D3D3D3;
+    background: #d3d3d3;
     background-image: url(check.svg);
-    border: 2px solid #D3D3D3;
+    border: 2px solid #d3d3d3;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -267,7 +267,3 @@ body, html {
 .bucket-icon:active {
     filter: var(--blue-icon);
 }
-
-
-
-
