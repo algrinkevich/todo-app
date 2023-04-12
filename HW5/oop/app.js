@@ -14,57 +14,7 @@ class App extends Component {
         };
     }
 
-    render(props) {
-        console.log(this.state.items);
-
-        const deleteTask = (title) => {
-            this.setState({
-                ...this.state,
-                lastAction: "Delete Task",
-                allTasks: this.state.allTasks.filter((task) => task !== title),
-            });
-        };
-
-        const addNewTask = (title) => {
-            this.setState({
-                ...this.state,
-                lastAction: "Add Task",
-                allTasks: [...this.state.allTasks, title],
-                showPopup: false
-            });
-        }
-
-        const addCompletedTask = (title) => {
-            this.setState({
-                ...this.state,
-                lastAction: "Complete Task",
-                allTasks: this.state.allTasks.filter((task) => task !== title),
-                completedTasks: [...this.state.completedTasks, title],
-            });
-        };
-
-        const updateQuery = (query) => {
-            this.setState({
-                ...this.state,
-                lastAction: "Search Query",
-                searchQuery: query,
-            });
-        };
-
-        const showPopup = () => {
-            this.setState({
-                ...this.state,
-                showPopup: true
-            })
-        };
-
-        const hidePopup = () => {
-            this.setState({
-                ...this.state,
-                showPopup: false
-            })
-        };
-
+    render() {
         const children = [
             new Header({ level: 1 }).render({
                 text: "To Do List",
@@ -72,70 +22,24 @@ class App extends Component {
             }),
 
             new TopPanel().render({
-                children: [
-                    new Search().render({
-                        placeholder: "Search Task",
-                        onSearch: updateQuery,
-                        query: this.state.searchQuery,
-                        isFocused: this.state.lastAction === "Search Query",
-                    }),
-                    new Button().render({
-                        text: "+ New Task",
-                        onClick: showPopup,
-                        styleClasses: [
-                            "new-task-btn",
-                            "top-panel__new-task-btn",
-                            "confirm-btn",
-                        ],
-                    }),
-                ],
+                onSearch: this.updateQuery,
+                searchQuery: this.state.searchQuery,
+                isSearchFocused: this.state.lastAction === "Search Query",
+                onNewTaskClick: this.showPopup
             }),
 
             new TasksSection().render({
-                children: [
-                    new Header({ level: 2 }).render({
-                        text: "All Tasks",
-                        styleClasses: ["tasks-section__subheader"],
-                    }),
-                    new List().render({
-                        //items: createTasks(),
-                        items: this.state.allTasks
-                            .filter((title) =>
-                                title
-                                    .toLowerCase()
-                                    .includes(
-                                        this.state.searchQuery.toLowerCase()
-                                    )
-                            )
-                            .map((title) =>
-                                new Task().render({
-                                    title: title,
-                                    onDelete: deleteTask,
-                                    onComplete: addCompletedTask,
-                                })
-                            ),
-                        styleClasses: "task-section",
-                    }),
-                    new Header({ level: 2 }).render({
-                        text: "Completed Tasks",
-                        styleClasses: ["tasks-section__subheader"],
-                    }),
-                    new List().render({
-                        // items: createTasks(),
-                        items: this.state.completedTasks.map((title) =>
-                            new CompletedTask().render({
-                                title: title,
-                            })
-                        ),
-                        styleClasses: "task-section",
-                    }),
-                ],
+                allTasks: this.state.allTasks,
+                searchQuery: this.state.searchQuery,
+                onDeleteTask: this.deleteTask,
+                onCompleteTask: this.addCompletedTask,
+                completedTasks: this.state.completedTasks
             }),
         ];
         if (this.state.showPopup) {
             children.push(new PopupContainer().render({
-                onCancel: hidePopup,
-                onClickAdd: addNewTask
+                onCancel: this.hidePopup,
+                onClickAdd: this.addNewTask
             }));
         }
         return super.render({
@@ -146,13 +50,51 @@ class App extends Component {
         });
     }
 
-    addItem = () => {
+    addNewTask = (title) => {
         this.setState({
-            items: [
-                ...this.state.items,
-                "item" + (this.state.items.length + 1),
-            ],
+            ...this.state,
+            lastAction: "Add Task",
+            allTasks: [...this.state.allTasks, title],
+            showPopup: false
         });
+    }
+    deleteTask = (title) => {
+        this.setState({
+            ...this.state,
+            lastAction: "Delete Task",
+            allTasks: this.state.allTasks.filter((task) => task !== title),
+        });
+    };
+
+    addCompletedTask = (title) => {
+        this.setState({
+            ...this.state,
+            lastAction: "Complete Task",
+            allTasks: this.state.allTasks.filter((task) => task !== title),
+            completedTasks: [...this.state.completedTasks, title],
+        });
+    };
+
+    updateQuery = (query) => {
+        this.setState({
+            ...this.state,
+            lastAction: "Search Query",
+            searchQuery: query,
+        });
+    };
+
+    showPopup = () => {
+        this.setState({
+            ...this.state,
+            showPopup: true
+        })
+    };
+
+    hidePopup = () => {
+        this.setState({
+            ...this.state,
+            showPopup: false
+        })
     };
 }
 

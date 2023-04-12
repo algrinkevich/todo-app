@@ -30,8 +30,8 @@ class AppWrapper extends Component {
     render(props) {
         return super.render({
             children: props.children,
-            styleClasses: ["app-wrapper"]
-        })
+            styleClasses: ["app-wrapper"],
+        });
     }
 }
 
@@ -122,8 +122,45 @@ class Search extends InputText {
 class TopPanel extends Component {
     render(props) {
         return super.render({
-            children: props.children,
+            children: [
+                new Search().render({
+                    placeholder: "Search Task",
+                    onSearch: props.onSearch,
+                    query: props.searchQuery,
+                    isFocused: props.isSearchFocused,
+                }),
+                new Button().render({
+                    text: "+ New Task",
+                    onClick: props.onNewTaskClick,
+                    styleClasses: [
+                        "new-task-btn",
+                        "top-panel__new-task-btn",
+                        "confirm-btn",
+                    ],
+                }),
+            ],
             styleClasses: ["top-panel"],
+        });
+    }
+}
+
+class TaskList extends List {
+    render(props) {
+        return super.render({
+            items: props.tasks
+                .filter((title) =>
+                    title
+                        .toLowerCase()
+                        .includes(props.searchQuery.toLowerCase())
+                )
+                .map((title) =>
+                    new Task().render({
+                        title: title,
+                        onDelete: props.onDeleteTask,
+                        onComplete: props.onCompleteTask,
+                    })
+                ),
+            styleClasses: "task-section",
         });
     }
 }
@@ -131,7 +168,30 @@ class TopPanel extends Component {
 class TasksSection extends Component {
     render(props) {
         return super.render({
-            children: props.children,
+            children: [
+                new Header({ level: 2 }).render({
+                    text: "All Tasks",
+                    styleClasses: ["tasks-section__subheader"],
+                }),
+                new TaskList().render({
+                    tasks: props.allTasks,
+                    onDeleteTask: props.onDeleteTask,
+                    onCompleteTask: props.onCompleteTask,
+                    searchQuery: props.searchQuery
+                }),
+                new Header({ level: 2 }).render({
+                    text: "Completed Tasks",
+                    styleClasses: ["tasks-section__subheader"],
+                }),
+                new List().render({
+                    items: props.completedTasks.map((title) =>
+                        new CompletedTask().render({
+                            title: title,
+                        })
+                    ),
+                    styleClasses: "task-section",
+                }),
+            ],
             styleClasses: ["tasks-section"],
         });
     }
