@@ -165,6 +165,19 @@ class TaskList extends List {
     }
 }
 
+class CompletedTaskList extends List {
+    render(props) {
+        return super.render({
+            items: props.tasks.map((title) =>
+                new CompletedTask().render({
+                    title: title,
+                })
+            ),
+            styleClasses: "task-section",
+        });
+    }
+}
+
 class TasksSection extends Component {
     render(props) {
         return super.render({
@@ -177,19 +190,14 @@ class TasksSection extends Component {
                     tasks: props.allTasks,
                     onDeleteTask: props.onDeleteTask,
                     onCompleteTask: props.onCompleteTask,
-                    searchQuery: props.searchQuery
+                    searchQuery: props.searchQuery,
                 }),
                 new Header({ level: 2 }).render({
                     text: "Completed Tasks",
                     styleClasses: ["tasks-section__subheader"],
                 }),
-                new List().render({
-                    items: props.completedTasks.map((title) =>
-                        new CompletedTask().render({
-                            title: title,
-                        })
-                    ),
-                    styleClasses: "task-section",
+                new CompletedTaskList().render({
+                    tasks: props.completedTasks,
                 }),
             ],
             styleClasses: ["tasks-section"],
@@ -345,6 +353,24 @@ class Overlay extends Component {
     }
 }
 
+class TaskTitleInput extends InputText {
+    render(props) {
+        return super.render({
+            placeholder: "Task Title",
+            onInput: () => {
+                if (this.element.value) {
+                    props.addButton.removeAttribute("disabled");
+                } else {
+                    props.addButton.disabled = "true";
+                }
+            },
+            value: "",
+            name: "taskTitle",
+            setFocus: true,
+        });
+    }
+}
+
 class Form extends Component {
     constructor() {
         super();
@@ -358,33 +384,21 @@ class Form extends Component {
             }
             props.onClickAdd(taskInput.value);
         };
-        const taskInput = new InputText().render({
-            placeholder: "Task Title",
-            onInput: () => {
-                if (taskInput.value) {
-                    addButton.removeAttribute("disabled");
-                } else {
-                    addButton.disabled = "true";
-                }
-            },
-            value: "",
-            name: "taskTitle",
-            setFocus: true,
+        const cancelButton = new Button().render({
+            text: "Cancel",
+            onClick: props.onCancel,
+            styleClasses: ["cancel-btn"],
+            type: "reset",
         });
-        const [cancelButton, addButton] = [
-            new Button().render({
-                text: "Cancel",
-                onClick: props.onCancel,
-                styleClasses: ["cancel-btn"],
-                type: "reset",
-            }),
-            new Button().render({
-                text: "Add Task",
-                enabled: false,
-                styleClasses: ["add-task-btn", "confirm-btn"],
-                type: "submit",
-            }),
-        ];
+        const addButton = new Button().render({
+            text: "Add Task",
+            enabled: false,
+            styleClasses: ["add-task-btn", "confirm-btn"],
+            type: "submit",
+        });
+        const taskInput = new TaskTitleInput().render({
+            addButton,
+        });
         return super.render({
             children: [taskInput, cancelButton, addButton],
         });
