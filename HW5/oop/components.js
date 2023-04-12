@@ -334,7 +334,7 @@ class Popup extends Component {
                 new Header({ level: 1 }).render({
                     text: "Add New Task",
                 }),
-                new Form().render({
+                new AddTaskForm().render({
                     onCancel: props.onCancel,
                     onClickAdd: props.onClickAdd,
                 }),
@@ -371,7 +371,7 @@ class TaskTitleInput extends InputText {
     }
 }
 
-class Form extends Component {
+class AddTaskForm extends Component {
     constructor() {
         super();
         this.element = document.createElement(`form`);
