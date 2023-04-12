@@ -58,10 +58,10 @@
     /**
      * Functional component for the list
      * @param {HTMLElement[]} items
-     * @param {string} styleClass
+     * @param {string} styleClasses
      * @return {HTMLUListElement} - List element
      */
-    function List({ items, styleClass }) {
+    function List({ items, styleClasses }) {
         const listItems = items.map((item) => {
             const li = document.createElement("li");
             li.append(item);
@@ -69,7 +69,7 @@
         });
 
         const ul = document.createElement("ul");
-        ul.classList.add(styleClass);
+        ul.classList.add(...styleClasses);
         ul.append(...listItems);
         return ul;
     }
@@ -79,11 +79,11 @@
      * @param {string} text
      * @param {function} onClick
      * @param {boolean} enabled
-     * @param {string[]} styleClass
+     * @param {string[]} styleClasses
      * @param {string} type
      * @return {HTMLButtonElement} - Button element
      */
-    function Button({ text, onClick, enabled = true, styleClass, type }) {
+    function Button({ text, onClick, enabled = true, styleClasses, type }) {
         const button = document.createElement("button");
         button.innerHTML = text;
         button.onclick = onClick;
@@ -93,7 +93,7 @@
         if (!enabled) {
             disableButton(button);
         }
-        button.classList.add(...styleClass);
+        button.classList.add(...styleClasses);
         return button;
     }
 
@@ -159,15 +159,15 @@
      * Functional component for the header
      * @param {string} text
      * @param {number} level
-     * @param {string} styleClass
+     * @param {string} styleClasses
      * @return {HTMLHeadingElement}
      */
-    function Header({ text, level, styleClass }) {
+    function Header({ text, level, styleClasses }) {
         const header = document.createElement(`h${level || 1}`);
         if (level === 1) {
-            header.classList.add("header", styleClass);
+            header.classList.add("header", ...styleClasses);
         } else if (level === 2) {
-            header.classList.add("subheader", styleClass);
+            header.classList.add("subheader", ...styleClasses);
         }
         header.innerHTML = text;
         return header;
@@ -260,13 +260,13 @@
                 popupContainer.remove();
                 disableButton(addButton);
             },
-            styleClass: ["cancel-btn"],
+            styleClasses: ["cancel-btn"],
             type: "reset",
         });
         const addButton = Button({
             text: "Add Task",
             enabled: false,
-            styleClass: ["add-task-btn", "confirm-btn"],
+            styleClasses: ["add-task-btn", "confirm-btn"],
             type: "submit",
         });
 
@@ -341,7 +341,7 @@
         }
 
         /**
-         * Moves a task from general list to completed
+         * Moves a task from 'All Tasks' list to completed
          * @param {string} title
          * @return {void}
          */
@@ -368,7 +368,7 @@
         }
 
         /**
-         * Stores the last input value in the app's state
+         * Saves query in the state
          * @param {string} query
          * @return {void}
          */
@@ -381,8 +381,7 @@
         }
 
         /**
-         * Filters string tasks so that they match a search query
-         * and then converts each string task into Task component
+         * Create Task Component in accordance with current state (taking into account filter)
          * @return {HTMLDivElement[]}
          */
         function createTasks() {
@@ -428,7 +427,7 @@
             const taskButton = Button({
                 text: "+ New Task",
                 onClick: showPopup,
-                styleClass: [
+                styleClasses: [
                     "new-task-btn",
                     "top-panel__new-task-btn",
                     "confirm-btn",
@@ -448,20 +447,20 @@
             const allTasksHeader = Header({
                 text: "All Tasks",
                 level: 2,
-                styleClass: "tasks-section__subheader",
+                styleClasses: ["tasks-section__subheader"],
             });
             const unfinishedList = List({
                 items: createTasks(),
-                styleClass: "task-section",
+                styleClasses: ["task-section"],
             });
             const completedTasksHeader = Header({
                 text: "Completed Tasks",
                 level: 2,
-                styleClass: "tasks-section__subheader",
+                styleClasses: ["tasks-section__subheader"],
             });
             const finishedList = List({
                 items: createCompletedTasks(),
-                styleClass: "task-section",
+                styleClasses: ["task-section"],
             });
             const tasksSection = document.createElement("div");
             tasksSection.classList.add("tasks-section");
@@ -477,7 +476,7 @@
         const header = Header({
             text: "To Do List",
             level: 1,
-            styleClass: "app-wraper__header",
+            styleClasses: ["app-wraper__header"],
         });
 
         const appWrapper = document.createElement("div");
