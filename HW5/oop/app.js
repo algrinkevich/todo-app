@@ -13,7 +13,10 @@ class App extends Component {
             showPopup: false,
         };
     }
-
+    /**
+     * @override
+     * @returns {HTMLElement}
+     */
     render() {
         const children = [
             new Header({ level: 1 }).render({
@@ -25,7 +28,7 @@ class App extends Component {
                 onSearch: this.updateQuery,
                 searchQuery: this.state.searchQuery,
                 isSearchFocused: this.state.lastAction === "Search Query",
-                onNewTaskClick: this.showPopup
+                onNewTaskClick: this.showPopup,
             }),
 
             new TasksSection().render({
@@ -33,20 +36,24 @@ class App extends Component {
                 searchQuery: this.state.searchQuery,
                 onDeleteTask: this.deleteTask,
                 onCompleteTask: this.addCompletedTask,
-                completedTasks: this.state.completedTasks
+                completedTasks: this.state.completedTasks,
             }),
         ];
         if (this.state.showPopup) {
-            children.push(new PopupContainer().render({
-                onCancel: this.hidePopup,
-                onClickAdd: this.addNewTask
-            }));
+            children.push(
+                new PopupContainer().render({
+                    onCancel: this.hidePopup,
+                    onClickAdd: this.addNewTask,
+                })
+            );
         }
         return super.render({
-            children: [new AppWrapper().render({
-                children
-            })],
-            styleClasses: ["app-container"]
+            children: [
+                new AppWrapper().render({
+                    children,
+                }),
+            ],
+            styleClasses: ["app-container"],
         });
     }
 
@@ -55,9 +62,9 @@ class App extends Component {
             ...this.state,
             lastAction: "Add Task",
             allTasks: [...this.state.allTasks, title],
-            showPopup: false
+            showPopup: false,
         });
-    }
+    };
     deleteTask = (title) => {
         this.setState({
             ...this.state,
@@ -86,15 +93,15 @@ class App extends Component {
     showPopup = () => {
         this.setState({
             ...this.state,
-            showPopup: true
-        })
+            showPopup: true,
+        });
     };
 
     hidePopup = () => {
         this.setState({
             ...this.state,
-            showPopup: false
-        })
+            showPopup: false,
+        });
     };
 }
 

@@ -7,8 +7,8 @@ class Button extends Component {
     /**
      * @override
      * @param props
-     * @param props.text {string}
-     * @param props.onClick {function}
+     * @param {string} props.text
+     * @param {function} props.onClick
      * @returns {HTMLElement}
      */
     render(props) {
@@ -27,6 +27,13 @@ class Button extends Component {
 }
 
 class AppWrapper extends Component {
+    /**
+     * @override
+     * @param props
+     * @param {HTMLElement[]} props.children
+     * @param {string[]} props.styleClasses
+     * @returns {HTMLDivElement}
+     */
     render(props) {
         return super.render({
             children: props.children,
@@ -40,12 +47,11 @@ class List extends Component {
         super();
         this.element = document.createElement("ul");
     }
-
     /**
      * @override
      * @param props
-     * @param props.items {string[]}
-     * @param props.addItem {function}
+     * @param {string[]} props.items
+     * @param {HTMLElement[]} props.children
      * @returns {HTMLElement}
      */
     render(props) {
@@ -60,6 +66,12 @@ class List extends Component {
 }
 
 class ListItem extends Component {
+    /**
+     * @override
+     * @param props
+     * @param {HTMLElement[]} props.children
+     * @returns {HTMLElement}
+     */
     render(props) {
         return super.render({
             children: props.children,
@@ -72,7 +84,13 @@ class Header extends Component {
         super();
         this.element = document.createElement(`h${level}`);
     }
-
+    /**
+     * @override
+     * @param props
+     * @param {HTMLElement[]} props.children
+     * @param {string[]} props.styleClasses
+     * @returns {HTMLElement}
+     */
     render(props) {
         return super.render({
             children: [props.text],
@@ -86,7 +104,17 @@ class InputText extends Component {
         super();
         this.element = document.createElement(`input`);
     }
-
+    /**
+     * @override
+     * @param props
+     * @param {function} props.onInput
+     * @param {string} props.name
+     * @param {string} props.type
+     * @param {string} props.value
+     * @param {string} props.placeholder
+     * @param {boolean} props.setFocus
+     * @returns {HTMLElement}
+     */
     render(props) {
         this.element.oninput = props.onInput;
         this.element.name = props.name;
@@ -107,6 +135,11 @@ class InputText extends Component {
 }
 
 class Search extends InputText {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         return super.render({
             placeholder: props.placeholder,
@@ -120,6 +153,11 @@ class Search extends InputText {
 }
 
 class TopPanel extends Component {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         return super.render({
             children: [
@@ -145,6 +183,11 @@ class TopPanel extends Component {
 }
 
 class TaskList extends List {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         return super.render({
             items: props.tasks
@@ -166,6 +209,11 @@ class TaskList extends List {
 }
 
 class CompletedTaskList extends List {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         return super.render({
             items: props.tasks.map((title) =>
@@ -179,6 +227,11 @@ class CompletedTaskList extends List {
 }
 
 class TasksSection extends Component {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         return super.render({
             children: [
@@ -206,6 +259,11 @@ class TasksSection extends Component {
 }
 
 class CompletedTask extends Component {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         return super.render({
             children: [
@@ -226,6 +284,11 @@ class CompletedTask extends Component {
 }
 
 class Task extends Component {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         return super.render({
             children: [
@@ -251,6 +314,11 @@ class Checkbox extends Component {
         super();
         this.element = document.createElement(`input`);
     }
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         this.element.type = "checkbox";
         this.element.value = props.title;
@@ -267,6 +335,11 @@ class Checkbox extends Component {
 }
 
 class DisabledCheckbox extends Checkbox {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         this.element.checked = "true";
         this.element.disabled = "true";
@@ -281,6 +354,11 @@ class Label extends Component {
         super();
         this.element = document.createElement(`label`);
     }
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         return super.render({
             children: [props.title],
@@ -294,6 +372,11 @@ class Image extends Component {
         super();
         this.element = document.createElement(`img`);
     }
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         this.element.src = props.src;
         return super.render({
@@ -305,6 +388,11 @@ class Image extends Component {
 }
 
 class DeleteIcon extends Image {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         return super.render({
             styleClasses: ["bucket-icon"],
@@ -315,6 +403,11 @@ class DeleteIcon extends Image {
 }
 
 class PopupContainer extends Component {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         return super.render({
             children: [
@@ -328,6 +421,11 @@ class PopupContainer extends Component {
     }
 }
 class Popup extends Component {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         return super.render({
             children: [
@@ -345,6 +443,11 @@ class Popup extends Component {
 }
 
 class Overlay extends Component {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         return super.render({
             children: [],
@@ -354,6 +457,11 @@ class Overlay extends Component {
 }
 
 class TaskTitleInput extends InputText {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         return super.render({
             placeholder: "Task Title",
@@ -376,6 +484,11 @@ class AddTaskForm extends Component {
         super();
         this.element = document.createElement(`form`);
     }
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
     render(props) {
         this.element.onsubmit = (event) => {
             event.preventDefault();
