@@ -397,7 +397,7 @@ class DeleteIcon extends Image {
         return super.render({
             styleClasses: ["bucket-icon"],
             onClick: props.onClick,
-            src: "bucket.svg",
+            src: "images/bucket.svg",
         });
     }
 }

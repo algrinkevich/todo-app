@@ -122,7 +122,7 @@
         text.innerHTML = title;
 
         const bucketIcon = document.createElement("img");
-        bucketIcon.src = "bucket.svg";
+        bucketIcon.src = "images/bucket.svg";
         bucketIcon.classList.add("bucket-icon");
         bucketIcon.onclick = () => {
             onDelete(title);

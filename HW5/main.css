@@ -234,14 +234,14 @@ html {
 .checkbox:checked {
     background: #3c86f4;
     border: 2px solid #3c86f4;
-    background-image: url(check.svg);
+    background-image: url(images/check.svg);
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .checkbox:disabled {
     background: #d3d3d3;
-    background-image: url(check.svg);
+    background-image: url(images/check.svg);
     border: 2px solid #d3d3d3;
     background-repeat: no-repeat;
     background-position: center;
