@@ -245,6 +245,7 @@ html {
     border: 2px solid #d3d3d3;
     background-repeat: no-repeat;
     background-position: center;
+    cursor: not-allowed;
 }
 
 .task-row__title {
