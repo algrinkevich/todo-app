@@ -236,7 +236,7 @@
         const header = Header({ text: "Add New Task" });
         const form = document.createElement("form");
         form.onsubmit = (event) => {
-            event.preventDefault;
+            event.preventDefault();
             if (!titleInput.value) {
                 return;
             }
