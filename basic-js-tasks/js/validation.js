@@ -43,7 +43,7 @@ function validateProducts(products) {
 }
 
 function validateFullName(user) {
-  if (typeof user !== "object" || !user) {
+  if (typeof user !== "object" || Array.isArray(user) || !user) {
     throw new Error("Not an object is provided");
   }
 
@@ -66,7 +66,7 @@ function validateObjects(objects, validateFunction) {
 }
 
 function validateCode(codeToMessage, code) {
-  if (!codeToMessage[code]) {
+  if (!(code in codeToMessage)) {
     throw new Error("Invalid code");
   }
 }

@@ -356,10 +356,16 @@ const get2BiggestValues = numbers => {
 const getNumberOfVowels = string => {
   validation.validateString(string);
 
-  const vowels = ["a", "e", "i", "o", "u"];
+  const vowels = {
+    "a": "a",
+    "e": "e",
+    "i": "i",
+    "o": "o",
+    "u": "u"
+  };
   return string
     .split("")
-    .filter(letter => vowels.includes(letter))
+    .filter((letter) => letter in vowels)
     .length;
 };
 /**

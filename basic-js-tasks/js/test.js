@@ -489,6 +489,13 @@ describe("Get full name", function () {
       /^Error: Not an object is provided$/
     );
   });
+
+  it("should throw exception for array input", function () {
+    assert.throws(
+      () => main.getFullName([1, 2, 3]),
+      /^Error: Not an object is provided$/
+    );
+  });
 });
 
 
