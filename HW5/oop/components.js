@@ -191,14 +191,14 @@ class TaskList extends List {
     render(props) {
         return super.render({
             items: props.tasks
-                .filter((title) =>
-                    title
+                .filter((task) =>
+                    task.title
                         .toLowerCase()
                         .includes(props.searchQuery.toLowerCase())
                 )
-                .map((title) =>
+                .map((task) =>
                     new Task().render({
-                        title: title,
+                        task: task,
                         onDelete: props.onDeleteTask,
                         onComplete: props.onCompleteTask,
                     })
@@ -216,9 +216,9 @@ class CompletedTaskList extends List {
      */
     render(props) {
         return super.render({
-            items: props.tasks.map((title) =>
+            items: props.tasks.map((task) =>
                 new CompletedTask().render({
-                    title: title,
+                    task,
                 })
             ),
             styleClasses: "task-section",
@@ -240,7 +240,7 @@ class TasksSection extends Component {
                     styleClasses: ["tasks-section__subheader"],
                 }),
                 new TaskList().render({
-                    tasks: props.allTasks,
+                    tasks: props.tasks.filter((task) => !task.isCompleted),
                     onDeleteTask: props.onDeleteTask,
                     onCompleteTask: props.onCompleteTask,
                     searchQuery: props.searchQuery,
@@ -250,7 +250,7 @@ class TasksSection extends Component {
                     styleClasses: ["tasks-section__subheader"],
                 }),
                 new CompletedTaskList().render({
-                    tasks: props.completedTasks,
+                    tasks: props.tasks.filter((task) => task.isCompleted),
                 }),
             ],
             styleClasses: ["tasks-section"],
@@ -268,10 +268,10 @@ class CompletedTask extends Component {
         return super.render({
             children: [
                 new DisabledCheckbox().render({
-                    title: props.title,
+                    title: props.task.title,
                 }),
                 new Label().render({
-                    title: props.title,
+                    title: props.task.title,
                     styleClasses: [
                         "task-row__title",
                         "task-row__title--completed",
@@ -293,15 +293,15 @@ class Task extends Component {
         return super.render({
             children: [
                 new Checkbox().render({
-                    title: props.title,
+                    title: props.task.title,
                     onChecked: props.onComplete,
                 }),
                 new Label().render({
-                    title: props.title,
+                    title: props.task.title,
                     styleClasses: ["task-row__title"],
                 }),
                 new DeleteIcon().render({
-                    onClick: () => props.onDelete(props.title),
+                    onClick: () => props.onDelete(props.task.title),
                 }),
             ],
             styleClasses: ["task-row"],

@@ -34,12 +34,7 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            allTasks: ["Task 1 Title", "Task 2 Title", "Task 3 Title"],
-            completedTasks: [
-                "Completed Task 1 Title",
-                "Completed Task 2 Title",
-                "Completed Task 3 Title",
-            ],
+            tasks: [],
             searchQuery: "",
             lastAction: null,
             showPopup: false,
@@ -48,7 +43,7 @@ class App extends Component {
         this.server.getTasks().then((response) => {
             this.setState({
                 ...this.state,
-                allTasks: response.map((item) => item.title),
+                tasks: response,
             });
         });
     }
@@ -71,11 +66,10 @@ class App extends Component {
             }),
 
             new TasksSection().render({
-                allTasks: this.state.allTasks,
+                tasks: this.state.tasks,
                 searchQuery: this.state.searchQuery,
                 onDeleteTask: this.deleteTask,
                 onCompleteTask: this.addCompletedTask,
-                completedTasks: this.state.completedTasks,
             }),
         ];
         if (this.state.showPopup) {
@@ -101,7 +95,7 @@ class App extends Component {
             this.setState({
                 ...this.state,
                 lastAction: "Add Task",
-                allTasks: [...this.state.allTasks, title],
+                tasks: [...this.state.tasks, response],
                 showPopup: false,
             });
         });
@@ -111,7 +105,7 @@ class App extends Component {
         this.setState({
             ...this.state,
             lastAction: "Delete Task",
-            allTasks: this.state.allTasks.filter((task) => task !== title),
+            tasks: this.state.tasks.filter((task) => task.title !== title),
         });
     };
 
@@ -119,8 +113,10 @@ class App extends Component {
         this.setState({
             ...this.state,
             lastAction: "Complete Task",
-            allTasks: this.state.allTasks.filter((task) => task !== title),
-            completedTasks: [...this.state.completedTasks, title],
+            tasks: this.state.tasks.map((task) => ({
+                ...task,
+                isCompleted: task.isCompleted || task.title === title,
+            })),
         });
     };
 
