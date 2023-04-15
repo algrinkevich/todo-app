@@ -1,3 +1,35 @@
+class TaskAppServer {
+    constructor() {}
+    getTasks() {
+        return fetch("http://localhost:3004/tasks").then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            return response.json();
+        });
+    }
+
+    createTask(title) {
+        return fetch("http://localhost:3004/tasks", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                title: title,
+                isCompleted: false,
+            }),
+        }).then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            return response.json();
+        });
+    }
+}
+
 class App extends Component {
     constructor() {
         super();
@@ -12,6 +44,13 @@ class App extends Component {
             lastAction: null,
             showPopup: false,
         };
+        this.server = new TaskAppServer();
+        this.server.getTasks().then((response) => {
+            this.setState({
+                ...this.state,
+                allTasks: response.map((item) => item.title),
+            });
+        });
     }
     /**
      * @override
@@ -58,13 +97,16 @@ class App extends Component {
     }
 
     addNewTask = (title) => {
-        this.setState({
-            ...this.state,
-            lastAction: "Add Task",
-            allTasks: [...this.state.allTasks, title],
-            showPopup: false,
+        this.server.createTask(title).then((response) => {
+            this.setState({
+                ...this.state,
+                lastAction: "Add Task",
+                allTasks: [...this.state.allTasks, title],
+                showPopup: false,
+            });
         });
     };
+
     deleteTask = (title) => {
         this.setState({
             ...this.state,
