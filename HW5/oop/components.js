@@ -294,14 +294,14 @@ class Task extends Component {
             children: [
                 new Checkbox().render({
                     title: props.task.title,
-                    onChecked: props.onComplete,
+                    onChecked: () => props.onComplete(props.task),
                 }),
                 new Label().render({
                     title: props.task.title,
                     styleClasses: ["task-row__title"],
                 }),
                 new DeleteIcon().render({
-                    onClick: () => props.onDelete(props.task.title),
+                    onClick: () => props.onDelete(props.task),
                 }),
             ],
             styleClasses: ["task-row"],

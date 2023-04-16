@@ -1,32 +1,46 @@
 class TaskAppServer {
-    constructor() {}
-    getTasks() {
-        return fetch("http://localhost:3004/tasks").then((response) => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
+    BASE_URL = "http://localhost:3004";
+    TASKS_URL = `${this.BASE_URL}/tasks`;
 
-            return response.json();
-        });
+    getTasks() {
+        return fetch(this.TASKS_URL).then(this.handleResponse);
     }
 
-    createTask(title) {
-        return fetch("http://localhost:3004/tasks", {
+    createTask(task) {
+        return fetch(this.TASKS_URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                title: title,
-                isCompleted: false,
+                title: task.title,
+                isCompleted: task.isCompleted,
             }),
-        }).then((response) => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
+        }).then(this.handleResponse);
+    }
 
-            return response.json();
-        });
+    deleteTask(task) {
+        return fetch(`${this.TASKS_URL}/${task.id}`, {
+            method: "DELETE",
+        }).then(this.handleResponse);
+    }
+
+    updateTask(task) {
+        return fetch(`${this.TASKS_URL}/${task.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(task),
+        }).then(this.handleResponse);
+    }
+
+    handleResponse(response) {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return response.json();
     }
 }
 
@@ -91,32 +105,43 @@ class App extends Component {
     }
 
     addNewTask = (title) => {
-        this.server.createTask(title).then((response) => {
+        this.server
+            .createTask({ title: title, isCompleted: false })
+            .then((response) => {
+                this.setState({
+                    ...this.state,
+                    lastAction: "Add Task",
+                    tasks: [...this.state.tasks, response],
+                    showPopup: false,
+                });
+            });
+    };
+
+    deleteTask = (taskToDelete) => {
+        this.server.deleteTask(taskToDelete).then((response) => {
             this.setState({
                 ...this.state,
-                lastAction: "Add Task",
-                tasks: [...this.state.tasks, response],
-                showPopup: false,
+                lastAction: "Delete Task",
+                tasks: this.state.tasks.filter(
+                    (task) => task.id !== taskToDelete.id
+                ),
             });
         });
     };
 
-    deleteTask = (title) => {
-        this.setState({
-            ...this.state,
-            lastAction: "Delete Task",
-            tasks: this.state.tasks.filter((task) => task.title !== title),
-        });
-    };
+    addCompletedTask = (taskToComplete) => {
+        const completedTask = { ...taskToComplete, isCompleted: true };
 
-    addCompletedTask = (title) => {
-        this.setState({
-            ...this.state,
-            lastAction: "Complete Task",
-            tasks: this.state.tasks.map((task) => ({
-                ...task,
-                isCompleted: task.isCompleted || task.title === title,
-            })),
+        this.server.updateTask(completedTask).then((response) => {
+            this.setState({
+                ...this.state,
+                lastAction: "Complete Task",
+                tasks: this.state.tasks.map((task) => ({
+                    ...task,
+                    isCompleted:
+                        task.isCompleted || task.id === completedTask.id,
+                })),
+            });
         });
     };
 
