@@ -87,6 +87,7 @@ class List extends Component {
                     return new ListItem().render({ children: [item] });
                 }),
             ],
+            styleClasses: props.styleClasses,
         });
     }
 }
@@ -98,6 +99,10 @@ class ListItem extends Component {
      * @param {HTMLElement[]} props.children
      * @returns {HTMLElement}
      */
+    constructor() {
+        super();
+        this.element = document.createElement("li");
+    }
     render(props) {
         return super.render({
             children: props.children,
@@ -148,7 +153,6 @@ class InputText extends Component {
         this.element.value = props.value;
         this.element.autocomplete = "off";
         this.element.placeholder = props.placeholder;
-        this.element.classList.add("input-text");
         if (props.setFocus) {
             setTimeout(() => {
                 this.element.focus();
@@ -156,6 +160,7 @@ class InputText extends Component {
         }
         return super.render({
             children: [],
+            styleClasses: ["input-text"],
         });
     }
 }
@@ -229,7 +234,7 @@ class TaskList extends List {
                         onComplete: props.onCompleteTask,
                     })
                 ),
-            styleClasses: "task-section",
+            styleClasses: ["task-section"],
         });
     }
 }
@@ -247,7 +252,7 @@ class CompletedTaskList extends List {
                     task,
                 })
             ),
-            styleClasses: "task-section",
+            styleClasses: ["task-section"],
         });
     }
 }
@@ -288,19 +293,62 @@ class TasksSection extends Component {
     }
 }
 
-class CompletedTask extends Component {
+class BaseTask extends Component {
+    formatTaskDate(taskDate) {
+        let plannedDate = new Date(taskDate);
+        plannedDate.setHours(0);
+        const currentDate = new Date();
+        currentDate.setHours(0);
+        currentDate.setMinutes(0);
+        currentDate.setSeconds(0);
+        currentDate.setMilliseconds(0);
+        const tomorrowDate = new Date(currentDate);
+        tomorrowDate.setDate(currentDate.getDate() + 1);
+        const afterTomorrowDate = new Date(tomorrowDate);
+        afterTomorrowDate.setDate(tomorrowDate.getDate() + 1);
+
+        let formattedDate = null;
+
+        if (plannedDate < tomorrowDate && plannedDate >= currentDate) {
+            formattedDate = "Today";
+        } else if (
+            plannedDate >= tomorrowDate &&
+            plannedDate < afterTomorrowDate
+        ) {
+            formattedDate = "Tomorrow";
+        } else {
+            let options = {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+            };
+            const [weekdayPart, _, monthPart, __, dayPart] =
+                new Intl.DateTimeFormat("en-US", options).formatToParts(
+                    plannedDate
+                );
+            formattedDate = `${weekdayPart.value}, ${
+                dayPart.value
+            } ${monthPart.value.slice(0, 3)}`;
+        }
+        return formattedDate;
+    }
+}
+
+class CompletedTask extends BaseTask {
     /**
      * @override
      * @param props
      * @returns {HTMLElement}
      */
     render(props) {
+        const formattedDate = this.formatTaskDate(props.task.plannedDate);
         return super.render({
             children: [
                 new DisabledCheckbox().render({
                     title: props.task.title,
                 }),
                 new Label().render({
+                    date: formattedDate,
                     title: props.task.title,
                     styleClasses: [
                         "task-row__title",
@@ -313,13 +361,14 @@ class CompletedTask extends Component {
     }
 }
 
-class Task extends Component {
+class Task extends BaseTask {
     /**
      * @override
      * @param props
      * @returns {HTMLElement}
      */
     render(props) {
+        const formattedDate = this.formatTaskDate(props.task.plannedDate);
         return super.render({
             children: [
                 new Checkbox().render({
@@ -327,6 +376,7 @@ class Task extends Component {
                     onChecked: () => props.onComplete(props.task),
                 }),
                 new Label().render({
+                    date: formattedDate,
                     title: props.task.title,
                     styleClasses: ["task-row__title"],
                 }),
@@ -391,7 +441,13 @@ class Label extends Component {
      */
     render(props) {
         return super.render({
-            children: [props.title],
+            children: [
+                props.title,
+                new Text().render({
+                    text: props.date,
+                    styleClasses: ["task-row__date"],
+                }),
+            ],
             styleClasses: props.styleClasses,
         });
     }
@@ -505,6 +561,7 @@ class TaskTitleInput extends InputText {
             value: "",
             name: "taskTitle",
             setFocus: true,
+            type: "text",
         });
     }
 }
@@ -522,10 +579,13 @@ class AddTaskForm extends Component {
     render(props) {
         this.element.onsubmit = (event) => {
             event.preventDefault();
-            if (!taskInput.value) {
+            if (!taskInput.value || !datePicker.value) {
                 return;
             }
-            props.onClickAdd(taskInput.value);
+            props.onClickAdd({
+                title: taskInput.value,
+                date: datePicker.value,
+            });
         };
         const cancelButton = new Button().render({
             text: "Cancel",
@@ -540,10 +600,15 @@ class AddTaskForm extends Component {
             type: "submit",
         });
         const taskInput = new TaskTitleInput().render({
+            type: "text",
             addButton,
         });
+        const datePicker = new DatePicker().render({
+            name: "planned-date",
+            styleClasses: ["date-picker", "popup__date-picker"],
+        });
         return super.render({
-            children: [taskInput, cancelButton, addButton],
+            children: [taskInput, cancelButton, addButton, datePicker],
         });
     }
 }
@@ -558,11 +623,6 @@ class Text extends Component {
         super();
         this.element = document.createElement(`p`);
     }
-    /**
-     * @override
-     * @param props
-     * @returns {HTMLElement}
-     */
     render(props) {
         return super.render({
             children: [props.text],
@@ -610,7 +670,7 @@ class WeatherWidget extends Component {
             children = [
                 new Image().render({
                     src: this.state.icon,
-                    styleClasses: ["weather__icon"]
+                    styleClasses: ["weather__icon"],
                 }),
                 new Heading({ level: 3 }).render({
                     text: `${this.state.temperature}°`,
@@ -619,7 +679,7 @@ class WeatherWidget extends Component {
                 new Text().render({
                     text: this.state.city,
                     styleClasses: ["weather__city"],
-                })
+                }),
             ];
         }
         return super.render({
@@ -629,4 +689,24 @@ class WeatherWidget extends Component {
     }
 }
 
+class DatePicker extends Component {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
+    constructor() {
+        super();
+        this.element = document.createElement(`input`);
+    }
+    render(props) {
+        this.element.name = props.name;
+        this.element.type = "date";
+        this.element.valueAsDate = new Date();
 
+        return super.render({
+            children: [],
+            styleClasses: props.styleClasses,
+        });
+    }
+}

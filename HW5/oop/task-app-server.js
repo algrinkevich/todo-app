@@ -15,6 +15,7 @@ class TaskAppServer {
             body: JSON.stringify({
                 title: task.title,
                 isCompleted: task.isCompleted,
+                plannedDate: task.plannedDate
             }),
         }).then(this.handleResponse);
     }

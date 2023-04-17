@@ -185,6 +185,22 @@ html {
     background: #3c86f4;
 }
 
+.date-picker {
+    padding: 0.625em 1em;
+    background: #FFFFFF;
+    border: 2px solid rgba(60, 134, 244, 0.6);
+    border-radius: 0.75em;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25em;
+    color: #1D1D1D;
+}
+
+.popup__date-picker {
+    margin-top: 18px;
+    float: right;
+}
+
 .overlay {
     position: fixed;
     top: 0;
@@ -223,7 +239,8 @@ html {
     align-items: center;
     gap: 1.25em;
     height: 2.375em;
-    margin-bottom: 0.5em;
+    margin-bottom: 1.5em;
+    /* margin-bottom: 0.5em; */
 }
 
 .checkbox {
@@ -300,4 +317,12 @@ html {
 .weather__icon {
     width: 3.5625em;
     margin-right: 1.375em;
+}
+
+.task-row__date {
+    margin: 0;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.3333em;
+    color: #838383;
 }

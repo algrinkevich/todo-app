@@ -1,11 +1,16 @@
 class App extends Component {
     constructor() {
         super();
+        const openedDate = new Date().toString().slice(0, 15);
+        const previousOpenedDate = localStorage.getItem("lastOpened");
+        localStorage.setItem("lastOpened", openedDate);
+
         this.state = {
             tasks: [],
             searchQuery: "",
             lastAction: null,
             showPopup: false,
+            openedFirstTimeADay: openedDate !== previousOpenedDate
         };
         this.server = new TaskAppServer();
         this.server.getTasks().then((response) => {
@@ -21,7 +26,7 @@ class App extends Component {
      */
     render() {
         const children = [
-            new Header ().render(),
+            new Header().render(),
 
             new TopPanel().render({
                 onSearch: this.updateQuery,
@@ -35,7 +40,7 @@ class App extends Component {
                 searchQuery: this.state.searchQuery,
                 onDeleteTask: this.deleteTask,
                 onCompleteTask: this.addCompletedTask,
-            })
+            }),
         ];
         if (this.state.showPopup) {
             children.push(
@@ -55,9 +60,9 @@ class App extends Component {
         });
     }
 
-    addNewTask = (title) => {
+    addNewTask = ({title, date}) => {
         this.server
-            .createTask({ title: title, isCompleted: false })
+            .createTask({ title: title, isCompleted: false, plannedDate: date })
             .then((response) => {
                 this.setState({
                     ...this.state,
