@@ -1,3 +1,29 @@
+class Header extends Component {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
+    constructor() {
+        super();
+        this.element = document.createElement("header");
+    }
+    render(props) {
+        return super.render({
+            children: [
+                new Heading({ level: 1 }).render({
+                    text: "To Do List",
+                    styleClasses: ["app-wraper__heading", "heading"],
+                }),
+                new WeatherWidget().render({
+                    styleClasses: ["weather"],
+                }),
+            ],
+            styleClasses: ["header"],
+        });
+    }
+}
+
 class Button extends Component {
     constructor() {
         super();
@@ -79,7 +105,7 @@ class ListItem extends Component {
     }
 }
 
-class Header extends Component {
+class Heading extends Component {
     constructor({ level }) {
         super();
         this.element = document.createElement(`h${level}`);
@@ -232,12 +258,16 @@ class TasksSection extends Component {
      * @param props
      * @returns {HTMLElement}
      */
+    constructor() {
+        super();
+        this.element = document.createElement("section");
+    }
     render(props) {
         return super.render({
             children: [
-                new Header({ level: 2 }).render({
+                new Heading({ level: 2 }).render({
                     text: "All Tasks",
-                    styleClasses: ["tasks-section__subheader"],
+                    styleClasses: ["tasks-section__subheading", "subheading"],
                 }),
                 new TaskList().render({
                     tasks: props.tasks.filter((task) => !task.isCompleted),
@@ -245,9 +275,9 @@ class TasksSection extends Component {
                     onCompleteTask: props.onCompleteTask,
                     searchQuery: props.searchQuery,
                 }),
-                new Header({ level: 2 }).render({
+                new Heading({ level: 2 }).render({
                     text: "Completed Tasks",
-                    styleClasses: ["tasks-section__subheader"],
+                    styleClasses: ["tasks-section__subheading", "subheading"],
                 }),
                 new CompletedTaskList().render({
                     tasks: props.tasks.filter((task) => task.isCompleted),
@@ -429,7 +459,7 @@ class Popup extends Component {
     render(props) {
         return super.render({
             children: [
-                new Header({ level: 1 }).render({
+                new Heading({ level: 1 }).render({
                     text: "Add New Task",
                 }),
                 new AddTaskForm().render({
@@ -517,3 +547,86 @@ class AddTaskForm extends Component {
         });
     }
 }
+
+class Text extends Component {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
+    constructor() {
+        super();
+        this.element = document.createElement(`p`);
+    }
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
+    render(props) {
+        return super.render({
+            children: [props.text],
+            styleClasses: props.styleClasses,
+        });
+    }
+}
+
+class WeatherServer {
+    API_KEY = "aaf607ad42a54fe4985111445231604";
+    BASE_URL = "http://api.weatherapi.com/v1";
+    CURRENT_WEATHER_URL = `${this.BASE_URL}/current.json`;
+
+    getWeather() {
+        return fetch(
+            `${this.CURRENT_WEATHER_URL}?key=${this.API_KEY}&q=Tbilisi`
+        ).then(this.handleResponse);
+    }
+
+    handleResponse(response) {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return response.json();
+    }
+}
+
+class WeatherWidget extends Component {
+    constructor() {
+        super();
+        this.state = { temperature: null, icon: null, city: "Tbilisi" };
+        this.server = new WeatherServer();
+        this.server.getWeather().then((response) => {
+            this.setState({
+                ...this.state,
+                temperature: response.current.temp_c,
+                icon: response.current.condition.icon,
+            });
+        });
+    }
+    render(props) {
+        let children = [];
+        if (this.state.icon) {
+            children = [
+                new Image().render({
+                    src: this.state.icon,
+                    styleClasses: ["weather__icon"]
+                }),
+                new Heading({ level: 3 }).render({
+                    text: `${this.state.temperature}°`,
+                    styleClasses: ["weather__temperature"],
+                }),
+                new Text().render({
+                    text: this.state.city,
+                    styleClasses: ["weather__city"],
+                })
+            ];
+        }
+        return super.render({
+            children: children,
+            styleClasses: props.styleClasses,
+        });
+    }
+}
+
+

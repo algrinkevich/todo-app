@@ -25,18 +25,26 @@ html {
     margin: 2.75em auto 0;
 }
 
-.app-wraper__header {
+.app-wraper__heading {
     margin-top: 0;
-    margin-bottom: 1.375em;
+    margin-bottom: 0;
 }
 
 .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.75em;
+}
+
+.heading {
     font-weight: 700;
     font-size: 32px;
     line-height: 1.125em;
 }
 
-.subheader {
+.subheading {
     font-weight: 700;
     font-size: 24px;
     line-height: 1.375em;
@@ -195,7 +203,7 @@ html {
     width: 30.125em;
 }
 
-.tasks-section__subheader {
+.tasks-section__subheading {
     margin: 0;
 }
 
@@ -267,4 +275,29 @@ html {
 
 .bucket-icon:active {
     filter: var(--blue-icon);
+}
+
+.weather {
+    display: flex;
+    align-items: center;
+}
+
+.weather__temperature {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 2em;
+    margin: 0 5.2778em 0 0;
+}
+
+.weather__city {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 2em;
+    color: #838383;
+    margin: 0;
+}
+
+.weather__icon {
+    width: 3.5625em;
+    margin-right: 1.375em;
 }

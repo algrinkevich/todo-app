@@ -21,10 +21,7 @@ class App extends Component {
      */
     render() {
         const children = [
-            new Header({ level: 1 }).render({
-                text: "To Do List",
-                styleClasses: ["app-wraper__header"],
-            }),
+            new Header ().render(),
 
             new TopPanel().render({
                 onSearch: this.updateQuery,
@@ -38,7 +35,7 @@ class App extends Component {
                 searchQuery: this.state.searchQuery,
                 onDeleteTask: this.deleteTask,
                 onCompleteTask: this.addCompletedTask,
-            }),
+            })
         ];
         if (this.state.showPopup) {
             children.push(
