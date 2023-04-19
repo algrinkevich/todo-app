@@ -296,14 +296,13 @@ class TasksSection extends Component {
 }
 
 class BaseTask extends Component {
-    formatTaskDate(taskDate) {
-        let plannedDate = new Date(taskDate);
-        plannedDate.setHours(0);
-        const currentDate = new Date();
-        currentDate.setHours(0);
-        currentDate.setMinutes(0);
-        currentDate.setSeconds(0);
-        currentDate.setMilliseconds(0);
+    alignDateWithDay(date) {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDay());
+    }
+
+    formatTaskDate(plannedDateString) {
+        let plannedDate = this.alignDateWithDay(new Date(plannedDateString));
+        const currentDate = this.alignDateWithDay(new Date());
         const tomorrowDate = new Date(currentDate);
         tomorrowDate.setDate(currentDate.getDate() + 1);
         const afterTomorrowDate = new Date(tomorrowDate);
@@ -501,7 +500,7 @@ class PopupContainer extends Component {
             children: [
                 props.popupComponent.render({
                     onCancel: props.onCancel,
-                    onClickAdd: props.onClickAdd,
+                    onOk: props.onOk,
                 }),
                 new Overlay().render({}),
             ],
@@ -522,7 +521,7 @@ class AddTaskPopup extends Component {
                 }),
                 new AddTaskForm().render({
                     onCancel: props.onCancel,
-                    onClickAdd: props.onClickAdd,
+                    onClickAdd: props.onOk,
                 }),
             ],
             styleClasses: ["popup"],
@@ -537,27 +536,31 @@ class TasksForTodayPopup extends Component {
     }
 
     getTasksForToday() {
-        const currentDate = new Date();
+        const currentDate = new Date().toString().slice(0, 15);
         const todayTasks = [];
-        currentDate.setHours(0);
-        currentDate.setMinutes(0);
-        currentDate.setSeconds(0);
-        currentDate.setMilliseconds(0);
         for (let task of this.tasks) {
-            let copyTask = { ...task };
-            const newDate = new Date(copyTask.plannedDate);
-            newDate.setHours(0);
-            newDate.setMinutes(0);
-            newDate.setSeconds(0);
-
-            if (newDate.toString() === currentDate.toString()) {
-                todayTasks.push(copyTask.title);
+            const newDate = new Date(task.plannedDate).toString().slice(0, 15);
+            if (newDate === currentDate) {
+                todayTasks.push(task.title);
             }
         }
         return new List().render({
             items: todayTasks,
             styleClasses: ["popup__tasks-list"],
         });
+    }
+
+    getGreeting() {
+        const currenHours = new Date().getHours();
+        if (currenHours >= 5 && currenHours < 12) {
+            return "Good Morning";
+        } else if (currenHours >= 12 && currenHours < 17) {
+            return "Good Afternoon";
+        } else if (currenHours >= 17 && currenHours < 21) {
+            return "Good Evening";
+        } else {
+            return "Good Night";
+        }
     }
     /**
      * @override
@@ -568,7 +571,7 @@ class TasksForTodayPopup extends Component {
         return super.render({
             children: [
                 new Heading({ level: 2 }).render({
-                    text: "Good Morning",
+                    text: this.getGreeting(),
                 }),
                 new Text().render({
                     text: "You have the next planned tasks for today:",
@@ -586,7 +589,7 @@ class TasksForTodayPopup extends Component {
                         "element-whole-width",
                     ],
                     type: "button",
-                    onClick: props.onClickAdd,
+                    onClick: props.onOk,
                 }),
             ],
             styleClasses: ["popup"],

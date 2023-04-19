@@ -47,7 +47,7 @@ class App extends Component {
                 new PopupContainer().render({
                     popupComponent: new AddTaskPopup(),
                     onCancel: this.hidePopup,
-                    onClickAdd: this.addNewTask,
+                    onOk: this.addNewTask,
                 })
             );
         }
@@ -55,7 +55,7 @@ class App extends Component {
             children.push(
                 new PopupContainer().render({
                     popupComponent: new TasksForTodayPopup(this.state.tasks),
-                    onClickAdd: this.hideTodayTasksPopup,
+                    onOk: this.hideTodayTasksPopup,
                 })
             );
         }
@@ -141,3 +141,8 @@ class App extends Component {
 }
 
 document.body.appendChild(new App().render());
+
+
+addEventListener("beforeunload", () => {
+    // debugger;
+});
