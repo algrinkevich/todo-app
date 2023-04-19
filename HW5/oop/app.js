@@ -142,7 +142,3 @@ class App extends Component {
 
 document.body.appendChild(new App().render());
 
-
-addEventListener("beforeunload", () => {
-    // debugger;
-});
