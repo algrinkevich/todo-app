@@ -534,22 +534,6 @@ class TasksForTodayPopup extends Component {
         super();
         this.tasks = tasks;
     }
-
-    getTasksForToday() {
-        const currentDate = new Date().toString().slice(0, 15);
-        const todayTasks = [];
-        for (let task of this.tasks) {
-            const newDate = new Date(task.plannedDate).toString().slice(0, 15);
-            if (newDate === currentDate) {
-                todayTasks.push(task.title);
-            }
-        }
-        return new List().render({
-            items: todayTasks,
-            styleClasses: ["popup__tasks-list"],
-        });
-    }
-
     getGreeting() {
         const currenHours = new Date().getHours();
         if (currenHours >= 5 && currenHours < 12) {
@@ -577,9 +561,10 @@ class TasksForTodayPopup extends Component {
                     text: "You have the next planned tasks for today:",
                     styleClasses: ["popup__text"],
                 }),
-
-                this.getTasksForToday(),
-
+                new List().render({
+                    items: this.tasks,
+                    styleClasses: ["popup__tasks-list"],
+                }),
                 new Button().render({
                     text: "Ok",
                     enabled: true,

@@ -10,15 +10,19 @@ class App extends Component {
             searchQuery: "",
             lastAction: null,
             showPopup: false,
-            openedFirstTimeADay: openedDate !== previousOpenedDate,
+            isLoaded: false,
         };
         this.server = new TaskAppService();
         this.server.getTasks().then((response) => {
             this.setState({
                 ...this.state,
                 tasks: response,
+                isLoaded: true,
             });
         });
+        // Cannot place it in state since it should be changed during rendering, 
+        // and this causes unexpected rerendering
+        this.openedFirstTimeADay = openedDate !== previousOpenedDate;
     }
     /**
      * @override
@@ -51,13 +55,17 @@ class App extends Component {
                 })
             );
         }
-        if (this.state.openedFirstTimeADay) {
+        const tasksForToday = this.getTasksForToday();
+        if (this.openedFirstTimeADay && tasksForToday.length) {
             children.push(
                 new PopupContainer().render({
-                    popupComponent: new TasksForTodayPopup(this.state.tasks),
+                    popupComponent: new TasksForTodayPopup(tasksForToday),
                     onOk: this.hideTodayTasksPopup,
                 })
             );
+        }
+        if (this.state.isLoaded) {
+            this.openedFirstTimeADay = false;
         }
         return super.render({
             children: [
@@ -68,6 +76,18 @@ class App extends Component {
             styleClasses: ["app-container"],
         });
     }
+
+    getTasksForToday = () => {
+        const currentDate = new Date().toString().slice(0, 15);
+        const todayTasks = [];
+        for (let task of this.state.tasks) {
+            const newDate = new Date(task.plannedDate).toString().slice(0, 15);
+            if (newDate === currentDate) {
+                todayTasks.push(task.title);
+            }
+        }
+        return todayTasks;
+    };
 
     addNewTask = ({ title, date }) => {
         this.server
@@ -133,12 +153,9 @@ class App extends Component {
     };
 
     hideTodayTasksPopup = () => {
-        this.setState({
-            ...this.state,
-            openedFirstTimeADay: false,
-        });
+        this.openedFirstTimeADay = false;
+        this.update();
     };
 }
 
 document.body.appendChild(new App().render());
-
