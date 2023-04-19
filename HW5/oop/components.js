@@ -531,7 +531,7 @@ class AddTaskPopup extends Component {
 class TasksForTodayPopup extends Component {
     constructor(tasks) {
         super();
-        this.tasks = tasks
+        this.tasks = tasks;
     }
 
     getTasksForToday() {
@@ -542,20 +542,20 @@ class TasksForTodayPopup extends Component {
         currentDate.setSeconds(0);
         currentDate.setMilliseconds(0);
         for (let task of this.tasks) {
-            let copyTask = {...task};
+            let copyTask = { ...task };
             const newDate = new Date(copyTask.plannedDate);
             newDate.setHours(0);
             newDate.setMinutes(0);
             newDate.setSeconds(0);
 
             if (newDate.toString() === currentDate.toString()) {
-                todayTasks.push(copyTask.title)
+                todayTasks.push(copyTask.title);
             }
         }
         return new List().render({
             items: todayTasks,
-            styleClasses: ["popup__tasks-list"]
-        })
+            styleClasses: ["popup__tasks-list"],
+        });
     }
     /**
      * @override
@@ -563,7 +563,6 @@ class TasksForTodayPopup extends Component {
      * @returns {HTMLElement}
      */
     render(props) {
-
         return super.render({
             children: [
                 new Heading({ level: 2 }).render({
@@ -571,7 +570,7 @@ class TasksForTodayPopup extends Component {
                 }),
                 new Text().render({
                     text: "You have the next planned tasks for today:",
-                    styleClasses: ["popup__text"]
+                    styleClasses: ["popup__text"],
                 }),
 
                 this.getTasksForToday(),
@@ -579,9 +578,13 @@ class TasksForTodayPopup extends Component {
                 new Button().render({
                     text: "Ok",
                     enabled: true,
-                    styleClasses: ["general-btn", "confirm-btn", "element-whole-width"],
+                    styleClasses: [
+                        "general-btn",
+                        "confirm-btn",
+                        "element-whole-width",
+                    ],
                     type: "button",
-                    onClick: props.onClickAdd
+                    onClick: props.onClickAdd,
                 }),
             ],
             styleClasses: ["popup"],
@@ -623,7 +626,7 @@ class TaskTitleInput extends InputText {
             name: "taskTitle",
             setFocus: true,
             type: "text",
-            styleClasses: ["popup__input-text"]
+            styleClasses: ["popup__input-text"],
         });
     }
 }
@@ -637,7 +640,7 @@ class ButtonsContainer extends Component {
     render(props) {
         return super.render({
             children: [props.cancel, props.add],
-            styleClasses: ["buttons-container"]
+            styleClasses: ["buttons-container"],
         });
     }
 }
@@ -678,7 +681,7 @@ class AddTaskForm extends Component {
         });
         const buttonsContainer = new ButtonsContainer().render({
             cancel: cancelButton,
-            add: addButton
+            add: addButton,
         });
         const taskInput = new TaskTitleInput().render({
             type: "text",
@@ -690,7 +693,7 @@ class AddTaskForm extends Component {
         });
         return super.render({
             children: [taskInput, datePicker, buttonsContainer],
-            styleClasses: ["create-task-form"]
+            styleClasses: ["create-task-form"],
         });
     }
 }
@@ -718,9 +721,9 @@ class WeatherServer {
     BASE_URL = "http://api.weatherapi.com/v1";
     CURRENT_WEATHER_URL = `${this.BASE_URL}/current.json`;
 
-    getWeather() {
+    getWeather({ latitude, longitude }) {
         return fetch(
-            `${this.CURRENT_WEATHER_URL}?key=${this.API_KEY}&q=Tbilisi`
+            `${this.CURRENT_WEATHER_URL}?key=${this.API_KEY}&q=${latitude},${longitude}`
         ).then(this.handleResponse);
     }
 
@@ -736,16 +739,43 @@ class WeatherServer {
 class WeatherWidget extends Component {
     constructor() {
         super();
-        this.state = { temperature: null, icon: null, city: "Tbilisi" };
+        this.state = { temperature: null, icon: null, city: null };
         this.server = new WeatherServer();
-        this.server.getWeather().then((response) => {
-            this.setState({
-                ...this.state,
-                temperature: response.current.temp_c,
-                icon: response.current.condition.icon,
-            });
-        });
+
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                this.updateWeather({
+                    latitude: pos.coords.latitude,
+                    longitude: pos.coords.longitude,
+                });
+            },
+            (error) => {
+                const TBILISI_LATITUDE = 41.6938;
+                const TBILISI_LONGITUDE = 44.8015;
+                this.updateWeather({
+                    latitude: TBILISI_LATITUDE,
+                    longitude: TBILISI_LONGITUDE,
+                });
+            }
+        );
     }
+
+    updateWeather({ latitude, longitude }) {
+        this.server
+            .getWeather({
+                latitude: latitude,
+                longitude: longitude,
+            })
+            .then((response) => {
+                this.setState({
+                    ...this.state,
+                    temperature: response.current.temp_c,
+                    icon: response.current.condition.icon,
+                    city: response.location.name,
+                });
+            });
+    }
+
     render(props) {
         let children = [];
         if (this.state.icon) {
