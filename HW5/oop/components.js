@@ -1,3 +1,5 @@
+class Container extends Component {}
+
 class Header extends Component {
     /**
      * @override
@@ -631,20 +633,6 @@ class TaskTitleInput extends InputText {
     }
 }
 
-class ButtonsContainer extends Component {
-    /**
-     * @override
-     * @param props
-     * @returns {HTMLElement}
-     */
-    render(props) {
-        return super.render({
-            children: [props.cancel, props.add],
-            styleClasses: ["buttons-container"],
-        });
-    }
-}
-
 class AddTaskForm extends Component {
     constructor() {
         super();
@@ -679,9 +667,9 @@ class AddTaskForm extends Component {
             styleClasses: ["general-btn", "confirm-btn"],
             type: "submit",
         });
-        const buttonsContainer = new ButtonsContainer().render({
-            cancel: cancelButton,
-            add: addButton,
+        const buttonsContainer = new Container().render({
+            children: [cancelButton, addButton],
+            styleClasses: ["buttons-container"],
         });
         const taskInput = new TaskTitleInput().render({
             type: "text",
