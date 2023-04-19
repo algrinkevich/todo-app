@@ -160,7 +160,7 @@ class InputText extends Component {
         }
         return super.render({
             children: [],
-            styleClasses: ["input-text"],
+            styleClasses: ["input-text", ...(props.styleClasses || [])],
         });
     }
 }
@@ -497,7 +497,7 @@ class PopupContainer extends Component {
     render(props) {
         return super.render({
             children: [
-                new Popup().render({
+                props.popupComponent.render({
                     onCancel: props.onCancel,
                     onClickAdd: props.onClickAdd,
                 }),
@@ -506,7 +506,7 @@ class PopupContainer extends Component {
         });
     }
 }
-class Popup extends Component {
+class AddTaskPopup extends Component {
     /**
      * @override
      * @param props
@@ -515,12 +515,73 @@ class Popup extends Component {
     render(props) {
         return super.render({
             children: [
-                new Heading({ level: 1 }).render({
+                new Heading({ level: 2 }).render({
                     text: "Add New Task",
                 }),
                 new AddTaskForm().render({
                     onCancel: props.onCancel,
                     onClickAdd: props.onClickAdd,
+                }),
+            ],
+            styleClasses: ["popup"],
+        });
+    }
+}
+
+class TasksForTodayPopup extends Component {
+    constructor(tasks) {
+        super();
+        this.tasks = tasks
+    }
+
+    getTasksForToday() {
+        const currentDate = new Date();
+        const todayTasks = [];
+        currentDate.setHours(0);
+        currentDate.setMinutes(0);
+        currentDate.setSeconds(0);
+        currentDate.setMilliseconds(0);
+        for (let task of this.tasks) {
+            let copyTask = {...task};
+            const newDate = new Date(copyTask.plannedDate);
+            newDate.setHours(0);
+            newDate.setMinutes(0);
+            newDate.setSeconds(0);
+
+            if (newDate.toString() === currentDate.toString()) {
+                todayTasks.push(copyTask.title)
+            }
+        }
+        return new List().render({
+            items: todayTasks,
+            styleClasses: ["popup__tasks-list"]
+        })
+    }
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
+    render(props) {
+
+        return super.render({
+            children: [
+                new Heading({ level: 2 }).render({
+                    text: "Good Morning",
+                }),
+                new Text().render({
+                    text: "You have the next planned tasks for today:",
+                    styleClasses: ["popup__text"]
+                }),
+
+                this.getTasksForToday(),
+
+                new Button().render({
+                    text: "Ok",
+                    enabled: true,
+                    styleClasses: ["general-btn", "confirm-btn", "element-whole-width"],
+                    type: "button",
+                    onClick: props.onClickAdd
                 }),
             ],
             styleClasses: ["popup"],
@@ -562,6 +623,21 @@ class TaskTitleInput extends InputText {
             name: "taskTitle",
             setFocus: true,
             type: "text",
+            styleClasses: ["popup__input-text"]
+        });
+    }
+}
+
+class ButtonsContainer extends Component {
+    /**
+     * @override
+     * @param props
+     * @returns {HTMLElement}
+     */
+    render(props) {
+        return super.render({
+            children: [props.cancel, props.add],
+            styleClasses: ["buttons-container"]
         });
     }
 }
@@ -587,6 +663,7 @@ class AddTaskForm extends Component {
                 date: datePicker.value,
             });
         };
+
         const cancelButton = new Button().render({
             text: "Cancel",
             onClick: props.onCancel,
@@ -596,8 +673,12 @@ class AddTaskForm extends Component {
         const addButton = new Button().render({
             text: "Add Task",
             enabled: false,
-            styleClasses: ["add-task-btn", "confirm-btn"],
+            styleClasses: ["general-btn", "confirm-btn"],
             type: "submit",
+        });
+        const buttonsContainer = new ButtonsContainer().render({
+            cancel: cancelButton,
+            add: addButton
         });
         const taskInput = new TaskTitleInput().render({
             type: "text",
@@ -608,7 +689,8 @@ class AddTaskForm extends Component {
             styleClasses: ["date-picker", "popup__date-picker"],
         });
         return super.render({
-            children: [taskInput, cancelButton, addButton, datePicker],
+            children: [taskInput, datePicker, buttonsContainer],
+            styleClasses: ["create-task-form"]
         });
     }
 }

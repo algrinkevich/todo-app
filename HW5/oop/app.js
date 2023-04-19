@@ -10,7 +10,7 @@ class App extends Component {
             searchQuery: "",
             lastAction: null,
             showPopup: false,
-            openedFirstTimeADay: openedDate !== previousOpenedDate
+            openedFirstTimeADay: openedDate !== previousOpenedDate,
         };
         this.server = new TaskAppServer();
         this.server.getTasks().then((response) => {
@@ -45,8 +45,17 @@ class App extends Component {
         if (this.state.showPopup) {
             children.push(
                 new PopupContainer().render({
+                    popupComponent: new AddTaskPopup(),
                     onCancel: this.hidePopup,
                     onClickAdd: this.addNewTask,
+                })
+            );
+        }
+        if (this.state.openedFirstTimeADay) {
+            children.push(
+                new PopupContainer().render({
+                    popupComponent: new TasksForTodayPopup(this.state.tasks),
+                    onClickAdd: this.hideTodayTasksPopup
                 })
             );
         }
@@ -60,7 +69,7 @@ class App extends Component {
         });
     }
 
-    addNewTask = ({title, date}) => {
+    addNewTask = ({ title, date }) => {
         this.server
             .createTask({ title: title, isCompleted: false, plannedDate: date })
             .then((response) => {
@@ -122,6 +131,13 @@ class App extends Component {
             showPopup: false,
         });
     };
+
+    hideTodayTasksPopup = () => {
+        this.setState({
+            ...this.state,
+            openedFirstTimeADay: false
+        });
+    }
 }
 
 document.body.appendChild(new App().render());
