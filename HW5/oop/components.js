@@ -297,7 +297,7 @@ class TasksSection extends Component {
 
 class BaseTask extends Component {
     alignDateWithDay(date) {
-        return new Date(date.getFullYear(), date.getMonth(), date.getDay());
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
     }
 
     formatTaskDate(plannedDateString) {
