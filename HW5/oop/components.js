@@ -720,7 +720,7 @@ class WeatherWidget extends Component {
     constructor() {
         super();
         this.state = { temperature: null, icon: null, city: null };
-        this.server = new WeatherServer();
+        this.server = new WeatherService();
 
         navigator.geolocation.getCurrentPosition(
             (pos) => {
@@ -802,5 +802,3 @@ class DatePicker extends Component {
         });
     }
 }
-
-

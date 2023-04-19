@@ -12,7 +12,7 @@ class App extends Component {
             showPopup: false,
             openedFirstTimeADay: openedDate !== previousOpenedDate,
         };
-        this.server = new TaskAppServer();
+        this.server = new TaskAppService();
         this.server.getTasks().then((response) => {
             this.setState({
                 ...this.state,
@@ -55,7 +55,7 @@ class App extends Component {
             children.push(
                 new PopupContainer().render({
                     popupComponent: new TasksForTodayPopup(this.state.tasks),
-                    onClickAdd: this.hideTodayTasksPopup
+                    onClickAdd: this.hideTodayTasksPopup,
                 })
             );
         }
@@ -135,9 +135,9 @@ class App extends Component {
     hideTodayTasksPopup = () => {
         this.setState({
             ...this.state,
-            openedFirstTimeADay: false
+            openedFirstTimeADay: false,
         });
-    }
+    };
 }
 
 document.body.appendChild(new App().render());

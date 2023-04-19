@@ -1,4 +1,14 @@
-class TaskAppServer {
+class BaseService {
+    handleResponse(response) {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return response.json();
+    }
+}
+
+class TaskAppService extends BaseService {
     BASE_URL = "http://localhost:3004";
     TASKS_URL = `${this.BASE_URL}/tasks`;
 
@@ -15,7 +25,7 @@ class TaskAppServer {
             body: JSON.stringify({
                 title: task.title,
                 isCompleted: task.isCompleted,
-                plannedDate: task.plannedDate
+                plannedDate: task.plannedDate,
             }),
         }).then(this.handleResponse);
     }
@@ -35,12 +45,16 @@ class TaskAppServer {
             body: JSON.stringify(task),
         }).then(this.handleResponse);
     }
+}
 
-    handleResponse(response) {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+class WeatherService extends BaseService {
+    API_KEY = "aaf607ad42a54fe4985111445231604";
+    BASE_URL = "http://api.weatherapi.com/v1";
+    CURRENT_WEATHER_URL = `${this.BASE_URL}/current.json`;
 
-        return response.json();
+    getWeather({ latitude, longitude }) {
+        return fetch(
+            `${this.CURRENT_WEATHER_URL}?key=${this.API_KEY}&q=${latitude},${longitude}`
+        ).then(this.handleResponse);
     }
 }
