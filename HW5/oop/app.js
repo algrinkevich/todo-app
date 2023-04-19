@@ -20,7 +20,7 @@ class App extends Component {
                 isLoaded: true,
             });
         });
-        // Cannot place it in state since it should be changed during rendering, 
+        // Cannot place it in state since it should be changed during rendering,
         // and this causes unexpected rerendering
         this.openedFirstTimeADay = openedDate !== previousOpenedDate;
     }
@@ -79,13 +79,14 @@ class App extends Component {
 
     getTasksForToday = () => {
         const currentDate = new Date().toString().slice(0, 15);
-        const todayTasks = [];
-        for (let task of this.state.tasks) {
-            const newDate = new Date(task.plannedDate).toString().slice(0, 15);
-            if (newDate === currentDate) {
-                todayTasks.push(task.title);
-            }
-        }
+        const todayTasks = this.state.tasks
+            .filter((task) => {
+                const newDate = new Date(task.plannedDate)
+                    .toString()
+                    .slice(0, 15);
+                return newDate === currentDate && !task.isCompleted;
+            })
+            .map((task) => task.title);
         return todayTasks;
     };
 
