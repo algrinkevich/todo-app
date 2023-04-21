@@ -2,11 +2,11 @@ class Component {
     constructor() {
         this.state = {};
         this.props = {};
-        this.element = document.createElement('div');
+        this.element = document.createElement("div");
     }
 
     setState(state) {
-        this.state = {...this.state, ...state};
+        this.state = { ...this.state, ...state };
         this.update();
     }
 
@@ -16,14 +16,14 @@ class Component {
      * @returns {HTMLElement}
      */
     render(props = {}) {
-        this.props = {...props};
+        this.props = { ...props };
         const div = this.element;
         div.onclick = props.onClick;
-        div.innerHTML = '';
+        div.innerHTML = "";
         if (props.styleClasses) {
             div.classList.add(...props.styleClasses);
-        }  
-        div.append(...props.children)
+        }
+        div.append(...props.children);
         return div;
     }
 
@@ -31,3 +31,5 @@ class Component {
         this.render(this.props);
     }
 }
+
+export { Component };

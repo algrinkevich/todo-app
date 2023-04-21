@@ -85,3 +85,5 @@ class WeatherService extends BaseService {
         );
     }
 }
+
+export { TaskAppService, WeatherService };

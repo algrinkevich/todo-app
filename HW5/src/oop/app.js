@@ -1,3 +1,16 @@
+import { Component } from "./base-classes";
+import { TaskAppService } from "./services";
+import {
+    Header,
+    TopPanel,
+    TasksSection,
+    PopupContainer,
+    AddTaskPopup,
+    TasksForTodayPopup,
+    AppWrapper,
+} from "./components";
+import '../main.css';
+
 class App extends Component {
     constructor() {
         super();

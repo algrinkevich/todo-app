@@ -1,3 +1,7 @@
+import { Component } from "./base-classes";
+import { WeatherService } from "./services";
+import BucketImage from "../images/bucket.svg";
+
 class Container extends Component {}
 
 class Header extends Component {
@@ -484,7 +488,7 @@ class DeleteIcon extends Image {
         return super.render({
             styleClasses: ["bucket-icon"],
             onClick: props.onClick,
-            src: "images/bucket.svg",
+            src: BucketImage,
         });
     }
 }
@@ -778,3 +782,13 @@ class DatePicker extends Component {
         });
     }
 }
+
+export {
+    Header,
+    TopPanel,
+    TasksSection,
+    PopupContainer,
+    AddTaskPopup,
+    TasksForTodayPopup,
+    AppWrapper,
+};
