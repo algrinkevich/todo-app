@@ -22,13 +22,6 @@ module.exports = {
                     outputPath: "images/",
                     publicPath: "images/" 
                 }
-            },
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/i,
-                type: 'asset/resource',
-                generator: {
-                    outputPath: "fonts/"
-                }
             }
         ],
     },
