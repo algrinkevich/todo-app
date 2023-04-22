@@ -1,4 +1,4 @@
-class Component {
+export class Component {
     constructor() {
         this.state = {};
         this.props = {};
@@ -31,5 +31,3 @@ class Component {
         this.render(this.props);
     }
 }
-
-export { Component };

@@ -25,7 +25,7 @@ module.exports = {
             }
         ],
     },
-    entry: "./src/oop/app.js",
+    entry: "./src/index.js",
     mode: "development",
     output: {
         clean: true,

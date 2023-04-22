@@ -1,0 +1,11 @@
+.create-task-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup__date-picker {
+    position: relative;
+    margin-top: 1.125em;
+    margin-bottom: 5.75em;
+    align-self: flex-end;
+}

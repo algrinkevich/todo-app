@@ -1,17 +1,17 @@
-import { Component } from "./base-classes";
-import { TaskAppService } from "./services";
-import {
-    Header,
-    TopPanel,
-    TasksSection,
-    PopupContainer,
-    AddTaskPopup,
-    TasksForTodayPopup,
-    AppWrapper,
-} from "./components";
-import '../main.css';
+import { Component } from "../Component/Component.js";
+import { TaskAppService } from "../../services/TaskAppService.js";
 
-class App extends Component {
+import { Header } from "../Header/Header.js";
+import { TopPanel } from "../TopPanel/TopPanel.js";
+import { TasksSection } from "../TasksSection/TasksSection.js";
+import { PopupContainer } from "../PopupContainer/PopupContainer.js";
+import { AddTaskPopup } from "../AddTaskPopup/AddTaskPopup.js";
+import { TasksForTodayPopup } from "../TasksForTodayPopup/TasksForTodayPopup.js";
+import { AppWrapper } from "../AppWrapper/AppWrapper.js";
+
+import "./App.css";
+
+export class App extends Component {
     constructor() {
         super();
         const openedDate = new Date().toString().slice(0, 15);
@@ -172,4 +172,3 @@ class App extends Component {
     };
 }
 
-document.body.appendChild(new App().render());
