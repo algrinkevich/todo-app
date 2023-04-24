@@ -19,10 +19,10 @@ class Component {
         this.props = {...props};
         const div = this.element;
         div.onclick = props.onClick;
-        if (props.style) {
-            div.style = props.style;
-        }
         div.innerHTML = '';
+        if (props.styleClasses) {
+            div.classList.add(...props.styleClasses);
+        }  
         div.append(...props.children)
         return div;
     }
