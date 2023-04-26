@@ -4,7 +4,7 @@ import "./BaseTask.css";
 
 export class BaseTask extends Container {
     constructor(props: ComponentProps = {}) {
-        super({ ...props, styleClasses: ["task-row"], ...props.styleClasses });
+        super({ ...props, styleClasses: ["task-row", ...(props.styleClasses || [])] });
     }
 
     alignDateWithDay(date: Date) {

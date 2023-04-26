@@ -27,7 +27,7 @@ export class TopPanel extends Container {
                     styleClasses: [
                         "new-task-btn",
                         "top-panel__new-task-btn",
-                        "confirm-btn",
+                        "state-btn",
                     ],
                 }).render(),
             ],

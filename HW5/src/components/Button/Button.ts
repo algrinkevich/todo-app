@@ -1,5 +1,6 @@
 import { Component } from "../Component/Component";
-import { ButtonProps, RenderArgs } from "../../types";
+import { ButtonProps } from "../../types";
+import "./Button.css";
 
 export class Button extends Component<HTMLButtonElement> {
     private componentProps: ButtonProps;

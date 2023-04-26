@@ -1,5 +1,6 @@
 import { Component } from "../Component/Component";
 import { Button } from "../Button/Button";
+import { CancelButton } from "../CancelButton/CancelButton";
 import { PopupButtonsContainer } from "../PopupButtonsContainer/PopupButtonsContainer";
 import { TaskTitleInput } from "../TaskTitleInput/TaskTitleInput";
 import { DatePicker } from "../DatePicker/DatePicker";
@@ -30,16 +31,16 @@ export class AddTaskForm extends Component<HTMLFormElement> {
             });
         };
 
-        const cancelButton = new Button({
+        const cancelButton = new CancelButton({
             text: "Cancel",
             onClick: this.taskFormProps.onCancel,
-            styleClasses: ["cancel-btn"],
+            styleClasses: [],
             type: "reset",
         }).render();
         const addButton = new Button({
             text: "Add Task",
             enabled: false,
-            styleClasses: ["general-btn", "confirm-btn"],
+            styleClasses: ["popup-ok-btn", "state-btn"],
             type: "submit",
         }).render();
         const buttonsContainer = new PopupButtonsContainer().render({

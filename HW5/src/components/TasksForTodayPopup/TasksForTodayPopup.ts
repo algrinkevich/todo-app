@@ -3,14 +3,14 @@ import { Text } from "../Text/Text";
 import { List } from "../List/List";
 import { Button } from "../Button/Button";
 import "./TasksForTodayPopup.css";
-import { Container } from "../Container/Container";
-import { Task, TasksForTodayPopupProps } from "../../types";
+import { TasksForTodayPopupProps } from "../../types";
+import { BasePopup } from "../BasePopup/BasePopup";
 
-export class TasksForTodayPopup extends Container {
+export class TasksForTodayPopup extends BasePopup {
     private componentProps: TasksForTodayPopupProps;
 
     constructor(props: TasksForTodayPopupProps) {
-        super({ styleClasses: ["popup"] });
+        super({});
         this.componentProps = { ...props };
     }
 
@@ -41,8 +41,8 @@ export class TasksForTodayPopup extends Container {
                     text: "Ok",
                     enabled: true,
                     styleClasses: [
-                        "general-btn",
-                        "confirm-btn",
+                        "popup-ok-btn",
+                        "state-btn",
                         "element-whole-width",
                     ],
                     type: "button",

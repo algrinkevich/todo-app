@@ -1,12 +1,12 @@
 import { TaskListProps } from "../../types";
-import { List } from "../List/List";
+import { BaseTaskList } from "../BaseTaskList/BaseTaskList";
 import { Task } from "../Task/Task";
 
-export class TaskList extends List {
+export class TaskList extends BaseTaskList {
     private componentProps: TaskListProps;
 
     constructor(props: TaskListProps) {
-        super({ styleClasses: ["task-section"] });
+        super({ styleClasses: [] });
         this.componentProps = { ...props };
     }
     render() {
