@@ -68,23 +68,27 @@ export class App extends Container {
         ];
         if (this.state.showPopup) {
             children.push(
-                new PopupContainer({
-                    popupComponent: new AddTaskPopup({
-                        onCancel: this.hidePopup,
-                        onOk: this.addNewTask,
-                    }),
-                }).render()
+                new PopupContainer().render({
+                    children: [
+                        new AddTaskPopup({
+                            onCancel: this.hidePopup,
+                            onOk: this.addNewTask,
+                        }).render(),
+                    ],
+                })
             );
         }
         const tasksForToday = this.getTasksForToday();
         if (this.openedFirstTimeADay && tasksForToday.length) {
             children.push(
-                new PopupContainer({
-                    popupComponent: new TasksForTodayPopup({
-                        tasks: tasksForToday,
-                        onOk: this.hideTodayTasksPopup,
-                    }),
-                }).render()
+                new PopupContainer().render({
+                    children: [
+                        new TasksForTodayPopup({
+                            tasks: tasksForToday,
+                            onOk: this.hideTodayTasksPopup,
+                        }).render(),
+                    ],
+                })
             );
         }
         if (this.state.isLoaded) {
