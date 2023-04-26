@@ -3,58 +3,58 @@ import { Button } from "../Button/Button";
 import { PopupButtonsContainer } from "../PopupButtonsContainer/PopupButtonsContainer";
 import { TaskTitleInput } from "../TaskTitleInput/TaskTitleInput";
 import { DatePicker } from "../DatePicker/DatePicker";
-import { AddTaskFormRenderProps } from "../../types";
+import { AddTaskFormRenderProps, RenderArgs } from "../../types";
 
 import "./AddTaskForm.css";
 
 export class AddTaskForm extends Component<HTMLFormElement> {
-    constructor() {
-        super();
+    private taskFormProps: AddTaskFormRenderProps;
+
+    constructor(props: AddTaskFormRenderProps) {
+        super({
+            styleClasses: ["create-task-form"],
+        });
+        this.taskFormProps = props;
         this.element = document.createElement(`form`);
     }
-    /**
-     * @override
-     * @param props
-     * @returns {HTMLElement}
-     */
-    render(props: AddTaskFormRenderProps) {
+
+    render() {
         this.element.onsubmit = (event) => {
             event.preventDefault();
             if (!taskInput.value || !datePicker.value) {
                 return;
             }
-            props.onClickAdd({
+            this.taskFormProps.onClickAdd({
                 title: taskInput.value,
                 date: datePicker.value,
             });
         };
 
-        const cancelButton = new Button().render({
+        const cancelButton = new Button({
             text: "Cancel",
-            onClick: props.onCancel,
+            onClick: this.taskFormProps.onCancel,
             styleClasses: ["cancel-btn"],
             type: "reset",
-        });
-        const addButton = new Button().render({
+        }).render();
+        const addButton = new Button({
             text: "Add Task",
             enabled: false,
             styleClasses: ["general-btn", "confirm-btn"],
             type: "submit",
-        });
+        }).render();
         const buttonsContainer = new PopupButtonsContainer().render({
             children: [cancelButton, addButton],
         });
-        const taskInput = new TaskTitleInput().render({
+        const taskInput = new TaskTitleInput({
             type: "text",
             addButton,
-        });
-        const datePicker = new DatePicker().render({
+        }).render();
+        const datePicker = new DatePicker({
             name: "planned-date",
             styleClasses: ["popup__date-picker"],
-        });
+        }).render();
         return super.render({
             children: [taskInput, datePicker, buttonsContainer],
-            styleClasses: ["create-task-form"],
         });
     }
 }

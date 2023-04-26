@@ -3,27 +3,27 @@ import { List } from "../List/List";
 import { Task } from "../Task/Task";
 
 export class TaskList extends List {
-    /**
-     * @override
-     * @param props
-     * @returns {HTMLElement}
-     */
-    render(props: TaskListRenderProps) {
+    private componentProps: TaskListRenderProps;
+
+    constructor(props: TaskListRenderProps) {
+        super({ styleClasses: ["task-section"] });
+        this.componentProps = { ...props };
+    }
+    render() {
         return super.render({
-            items: props.tasks
+            children: this.componentProps.tasks
                 .filter((task) =>
                     task.title
                         .toLowerCase()
-                        .includes(props.searchQuery.toLowerCase())
+                        .includes(this.componentProps.searchQuery.toLowerCase())
                 )
                 .map((task) =>
-                    new Task().render({
+                    new Task({
                         task: task,
-                        onDelete: props.onDeleteTask,
-                        onComplete: props.onCompleteTask,
-                    })
+                        onDelete: this.componentProps.onDeleteTask,
+                        onComplete: this.componentProps.onCompleteTask,
+                    }).render()
                 ),
-            styleClasses: ["task-section"],
         });
     }
 }

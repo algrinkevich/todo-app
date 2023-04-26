@@ -1,27 +1,27 @@
 import { Heading } from "../Heading/Heading";
 import { AddTaskForm } from "../AddTaskForm/AddTaskForm";
 import { Container } from "../Container/Container";
-import { AddTaskPopupRenderProps } from "../../types";
+import { AddTaskPopupRenderProps, RenderArgs } from "../../types";
 
 export class AddTaskPopup extends Container {
-    /**
-     * @override
-     * @param props
-     * @returns {HTMLElement}
-     */
-    render(props: AddTaskPopupRenderProps) {
+    private componentProps: AddTaskPopupRenderProps;
+
+    constructor(props: AddTaskPopupRenderProps) {
+        super({
+            styleClasses: ["popup"],
+        });
+        this.componentProps = props;
+    }
+
+    render() {
         return super.render({
             children: [
-                new Heading({ level: 2 }).render({
-                    text: "Add New Task",
-                }),
-                new AddTaskForm().render({
-                    onCancel: props.onCancel,
-                    onClickAdd: props.onOk,
-                }),
+                new Heading({ level: 2, text: "Add New Task" }).render(),
+                new AddTaskForm({
+                    onCancel: this.componentProps.onCancel,
+                    onClickAdd: this.componentProps.onOk,
+                }).render(),
             ],
-            styleClasses: ["popup"],
         });
     }
 }
-

@@ -23,7 +23,7 @@ export class App extends Container {
     };
 
     constructor() {
-        super();
+        super({ styleClasses: ["app-container"] });
         const openedDate = new Date().toString().slice(0, 15);
         const previousOpenedDate = localStorage.getItem("lastOpened");
         localStorage.setItem("lastOpened", openedDate);
@@ -47,44 +47,44 @@ export class App extends Container {
         // and this causes unexpected rerendering
         this.openedFirstTimeADay = openedDate !== previousOpenedDate;
     }
-    /**
-     * @override
-     * @returns {HTMLElement}
-     */
+
     render() {
         const children = [
             new Header().render(),
 
-            new TopPanel().render({
+            new TopPanel({
                 onSearch: this.updateQuery,
                 searchQuery: this.state.searchQuery,
                 isSearchFocused: this.state.lastAction === "Search Query",
                 onNewTaskClick: this.showPopup,
-            }),
+            }).render(),
 
-            new TasksSection().render({
+            new TasksSection({
                 tasks: this.state.tasks,
                 searchQuery: this.state.searchQuery,
                 onDeleteTask: this.deleteTask,
                 onCompleteTask: this.addCompletedTask,
-            }),
+            }).render(),
         ];
         if (this.state.showPopup) {
             children.push(
-                new PopupContainer().render({
-                    popupComponent: new AddTaskPopup(),
-                    onCancel: this.hidePopup,
-                    onOk: this.addNewTask,
-                })
+                new PopupContainer({
+                    popupComponent: new AddTaskPopup({
+                        onCancel: this.hidePopup,
+                        onOk: this.addNewTask,
+                    }),
+                }).render()
             );
         }
         const tasksForToday = this.getTasksForToday();
         if (this.openedFirstTimeADay && tasksForToday.length) {
             children.push(
-                new PopupContainer().render({
-                    popupComponent: new TasksForTodayPopup(tasksForToday),
-                    onOk: this.hideTodayTasksPopup,
-                })
+                new PopupContainer({
+                    popupComponent: new TasksForTodayPopup({
+                        tasks: tasksForToday,
+                        onOk: this.hideTodayTasksPopup,
+                    }),
+                }).render()
             );
         }
         if (this.state.isLoaded) {
@@ -96,7 +96,6 @@ export class App extends Container {
                     children,
                 }),
             ],
-            styleClasses: ["app-container"],
         });
     }
 

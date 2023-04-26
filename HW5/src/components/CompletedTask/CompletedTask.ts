@@ -5,26 +5,30 @@ import { BaseTaskRenderProps } from "../../types";
 import "./CompletedTask.css";
 
 export class CompletedTask extends BaseTask {
-    /**
-     * @override
-     * @param props
-     * @returns {HTMLElement}
-     */
-    render(props: BaseTaskRenderProps) {
-        const formattedDate = this.formatTaskDate(props.task.plannedDate);
+    private componentProps: BaseTaskRenderProps;
+
+    constructor(props: BaseTaskRenderProps) {
+        super();
+        this.componentProps = { ...props };
+    }
+
+    render() {
+        const formattedDate = this.formatTaskDate(
+            this.componentProps.task.plannedDate
+        );
         return super.render({
             children: [
-                new DisabledCheckbox().render({
-                    title: props.task.title,
-                }),
-                new Label().render({
+                new DisabledCheckbox({
+                    title: this.componentProps.task.title,
+                }).render(),
+                new Label({
                     date: formattedDate,
-                    title: props.task.title,
+                    title: this.componentProps.task.title,
                     styleClasses: [
                         "task-row__title",
                         "task-row__title--completed",
                     ],
-                }),
+                }).render(),
             ],
         });
     }

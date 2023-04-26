@@ -1,12 +1,12 @@
-import { ComponentRenderProps } from "../../types";
+import { ComponentProps } from "../../types";
 import { Container } from "../Container/Container";
 import "./PopupButtonsContainer.css";
 
 export class PopupButtonsContainer extends Container {
-    render(props: ComponentRenderProps) {
-        return super.render({
-            children: props.children,
-            styleClasses: ["buttons-container"],
+    constructor(props: ComponentProps = {}) {
+        super({
+            ...props,
+            styleClasses: ["buttons-container", ...(props.styleClasses || [])],
         });
     }
 }

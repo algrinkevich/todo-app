@@ -1,20 +1,9 @@
-import { ComponentRenderProps } from "../../types";
+import { ComponentProps } from "../../types";
 import { Component } from "../Component/Component";
 
 export class ListItem extends Component<HTMLLIElement> {
-    /**
-     * @override
-     * @param props
-     * @param {HTMLElement[]} props.children
-     * @returns {HTMLElement}
-     */
-    constructor() {
-        super();
+    constructor(props: ComponentProps = {}) {
+        super(props);
         this.element = document.createElement("li");
-    }
-    render(props: ComponentRenderProps) {
-        return super.render({
-            children: props.children,
-        });
     }
 }

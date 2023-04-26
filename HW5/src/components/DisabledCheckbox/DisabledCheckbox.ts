@@ -2,16 +2,11 @@ import { CheckboxRenderProps } from "../../types";
 import { Checkbox } from "../Checkbox/Checkbox";
 
 export class DisabledCheckbox extends Checkbox {
-    /**
-     * @override
-     * @param props
-     * @returns {HTMLElement}
-     */
-    render(props: CheckboxRenderProps) {
-        this.element.checked = true;
-        this.element.disabled = true;
-        return super.render({
+    constructor(props: CheckboxRenderProps) {
+        super({
             title: props.title,
         });
+        this.element.checked = true;
+        this.element.disabled = true;
     }
 }

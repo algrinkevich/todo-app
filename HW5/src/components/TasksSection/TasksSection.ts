@@ -6,37 +6,38 @@ import "./TasksSection.css";
 import { TasksSectionRenderProps } from "../../types";
 
 export class TasksSection extends Component<HTMLElement> {
-    /**
-     * @override
-     * @param props
-     * @returns {HTMLElement}
-     */
-    constructor() {
-        super();
+    private componentProps: TasksSectionRenderProps;
+
+    constructor(props: TasksSectionRenderProps) {
+        super({ styleClasses: ["tasks-section"] });
         this.element = document.createElement("section");
+        this.componentProps = { ...props };
     }
-    render(props: TasksSectionRenderProps) {
+    render() {
         return super.render({
             children: [
-                new Heading({ level: 2 }).render({
+                new Heading({
+                    level: 2,
                     text: "All Tasks",
                     styleClasses: ["tasks-section__subheading", "subheading"],
-                }),
-                new TaskList().render({
-                    tasks: props.tasks.filter((task) => !task.isCompleted),
-                    onDeleteTask: props.onDeleteTask,
-                    onCompleteTask: props.onCompleteTask,
-                    searchQuery: props.searchQuery,
-                }),
-                new Heading({ level: 2 }).render({
+                }).render(),
+                new TaskList({
+                    tasks: this.componentProps.tasks.filter(
+                        (task) => !task.isCompleted
+                    ),
+                    onDeleteTask: this.componentProps.onDeleteTask,
+                    onCompleteTask: this.componentProps.onCompleteTask,
+                    searchQuery: this.componentProps.searchQuery,
+                }).render(),
+                new Heading({
+                    level: 2,
                     text: "Completed Tasks",
                     styleClasses: ["tasks-section__subheading", "subheading"],
-                }),
-                new CompletedTaskList().render({
-                    tasks: props.tasks.filter((task) => task.isCompleted),
-                }),
+                }).render(),
+                new CompletedTaskList({
+                    tasks: this.componentProps.tasks.filter((task) => task.isCompleted),
+                }).render(),
             ],
-            styleClasses: ["tasks-section"],
         });
     }
 }

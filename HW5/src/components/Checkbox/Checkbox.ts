@@ -3,26 +3,24 @@ import { CheckboxRenderProps } from "../../types";
 import "./Checkbox.css";
 
 export class Checkbox extends Component<HTMLInputElement> {
-    constructor() {
-        super();
+    private componentProps: CheckboxRenderProps;
+
+    constructor(props: CheckboxRenderProps) {
+        super({ styleClasses: ["checkbox"] });
         this.element = document.createElement(`input`);
+        this.componentProps = { ...props };
     }
-    /**
-     * @override
-     * @param props
-     * @returns {HTMLElement}
-     */
-    render(props: CheckboxRenderProps) {
+
+    render() {
         this.element.type = "checkbox";
-        this.element.value = props.title;
+        this.element.value = this.componentProps.title;
         this.element.onchange = () => {
             if (this.element.checked) {
-                props.onChecked(props.title);
+                this.componentProps.onChecked(this.componentProps.title);
             }
         };
         return super.render({
             children: [],
-            styleClasses: ["checkbox"],
         });
     }
 }

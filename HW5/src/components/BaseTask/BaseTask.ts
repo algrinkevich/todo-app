@@ -1,8 +1,12 @@
 import { Container } from "../Container/Container";
-import { ComponentRenderProps } from "../../types";
+import { ComponentProps, RenderArgs } from "../../types";
 import "./BaseTask.css";
 
 export class BaseTask extends Container {
+    constructor(props: ComponentProps = {}) {
+        super({ ...props, styleClasses: ["task-row"], ...props.styleClasses });
+    }
+
     alignDateWithDay(date: Date) {
         return new Date(date.getFullYear(), date.getMonth(), date.getDate());
     }
@@ -41,10 +45,9 @@ export class BaseTask extends Container {
         return formattedDate;
     }
 
-    render(props: ComponentRenderProps) {
+    render(args: RenderArgs) {
         return super.render({
-            children: props.children,
-            styleClasses: ["task-row"],
+            children: args.children,
         });
     }
 }

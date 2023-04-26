@@ -3,23 +3,16 @@ import { DatePickerRenderProps } from "../../types";
 import "./DatePicker.css";
 
 export class DatePicker extends Component<HTMLInputElement> {
-    /**
-     * @override
-     * @param props
-     * @returns {HTMLElement}
-     */
-    constructor() {
-        super();
+    constructor(props: DatePickerRenderProps) {
+        super({
+            styleClasses: ["date-picker", ...(props.styleClasses || [])],
+        });
         this.element = document.createElement(`input`);
-    }
-    render(props: DatePickerRenderProps) {
         this.element.name = props.name;
         this.element.type = "date";
         this.element.valueAsDate = new Date();
-
-        return super.render({
-            children: [],
-            styleClasses: ["date-picker", ...(props.styleClasses || [])],
-        });
+    }
+    render() {
+        return super.render({ children: [] });
     }
 }

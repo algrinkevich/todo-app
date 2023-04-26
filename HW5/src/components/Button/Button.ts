@@ -1,30 +1,24 @@
 import { Component } from "../Component/Component";
-import { ButtonRenderProps } from "../../types";
+import { ButtonRenderProps, RenderArgs } from "../../types";
 
 export class Button extends Component<HTMLButtonElement> {
-    constructor() {
-        super();
+    private componentProps: ButtonRenderProps;
+    
+    constructor(props: ButtonRenderProps) {
+        super({ onClick: props.onClick, styleClasses: props.styleClasses });
         this.element = document.createElement("button");
+        this.componentProps = {...props};
     }
-    /**
-     * @override
-     * @param props
-     * @param {string} props.text
-     * @param {function} props.onClick
-     * @returns {HTMLElement}
-     */
-    render(props: ButtonRenderProps) {
-        if (props.type) {
-            this.element.type = props.type;
+
+    render() {
+        if (this.componentProps.type) {
+            this.element.type = this.componentProps.type;
         }
-        if (props.enabled === false) {
+        if (this.componentProps.enabled === false) {
             this.element.disabled = true;
         }
         return super.render({
-            onClick: props.onClick,
-            children: [props.text],
-            styleClasses: props.styleClasses,
+            children: [this.componentProps.text],
         });
     }
 }
-

@@ -3,18 +3,17 @@ import { Container } from "../Container/Container";
 import { Overlay } from "../Overlay/Overlay";
 
 export class PopupContainer extends Container {
-    /**
-     * @override
-     * @param props
-     * @returns {HTMLElement}
-     */
-    render(props: PopupContainerRenderProps) {
+    private componentProps: PopupContainerRenderProps;
+
+    constructor(props: PopupContainerRenderProps) {
+        super();
+        this.componentProps = {...props};
+    }
+
+    render() {
         return super.render({
             children: [
-                props.popupComponent.render({
-                    onCancel: props.onCancel,
-                    onOk: props.onOk,
-                }),
+                this.componentProps.popupComponent.render(),
                 new Overlay().render(),
             ],
         });

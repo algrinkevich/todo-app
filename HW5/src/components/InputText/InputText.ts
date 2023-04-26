@@ -3,36 +3,28 @@ import { Component } from "../Component/Component";
 import "./InputText.css";
 
 export class InputText extends Component<HTMLInputElement> {
-    constructor() {
-        super();
+    private componentProps: InputTextRenderProps;
+
+    constructor(props: InputTextRenderProps) {
+        super({ styleClasses: ["input-text", ...(props.styleClasses || [])] });
         this.element = document.createElement(`input`);
+        this.componentProps = { ...props };
     }
-    /**
-     * @override
-     * @param props
-     * @param {function} props.onInput
-     * @param {string} props.name
-     * @param {string} props.type
-     * @param {string} props.value
-     * @param {string} props.placeholder
-     * @param {boolean} props.setFocus
-     * @returns {HTMLElement}
-     */
-    render(props: InputTextRenderProps) {
-        this.element.oninput = props.onInput;
-        this.element.name = props.name;
-        this.element.type = props.type;
-        this.element.value = props.value;
+
+    render() {
+        this.element.oninput = this.componentProps.onInput;
+        this.element.name = this.componentProps.name;
+        this.element.type = this.componentProps.type;
+        this.element.value = this.componentProps.value;
         this.element.autocomplete = "off";
-        this.element.placeholder = props.placeholder;
-        if (props.setFocus) {
+        this.element.placeholder = this.componentProps.placeholder;
+        if (this.componentProps.setFocus) {
             setTimeout(() => {
                 this.element.focus();
             }, 0);
         }
         return super.render({
             children: [],
-            styleClasses: ["input-text", ...(props.styleClasses || [])],
         });
     }
 }

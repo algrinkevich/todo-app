@@ -1,36 +1,32 @@
-import { ComponentRenderProps } from "../../types";
+import { ComponentProps, RenderArgs } from "../../types";
 
 export class Component<HTMLElementType extends HTMLElement> {
     state: Object;
-    props: ComponentRenderProps;
+    private props: ComponentProps;
     element: HTMLElementType;
 
-    constructor() {
+    constructor(props: ComponentProps = {}) {
         this.state = {};
-        this.props = {};
+        this.props = { ...props };
     }
 
     setState(state: Object) {
         this.state = { ...this.state, ...state };
         this.update();
     }
-    /**
-     *
-     * @param props
-     * @returns {HTMLElement}
-     */
-    render(props: ComponentRenderProps = {}) {
-        this.props = { ...props };
-        this.element.onclick = props.onClick;
+
+    render({ children = [] }: RenderArgs) {
+        this.props.children = children;
+        this.element.onclick = this.props.onClick;
         this.element.innerHTML = "";
-        if (props.styleClasses) {
-            this.element.classList.add(...props.styleClasses);
+        if (this.props.styleClasses) {
+            this.element.classList.add(...this.props.styleClasses);
         }
-        this.element.append(...props.children);
+        this.element.append(...children);
         return this.element;
     }
 
     update() {
-        this.render(this.props);
+        this.render({ children: this.props.children });
     }
 }

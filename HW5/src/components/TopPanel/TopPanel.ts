@@ -5,31 +5,32 @@ import { Container } from "../Container/Container";
 import { TopPanelRenderProps } from "../../types";
 
 export class TopPanel extends Container {
-    /**
-     * @override
-     * @param props
-     * @returns {HTMLElement}
-     */
-    render(props: TopPanelRenderProps) {
+    private componentProps: TopPanelRenderProps;
+
+    constructor(props: TopPanelRenderProps) {
+        super({ styleClasses: ["top-panel"] });
+        this.componentProps = { ...props };
+    }
+
+    render() {
         return super.render({
             children: [
-                new Search().render({
+                new Search({
                     placeholder: "Search Task",
-                    onSearch: props.onSearch,
-                    query: props.searchQuery,
-                    isFocused: props.isSearchFocused,
-                }),
-                new Button().render({
+                    onSearch: this.componentProps.onSearch,
+                    query: this.componentProps.searchQuery,
+                    isFocused: this.componentProps.isSearchFocused,
+                }).render(),
+                new Button({
                     text: "+ New Task",
-                    onClick: props.onNewTaskClick,
+                    onClick: this.componentProps.onNewTaskClick,
                     styleClasses: [
                         "new-task-btn",
                         "top-panel__new-task-btn",
                         "confirm-btn",
                     ],
-                }),
+                }).render(),
             ],
-            styleClasses: ["top-panel"],
         });
     }
 }

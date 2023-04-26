@@ -7,12 +7,13 @@ import { Container } from "../Container/Container";
 import { Task, TasksForTodayPopupRenderProps } from "../../types";
 
 export class TasksForTodayPopup extends Container {
-    tasks: Array<string>; 
+    private componentProps: TasksForTodayPopupRenderProps;
 
-    constructor(tasks: Array<string>) {
-        super();
-        this.tasks = tasks;
+    constructor(props: TasksForTodayPopupRenderProps) {
+        super({ styleClasses: ["popup"] });
+        this.componentProps = { ...props };
     }
+
     getGreeting() {
         const currenHours = new Date().getHours();
         if (currenHours >= 5 && currenHours < 12) {
@@ -25,26 +26,18 @@ export class TasksForTodayPopup extends Container {
             return "Good Night";
         }
     }
-    /**
-     * @override
-     * @param props
-     * @returns {HTMLElement}
-     */
-    render(props: TasksForTodayPopupRenderProps) {
+    render() {
         return super.render({
             children: [
-                new Heading({ level: 2 }).render({
-                    text: this.getGreeting(),
-                }),
-                new Text().render({
+                new Heading({ level: 2, text: this.getGreeting() }).render(),
+                new Text({
                     text: "You have the next planned tasks for today:",
                     styleClasses: ["popup__text"],
-                }),
-                new List().render({
-                    items: this.tasks,
+                }).render(),
+                new List({
                     styleClasses: ["popup__tasks-list"],
-                }),
-                new Button().render({
+                }).render({ children: this.componentProps.tasks }),
+                new Button({
                     text: "Ok",
                     enabled: true,
                     styleClasses: [
@@ -53,10 +46,9 @@ export class TasksForTodayPopup extends Container {
                         "element-whole-width",
                     ],
                     type: "button",
-                    onClick: props.onOk,
-                }),
+                    onClick: this.componentProps.onOk,
+                }).render(),
             ],
-            styleClasses: ["popup"],
         });
     }
 }

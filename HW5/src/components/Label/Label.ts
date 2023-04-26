@@ -4,25 +4,23 @@ import { Text } from "../Text/Text";
 import "./Label.css";
 
 export class Label extends Component<HTMLLabelElement> {
-    constructor() {
-        super();
+    private componentProps: LabelRenderProps;
+
+    constructor(props: LabelRenderProps) {
+        super({ styleClasses: props.styleClasses });
         this.element = document.createElement(`label`);
+        this.componentProps = {...props};
     }
-    /**
-     * @override
-     * @param props
-     * @returns {HTMLElement}
-     */
-    render(props: LabelRenderProps) {
+
+    render() {
         return super.render({
             children: [
-                props.title,
-                new Text().render({
-                    text: props.date,
+                this.componentProps.title,
+                new Text({
+                    text: this.componentProps.date,
                     styleClasses: ["task-row__date"],
-                }),
+                }).render(),
             ],
-            styleClasses: props.styleClasses,
         });
     }
 }

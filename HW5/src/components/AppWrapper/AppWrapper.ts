@@ -1,19 +1,18 @@
 import { Container } from "../Container/Container";
-import { ComponentRenderProps } from "../../types";
+import { ComponentProps, RenderArgs } from "../../types";
 
 export class AppWrapper extends Container {
-    /**
-     * @override
-     * @param props
-     * @param {HTMLElement[]} props.children
-     * @param {string[]} props.styleClasses
-     * @returns {HTMLDivElement}
-     */
-    render(props: ComponentRenderProps) {
-        return super.render({
-            children: props.children,
+    constructor(props: ComponentProps = {}) {
+        super({
+            ...props,
             styleClasses: ["app-wrapper"],
+            ...props.styleClasses,
+        });
+    }
+
+    render(args: RenderArgs) {
+        return super.render({
+            children: args.children
         });
     }
 }
-

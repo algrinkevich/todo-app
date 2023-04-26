@@ -1,27 +1,20 @@
-import { ListRenderProps } from "../../types";
+import { ListRenderProps, RenderArgs } from "../../types";
 import { Component } from "../Component/Component";
 import { ListItem } from "../ListItem/ListItem";
 
 export class List extends Component<HTMLUListElement> {
-    constructor() {
-        super();
+    constructor(props: ListRenderProps) {
+        super({ styleClasses: props.styleClasses });
         this.element = document.createElement("ul");
     }
-    /**
-     * @override
-     * @param props
-     * @param {string[]} props.items
-     * @param {HTMLElement[]} props.children
-     * @returns {HTMLElement}
-     */
-    render(props: ListRenderProps) {
+
+    render(args: RenderArgs) {
         return super.render({
             children: [
-                ...props.items.map((item) => {
+                ...args.children.map((item) => {
                     return new ListItem().render({ children: [item] });
                 }),
             ],
-            styleClasses: props.styleClasses,
         });
     }
 }

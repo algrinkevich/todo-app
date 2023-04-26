@@ -2,13 +2,8 @@ import { SearchRenderProps } from "../../types";
 import { InputText } from "../InputText/InputText";
 
 export class Search extends InputText {
-    /**
-     * @override
-     * @param props
-     * @returns {HTMLElement}
-     */
-    render(props: SearchRenderProps) {
-        return super.render({
+    constructor(props: SearchRenderProps) {
+        super({
             placeholder: props.placeholder,
             onInput: () => props.onSearch(this.element.value),
             name: "search",

@@ -2,21 +2,19 @@ import { HeadingRenderProps } from "../../types";
 import { Component } from "../Component/Component";
 
 export class Heading extends Component<HTMLHeadingElement> {
-    constructor({ level }: { level: number }) {
-        super();
-        this.element = <HTMLHeadingElement>document.createElement(`h${level}`);
+    private componentProps: HeadingRenderProps;
+
+    constructor(props: HeadingRenderProps) {
+        super({ styleClasses: props.styleClasses });
+        this.element = <HTMLHeadingElement>(
+            document.createElement(`h${props.level}`)
+        );
+        this.componentProps = {...props};
     }
-    /**
-     * @override
-     * @param props
-     * @param {HTMLElement[]} props.children
-     * @param {string[]} props.styleClasses
-     * @returns {HTMLElement}
-     */
-    render(props: HeadingRenderProps) {
+
+    render() {
         return super.render({
-            children: [props.text],
-            styleClasses: props.styleClasses,
+            children: [this.componentProps.text],
         });
     }
 }

@@ -3,7 +3,7 @@ import { Image } from "../Image/Image";
 import { Heading } from "../Heading/Heading";
 import { Text } from "../Text/Text";
 import "./WeatherWidget.css";
-import { WeatherResponse, CityCoords, WeatherWidgetState } from "../../types"; 
+import { WeatherResponse, CityCoords, WeatherWidgetState } from "../../types";
 import { Container } from "../Container/Container";
 
 export class WeatherWidget extends Container {
@@ -11,7 +11,7 @@ export class WeatherWidget extends Container {
     server: WeatherService;
 
     constructor() {
-        super();
+        super({ styleClasses: ["weather"] });
         this.state = { temperature: null, icon: null, city: null };
         this.server = new WeatherService();
 
@@ -53,23 +53,23 @@ export class WeatherWidget extends Container {
         let children: Array<HTMLElement> = [];
         if (this.state.icon) {
             children = [
-                new Image().render({
+                new Image({
                     src: this.state.icon,
                     styleClasses: ["weather__icon"],
-                }),
-                new Heading({ level: 3 }).render({
+                }).render(),
+                new Heading({
+                    level: 3,
                     text: `${this.state.temperature}°`,
                     styleClasses: ["weather__temperature"],
-                }),
-                new Text().render({
+                }).render(),
+                new Text({
                     text: this.state.city,
                     styleClasses: ["weather__city"],
-                }),
+                }).render(),
             ];
         }
         return super.render({
             children: children,
-            styleClasses: ["weather"],
         });
     }
 }

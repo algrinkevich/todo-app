@@ -3,19 +3,22 @@ import { CompletedTask } from "../CompletedTask/CompletedTask";
 import { BaseTaskListRenderProps } from "../../types";
 
 export class CompletedTaskList extends List {
-    /**
-     * @override
-     * @param props
-     * @returns {HTMLElement}
-     */
-    render(props: BaseTaskListRenderProps) {
-        return super.render({
-            items: props.tasks.map((task) =>
-                new CompletedTask().render({
-                    task,
-                })
-            ),
+    private componentProps: BaseTaskListRenderProps;
+
+    constructor(props: BaseTaskListRenderProps) {
+        super({
             styleClasses: ["task-section"],
+        });
+        this.componentProps = { ...props };
+    }
+
+    render() {
+        return super.render({
+            children: this.componentProps.tasks.map((task) =>
+                new CompletedTask({
+                    task,
+                }).render()
+            ),
         });
     }
 }
