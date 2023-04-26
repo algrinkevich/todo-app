@@ -1,11 +1,11 @@
-import { InputTextRenderProps } from "../../types";
+import { InputTextProps } from "../../types";
 import { Component } from "../Component/Component";
 import "./InputText.css";
 
 export class InputText extends Component<HTMLInputElement> {
-    private componentProps: InputTextRenderProps;
+    private componentProps: InputTextProps;
 
-    constructor(props: InputTextRenderProps) {
+    constructor(props: InputTextProps) {
         super({ styleClasses: ["input-text", ...(props.styleClasses || [])] });
         this.element = document.createElement(`input`);
         this.componentProps = { ...props };

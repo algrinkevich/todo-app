@@ -1,8 +1,8 @@
-import { ImageRenderProps } from "../../types";
+import { ImageProps } from "../../types";
 import { Component } from "../Component/Component";
 
 export class Image extends Component<HTMLImageElement> {
-    constructor(props: ImageRenderProps) {
+    constructor(props: ImageProps) {
         super({ styleClasses: props.styleClasses, onClick: props.onClick });
         this.element = document.createElement(`img`);
         this.element.src = props.src;

@@ -3,14 +3,14 @@ import { Button } from "../Button/Button";
 import { PopupButtonsContainer } from "../PopupButtonsContainer/PopupButtonsContainer";
 import { TaskTitleInput } from "../TaskTitleInput/TaskTitleInput";
 import { DatePicker } from "../DatePicker/DatePicker";
-import { AddTaskFormRenderProps } from "../../types";
+import { AddTaskFormProps } from "../../types";
 
 import "./AddTaskForm.css";
 
 export class AddTaskForm extends Component<HTMLFormElement> {
-    private taskFormProps: AddTaskFormRenderProps;
+    private taskFormProps: AddTaskFormProps;
 
-    constructor(props: AddTaskFormRenderProps) {
+    constructor(props: AddTaskFormProps) {
         super({
             styleClasses: ["create-task-form"],
         });

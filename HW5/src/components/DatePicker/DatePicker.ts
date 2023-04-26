@@ -1,9 +1,9 @@
 import { Component } from "../Component/Component";
-import { DatePickerRenderProps } from "../../types";
+import { DatePickerProps } from "../../types";
 import "./DatePicker.css";
 
 export class DatePicker extends Component<HTMLInputElement> {
-    constructor(props: DatePickerRenderProps) {
+    constructor(props: DatePickerProps) {
         super({
             styleClasses: ["date-picker", ...(props.styleClasses || [])],
         });

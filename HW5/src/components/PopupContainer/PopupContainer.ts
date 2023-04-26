@@ -1,13 +1,13 @@
-import { PopupContainerRenderProps } from "../../types";
+import { PopupContainerProps } from "../../types";
 import { Container } from "../Container/Container";
 import { Overlay } from "../Overlay/Overlay";
 
 export class PopupContainer extends Container {
-    private componentProps: PopupContainerRenderProps;
+    private componentProps: PopupContainerProps;
 
-    constructor(props: PopupContainerRenderProps) {
+    constructor(props: PopupContainerProps) {
         super();
-        this.componentProps = {...props};
+        this.componentProps = { ...props };
     }
 
     render() {

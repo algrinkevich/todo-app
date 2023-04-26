@@ -1,13 +1,13 @@
-import { TextRenderProps } from "../../types";
+import { TextProps } from "../../types";
 import { Component } from "../Component/Component";
 
 export class Text extends Component<HTMLParagraphElement> {
-    private componentProps: TextRenderProps;
+    private componentProps: TextProps;
 
-    constructor(props: TextRenderProps) {
+    constructor(props: TextProps) {
         super({ styleClasses: props.styleClasses });
         this.element = document.createElement(`p`);
-        this.componentProps = {...props};
+        this.componentProps = { ...props };
     }
     render() {
         return super.render({

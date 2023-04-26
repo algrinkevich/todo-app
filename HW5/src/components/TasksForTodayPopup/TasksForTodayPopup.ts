@@ -4,12 +4,12 @@ import { List } from "../List/List";
 import { Button } from "../Button/Button";
 import "./TasksForTodayPopup.css";
 import { Container } from "../Container/Container";
-import { Task, TasksForTodayPopupRenderProps } from "../../types";
+import { Task, TasksForTodayPopupProps } from "../../types";
 
 export class TasksForTodayPopup extends Container {
-    private componentProps: TasksForTodayPopupRenderProps;
+    private componentProps: TasksForTodayPopupProps;
 
-    constructor(props: TasksForTodayPopupRenderProps) {
+    constructor(props: TasksForTodayPopupProps) {
         super({ styleClasses: ["popup"] });
         this.componentProps = { ...props };
     }

@@ -1,8 +1,8 @@
-import { CheckboxRenderProps } from "../../types";
+import { CheckboxProps } from "../../types";
 import { Checkbox } from "../Checkbox/Checkbox";
 
 export class DisabledCheckbox extends Checkbox {
-    constructor(props: CheckboxRenderProps) {
+    constructor(props: CheckboxProps) {
         super({
             title: props.title,
         });

@@ -1,12 +1,12 @@
 import { Heading } from "../Heading/Heading";
 import { AddTaskForm } from "../AddTaskForm/AddTaskForm";
 import { Container } from "../Container/Container";
-import { AddTaskPopupRenderProps, RenderArgs } from "../../types";
+import { AddTaskPopupProps, RenderArgs } from "../../types";
 
 export class AddTaskPopup extends Container {
-    private componentProps: AddTaskPopupRenderProps;
+    private componentProps: AddTaskPopupProps;
 
-    constructor(props: AddTaskPopupRenderProps) {
+    constructor(props: AddTaskPopupProps) {
         super({
             styleClasses: ["popup"],
         });

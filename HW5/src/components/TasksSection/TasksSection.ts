@@ -3,12 +3,12 @@ import { Heading } from "../Heading/Heading";
 import { TaskList } from "../TaskList/TaskList";
 import { CompletedTaskList } from "../CompletedTaskList/CompletedTaskList";
 import "./TasksSection.css";
-import { TasksSectionRenderProps } from "../../types";
+import { TasksSectionProps } from "../../types";
 
 export class TasksSection extends Component<HTMLElement> {
-    private componentProps: TasksSectionRenderProps;
+    private componentProps: TasksSectionProps;
 
-    constructor(props: TasksSectionRenderProps) {
+    constructor(props: TasksSectionProps) {
         super({ styleClasses: ["tasks-section"] });
         this.element = document.createElement("section");
         this.componentProps = { ...props };
@@ -35,7 +35,9 @@ export class TasksSection extends Component<HTMLElement> {
                     styleClasses: ["tasks-section__subheading", "subheading"],
                 }).render(),
                 new CompletedTaskList({
-                    tasks: this.componentProps.tasks.filter((task) => task.isCompleted),
+                    tasks: this.componentProps.tasks.filter(
+                        (task) => task.isCompleted
+                    ),
                 }).render(),
             ],
         });

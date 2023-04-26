@@ -1,11 +1,11 @@
 import { Component } from "../Component/Component";
-import { CheckboxRenderProps } from "../../types";
+import { CheckboxProps } from "../../types";
 import "./Checkbox.css";
 
 export class Checkbox extends Component<HTMLInputElement> {
-    private componentProps: CheckboxRenderProps;
+    private componentProps: CheckboxProps;
 
-    constructor(props: CheckboxRenderProps) {
+    constructor(props: CheckboxProps) {
         super({ styleClasses: ["checkbox"] });
         this.element = document.createElement(`input`);
         this.componentProps = { ...props };

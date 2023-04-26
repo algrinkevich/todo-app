@@ -39,17 +39,17 @@ export interface ComponentProps {
     children?: Array<HTMLElement | string>;
 }
 
-export interface AddTaskFormRenderProps {
+export interface AddTaskFormProps {
     onCancel: (event: Event) => void;
     onClickAdd: (newTask: { title: string; date: string }) => void;
 }
 
-export interface AddTaskPopupRenderProps {
+export interface AddTaskPopupProps {
     onCancel: (event: Event) => void;
     onOk: (arg: Object) => void;
 }
 
-export interface ButtonRenderProps {
+export interface ButtonProps {
     type?: string;
     enabled?: boolean;
     text: string;
@@ -57,48 +57,48 @@ export interface ButtonRenderProps {
     styleClasses: string[];
 }
 
-export interface CheckboxRenderProps {
+export interface CheckboxProps {
     title: string;
     onChecked?: (title: string) => void;
 }
 
-export interface BaseTaskRenderProps {
+export interface BaseTaskProps {
     task: Task;
 }
 
-export interface TaskRenderProps extends BaseTaskRenderProps {
+export interface TaskProps extends BaseTaskProps {
     onComplete: (task: Task) => void;
     onDelete: (task: Task) => void;
 }
 
-export interface BaseTaskListRenderProps {
+export interface BaseTaskListProps {
     tasks: Task[];
 }
 
-export interface TaskListRenderProps extends BaseTaskListRenderProps {
+export interface TaskListProps extends BaseTaskListProps {
     onDeleteTask: (task: Task) => void;
     onCompleteTask: (task: Task) => void;
     searchQuery: string;
 }
 
-export interface DatePickerRenderProps {
+export interface DatePickerProps {
     name: string;
     styleClasses: string[];
 }
 
-export interface HeadingRenderProps {
+export interface HeadingProps {
     text: string;
     level: number;
     styleClasses?: string[];
 }
 
-export interface ImageRenderProps {
+export interface ImageProps {
     src: string;
     styleClasses: string[];
     onClick?: (event: Event) => void;
 }
 
-export interface InputTextRenderProps {
+export interface InputTextProps {
     onInput: (event: Event) => void;
     name: string;
     type: string;
@@ -108,50 +108,50 @@ export interface InputTextRenderProps {
     styleClasses?: string[];
 }
 
-export interface LabelRenderProps {
+export interface LabelProps {
     title: string;
     date: string;
     styleClasses: string[];
 }
 
-export interface ListRenderProps {
+export interface ListProps {
     styleClasses: string[];
 }
 
-export interface PopupContainerRenderProps {
+export interface PopupContainerProps {
     popupComponent: AddTaskPopup | TasksForTodayPopup;
 }
 
-export interface SearchRenderProps {
+export interface SearchProps {
     onSearch: (query: string) => void;
     query: string;
     isFocused: boolean;
     placeholder: string;
 }
 
-export interface TaskTitleInputRenderProps {
+export interface TaskTitleInputProps {
     addButton: HTMLButtonElement;
     type: string;
 }
 
-export interface TasksForTodayPopupRenderProps {
+export interface TasksForTodayPopupProps {
     onOk: (arg: Object) => void;
     tasks: Array<string>;
 }
 
-export interface TasksSectionRenderProps {
+export interface TasksSectionProps {
     tasks: Array<Task>;
     onDeleteTask: (task: Task) => void;
     onCompleteTask: (task: Task) => void;
     searchQuery: string;
 }
 
-export interface TextRenderProps {
+export interface TextProps {
     text: string;
     styleClasses: string[];
 }
 
-export interface TopPanelRenderProps {
+export interface TopPanelProps {
     onSearch: (query: string) => void;
     searchQuery: string;
     isSearchFocused: boolean;

@@ -1,13 +1,13 @@
 import { BaseTask } from "../BaseTask/BaseTask";
 import { DisabledCheckbox } from "../DisabledCheckbox/DisabledCheckbox";
 import { Label } from "../Label/Label";
-import { BaseTaskRenderProps } from "../../types";
+import { BaseTaskProps } from "../../types";
 import "./CompletedTask.css";
 
 export class CompletedTask extends BaseTask {
-    private componentProps: BaseTaskRenderProps;
+    private componentProps: BaseTaskProps;
 
-    constructor(props: BaseTaskRenderProps) {
+    constructor(props: BaseTaskProps) {
         super();
         this.componentProps = { ...props };
     }

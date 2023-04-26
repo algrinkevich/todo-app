@@ -1,9 +1,9 @@
-import { TaskTitleInputRenderProps } from "../../types";
+import { TaskTitleInputProps } from "../../types";
 import { InputText } from "../InputText/InputText";
 import "./TaskTitleInput.css";
 
 export class TaskTitleInput extends InputText {
-    constructor(props: TaskTitleInputRenderProps) {
+    constructor(props: TaskTitleInputProps) {
         super({
             placeholder: "Task Title",
             onInput: () => {

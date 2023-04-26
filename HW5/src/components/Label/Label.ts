@@ -1,15 +1,15 @@
-import { LabelRenderProps } from "../../types";
+import { LabelProps } from "../../types";
 import { Component } from "../Component/Component";
 import { Text } from "../Text/Text";
 import "./Label.css";
 
 export class Label extends Component<HTMLLabelElement> {
-    private componentProps: LabelRenderProps;
+    private componentProps: LabelProps;
 
-    constructor(props: LabelRenderProps) {
+    constructor(props: LabelProps) {
         super({ styleClasses: props.styleClasses });
         this.element = document.createElement(`label`);
-        this.componentProps = {...props};
+        this.componentProps = { ...props };
     }
 
     render() {

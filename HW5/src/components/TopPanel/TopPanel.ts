@@ -2,12 +2,12 @@ import { Search } from "../Search/Search";
 import { Button } from "../Button/Button";
 import "./TopPanel.css";
 import { Container } from "../Container/Container";
-import { TopPanelRenderProps } from "../../types";
+import { TopPanelProps } from "../../types";
 
 export class TopPanel extends Container {
-    private componentProps: TopPanelRenderProps;
+    private componentProps: TopPanelProps;
 
-    constructor(props: TopPanelRenderProps) {
+    constructor(props: TopPanelProps) {
         super({ styleClasses: ["top-panel"] });
         this.componentProps = { ...props };
     }

@@ -2,12 +2,12 @@ import { BaseTask } from "../BaseTask/BaseTask";
 import { Checkbox } from "../Checkbox/Checkbox";
 import { Label } from "../Label/Label";
 import { DeleteIcon } from "../DeleteIcon/DeleteIcon";
-import { TaskRenderProps } from "../../types";
+import { TaskProps } from "../../types";
 
 export class Task extends BaseTask {
-    private componenentProps: TaskRenderProps;
+    private componenentProps: TaskProps;
 
-    constructor(props: TaskRenderProps) {
+    constructor(props: TaskProps) {
         super();
         this.componenentProps = { ...props };
     }

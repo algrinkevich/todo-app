@@ -1,13 +1,13 @@
 import { Component } from "../Component/Component";
-import { ButtonRenderProps, RenderArgs } from "../../types";
+import { ButtonProps, RenderArgs } from "../../types";
 
 export class Button extends Component<HTMLButtonElement> {
-    private componentProps: ButtonRenderProps;
-    
-    constructor(props: ButtonRenderProps) {
+    private componentProps: ButtonProps;
+
+    constructor(props: ButtonProps) {
         super({ onClick: props.onClick, styleClasses: props.styleClasses });
         this.element = document.createElement("button");
-        this.componentProps = {...props};
+        this.componentProps = { ...props };
     }
 
     render() {

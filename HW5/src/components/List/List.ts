@@ -1,9 +1,9 @@
-import { ListRenderProps, RenderArgs } from "../../types";
+import { ListProps, RenderArgs } from "../../types";
 import { Component } from "../Component/Component";
 import { ListItem } from "../ListItem/ListItem";
 
 export class List extends Component<HTMLUListElement> {
-    constructor(props: ListRenderProps) {
+    constructor(props: ListProps) {
         super({ styleClasses: props.styleClasses });
         this.element = document.createElement("ul");
     }
