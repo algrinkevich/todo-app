@@ -39,28 +39,30 @@ export interface ComponentProps {
     children?: Array<HTMLElement | string>;
 }
 
-export interface AddTaskFormRenderProps extends ComponentProps {
+export interface AddTaskFormRenderProps {
     onCancel: (event: Event) => void;
     onClickAdd: (newTask: { title: string; date: string }) => void;
 }
 
-export interface AddTaskPopupRenderProps extends ComponentProps {
+export interface AddTaskPopupRenderProps {
     onCancel: (event: Event) => void;
     onOk: (arg: Object) => void;
 }
 
-export interface ButtonRenderProps extends ComponentProps {
+export interface ButtonRenderProps {
     type?: string;
     enabled?: boolean;
     text: string;
+    onClick?: (event: Event) => void;
+    styleClasses: string[];
 }
 
-export interface CheckboxRenderProps extends ComponentProps {
+export interface CheckboxRenderProps {
     title: string;
     onChecked?: (title: string) => void;
 }
 
-export interface BaseTaskRenderProps extends ComponentProps {
+export interface BaseTaskRenderProps {
     task: Task;
 }
 
@@ -69,8 +71,8 @@ export interface TaskRenderProps extends BaseTaskRenderProps {
     onDelete: (task: Task) => void;
 }
 
-export interface BaseTaskListRenderProps extends ListRenderProps {
-    tasks: Array<Task>;
+export interface BaseTaskListRenderProps {
+    tasks: Task[];
 }
 
 export interface TaskListRenderProps extends BaseTaskListRenderProps {
@@ -79,68 +81,77 @@ export interface TaskListRenderProps extends BaseTaskListRenderProps {
     searchQuery: string;
 }
 
-export interface DatePickerRenderProps extends ComponentProps {
+export interface DatePickerRenderProps {
     name: string;
+    styleClasses: string[];
 }
 
-export interface HeadingRenderProps extends ComponentProps {
+export interface HeadingRenderProps {
     text: string;
     level: number;
+    styleClasses?: string[];
 }
 
-export interface ImageRenderProps extends ComponentProps {
+export interface ImageRenderProps {
     src: string;
+    styleClasses: string[];
+    onClick?: (event: Event) => void;
 }
 
-export interface InputTextRenderProps extends ComponentProps {
-    onInput?: (event: Event) => void;
-    name?: string;
-    type?: string;
-    value?: string;
-    placeholder?: string;
-    setFocus?: boolean;
+export interface InputTextRenderProps {
+    onInput: (event: Event) => void;
+    name: string;
+    type: string;
+    value: string;
+    placeholder: string;
+    setFocus: boolean;
+    styleClasses?: string[];
 }
 
-export interface LabelRenderProps extends ComponentProps {
+export interface LabelRenderProps {
     title: string;
     date: string;
+    styleClasses: string[];
 }
 
-export interface ListRenderProps extends ComponentProps {
-    items?: Array<HTMLElement | string>;
+export interface ListRenderProps {
+    styleClasses: string[];
 }
 
-export interface PopupContainerRenderProps extends ComponentProps {
+export interface PopupContainerRenderProps {
     popupComponent: AddTaskPopup | TasksForTodayPopup;
 }
 
-export interface SearchRenderProps extends InputTextRenderProps {
+export interface SearchRenderProps {
     onSearch: (query: string) => void;
     query: string;
     isFocused: boolean;
+    placeholder: string;
 }
 
-export interface TaskTitleInputRenderProps extends InputTextRenderProps {
+export interface TaskTitleInputRenderProps {
     addButton: HTMLButtonElement;
+    type: string;
 }
 
-export interface TasksForTodayPopupRenderProps extends ComponentProps {
+export interface TasksForTodayPopupRenderProps {
     onOk: (arg: Object) => void;
     tasks: Array<string>;
 }
 
-export interface TasksSectionRenderProps extends ComponentProps {
+export interface TasksSectionRenderProps {
     tasks: Array<Task>;
     onDeleteTask: (task: Task) => void;
     onCompleteTask: (task: Task) => void;
     searchQuery: string;
 }
 
-export interface TextRenderProps extends ComponentProps {
+export interface TextRenderProps {
     text: string;
+    styleClasses: string[];
 }
 
-export interface TopPanelRenderProps extends ComponentProps {
+export interface TopPanelRenderProps {
     onSearch: (query: string) => void;
     searchQuery: string;
     isSearchFocused: boolean;

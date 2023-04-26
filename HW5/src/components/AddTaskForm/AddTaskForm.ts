@@ -3,7 +3,7 @@ import { Button } from "../Button/Button";
 import { PopupButtonsContainer } from "../PopupButtonsContainer/PopupButtonsContainer";
 import { TaskTitleInput } from "../TaskTitleInput/TaskTitleInput";
 import { DatePicker } from "../DatePicker/DatePicker";
-import { AddTaskFormRenderProps, RenderArgs } from "../../types";
+import { AddTaskFormRenderProps } from "../../types";
 
 import "./AddTaskForm.css";
 
