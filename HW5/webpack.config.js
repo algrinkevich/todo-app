@@ -29,13 +29,20 @@ module.exports = {
                 use: "ts-loader",
                 exclude: /node_modules/,
             },
+            {
+                test: /\.(js|jsx)$/, 
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader",
+                },
+            },
         ],
     },
-    entry: "./src/index.ts",
+    entry: "./src/index.tsx",
     mode: "development",
     devtool: "inline-source-map",
     resolve: {
-        extensions: [".tsx", ".ts", ".js"],
+        extensions: [".tsx", ".ts", ".js", ".jsx"],
     },
     output: {
         clean: true,

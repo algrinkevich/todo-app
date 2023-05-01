@@ -10,7 +10,32 @@ import { AppWrapper } from "../AppWrapper/AppWrapper";
 import "./App.css";
 import { Container } from "../Container/Container";
 import { Task } from "../../types";
+import { useEffect, useRef } from "react";
 
+
+export function App() {
+
+    const ref = useRef(null);
+
+    const topPanel = new TopPanel({
+        onSearch: null,
+        searchQuery: null,
+        isSearchFocused: false,
+        onNewTaskClick: null,
+    }).render();
+
+    useEffect(() => {
+        ref.current.append(topPanel);
+    });
+
+    return (
+        <div ref={ref}>
+            
+        </div>
+    )
+
+}
+/*
 export class App extends Container {
     server: TaskAppService;
     openedFirstTimeADay: boolean;
@@ -184,3 +209,4 @@ export class App extends Container {
         this.update();
     };
 }
+*/
