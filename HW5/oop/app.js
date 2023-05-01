@@ -1,17 +1,28 @@
 class App extends Component {
     constructor() {
         super();
+        const openedDate = new Date().toString().slice(0, 15);
+        const previousOpenedDate = localStorage.getItem("lastOpened");
+        localStorage.setItem("lastOpened", openedDate);
+
         this.state = {
-            allTasks: ["Task 1 Title", "Task 2 Title", "Task 3 Title"],
-            completedTasks: [
-                "Completed Task 1 Title",
-                "Completed Task 2 Title",
-                "Completed Task 3 Title",
-            ],
+            tasks: [],
             searchQuery: "",
             lastAction: null,
             showPopup: false,
+            isLoaded: false,
         };
+        this.server = new TaskAppService();
+        this.server.getTasks().then((response) => {
+            this.setState({
+                ...this.state,
+                tasks: response,
+                isLoaded: true,
+            });
+        });
+        // Cannot place it in state since it should be changed during rendering,
+        // and this causes unexpected rerendering
+        this.openedFirstTimeADay = openedDate !== previousOpenedDate;
     }
     /**
      * @override
@@ -19,10 +30,7 @@ class App extends Component {
      */
     render() {
         const children = [
-            new Header({ level: 1 }).render({
-                text: "To Do List",
-                styleClasses: ["app-wraper__header"],
-            }),
+            new Header().render(),
 
             new TopPanel().render({
                 onSearch: this.updateQuery,
@@ -32,20 +40,32 @@ class App extends Component {
             }),
 
             new TasksSection().render({
-                allTasks: this.state.allTasks,
+                tasks: this.state.tasks,
                 searchQuery: this.state.searchQuery,
                 onDeleteTask: this.deleteTask,
                 onCompleteTask: this.addCompletedTask,
-                completedTasks: this.state.completedTasks,
             }),
         ];
         if (this.state.showPopup) {
             children.push(
                 new PopupContainer().render({
+                    popupComponent: new AddTaskPopup(),
                     onCancel: this.hidePopup,
-                    onClickAdd: this.addNewTask,
+                    onOk: this.addNewTask,
                 })
             );
+        }
+        const tasksForToday = this.getTasksForToday();
+        if (this.openedFirstTimeADay && tasksForToday.length) {
+            children.push(
+                new PopupContainer().render({
+                    popupComponent: new TasksForTodayPopup(tasksForToday),
+                    onOk: this.hideTodayTasksPopup,
+                })
+            );
+        }
+        if (this.state.isLoaded) {
+            this.openedFirstTimeADay = false;
         }
         return super.render({
             children: [
@@ -57,28 +77,57 @@ class App extends Component {
         });
     }
 
-    addNewTask = (title) => {
-        this.setState({
-            ...this.state,
-            lastAction: "Add Task",
-            allTasks: [...this.state.allTasks, title],
-            showPopup: false,
-        });
+    getTasksForToday = () => {
+        const currentDate = new Date().toString().slice(0, 15);
+        const todayTasks = this.state.tasks
+            .filter((task) => {
+                const newDate = new Date(task.plannedDate)
+                    .toString()
+                    .slice(0, 15);
+                return newDate === currentDate && !task.isCompleted;
+            })
+            .map((task) => task.title);
+        return todayTasks;
     };
-    deleteTask = (title) => {
-        this.setState({
-            ...this.state,
-            lastAction: "Delete Task",
-            allTasks: this.state.allTasks.filter((task) => task !== title),
+
+    addNewTask = ({ title, date }) => {
+        this.server
+            .createTask({ title: title, isCompleted: false, plannedDate: date })
+            .then((response) => {
+                this.setState({
+                    ...this.state,
+                    lastAction: "Add Task",
+                    tasks: [...this.state.tasks, response],
+                    showPopup: false,
+                });
+            });
+    };
+
+    deleteTask = (taskToDelete) => {
+        this.server.deleteTask(taskToDelete).then((response) => {
+            this.setState({
+                ...this.state,
+                lastAction: "Delete Task",
+                tasks: this.state.tasks.filter(
+                    (task) => task.id !== taskToDelete.id
+                ),
+            });
         });
     };
 
-    addCompletedTask = (title) => {
-        this.setState({
-            ...this.state,
-            lastAction: "Complete Task",
-            allTasks: this.state.allTasks.filter((task) => task !== title),
-            completedTasks: [...this.state.completedTasks, title],
+    addCompletedTask = (taskToComplete) => {
+        const completedTask = { ...taskToComplete, isCompleted: true };
+
+        this.server.updateTask(completedTask).then((response) => {
+            this.setState({
+                ...this.state,
+                lastAction: "Complete Task",
+                tasks: this.state.tasks.map((task) => ({
+                    ...task,
+                    isCompleted:
+                        task.isCompleted || task.id === completedTask.id,
+                })),
+            });
         });
     };
 
@@ -102,6 +151,11 @@ class App extends Component {
             ...this.state,
             showPopup: false,
         });
+    };
+
+    hideTodayTasksPopup = () => {
+        this.openedFirstTimeADay = false;
+        this.update();
     };
 }
 
