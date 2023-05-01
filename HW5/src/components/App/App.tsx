@@ -5,132 +5,77 @@ import { TasksSection } from "../TasksSection/TasksSection";
 import { PopupContainer } from "../PopupContainer/PopupContainer";
 import { AddTaskPopup } from "../AddTaskPopup/AddTaskPopup";
 import { TasksForTodayPopup } from "../TasksForTodayPopup/TasksForTodayPopup";
-import { AppWrapper } from "../AppWrapper/AppWrapper";
 
 import "./App.css";
-import { Container } from "../Container/Container";
 import { Task } from "../../types";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
+const getOpenedDate = () => {
+    return new Date().toString().slice(0, 15);
+};
 
 export function App() {
+    const [tasks, setTasks] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [lastAction, setLastAction] = useState(null);
+    const [showPopup, setShowPopup] = useState(false);
+    const [openedFirstTimeADay, setOpenedFirstTimeADay] = useState(false);
 
-    const ref = useRef(null);
-
-    const topPanel = new TopPanel({
-        onSearch: null,
-        searchQuery: null,
-        isSearchFocused: false,
-        onNewTaskClick: null,
-    }).render();
+    const server = new TaskAppService();
 
     useEffect(() => {
-        ref.current.append(topPanel);
-    });
+        localStorage.setItem("lastOpened", getOpenedDate());
+    }, []);
 
-    return (
-        <div ref={ref}>
-            
-        </div>
-    )
+    useEffect(() => {
+        const previousOpenedDate = localStorage.getItem("lastOpened");
+        setOpenedFirstTimeADay(getOpenedDate() !== previousOpenedDate);
+    }, []);
 
-}
-/*
-export class App extends Container {
-    server: TaskAppService;
-    openedFirstTimeADay: boolean;
-    state: {
-        tasks: Array<Task>;
-        searchQuery: string;
-        lastAction: string;
-        showPopup: boolean;
-        isLoaded: boolean;
+    useEffect(() => {
+        server.getTasks().then((response) => setTasks(response));
+    }, []);
+
+    const updateQuery = (query: string) => {
+        setLastAction(() => "Search Query");
+        setSearchQuery(() => query);
     };
 
-    constructor() {
-        super({ styleClasses: ["app-container"] });
-        const openedDate = new Date().toString().slice(0, 15);
-        const previousOpenedDate = localStorage.getItem("lastOpened");
-        localStorage.setItem("lastOpened", openedDate);
+    const deleteTask = (taskToDelete: Task) => {
+        server.deleteTask(taskToDelete).then(() => {
+            setLastAction(() => "Delete Task");
+            setTasks(() => tasks.filter((task) => task.id !== taskToDelete.id));
+        });
+    };
 
-        this.state = {
-            tasks: [],
-            searchQuery: "",
-            lastAction: null,
-            showPopup: false,
-            isLoaded: false,
-        };
-        this.server = new TaskAppService();
-        this.server.getTasks().then((response) => {
-            this.setState({
-                ...this.state,
-                tasks: response,
-                isLoaded: true,
+    const addCompletedTask = (taskToComplete: Task) => {
+        const completedTask = { ...taskToComplete, isCompleted: true };
+
+        server.updateTask(completedTask).then(() => {
+            setLastAction(() => "Complete Task");
+            setTasks(() =>
+                tasks.map((task) => ({
+                    ...task,
+                    isCompleted:
+                        task.isCompleted || task.id === completedTask.id,
+                }))
+            );
+        });
+    };
+
+    const addNewTask = ({ title, date }: { title: string; date: string }) => {
+        server
+            .createTask({ title: title, isCompleted: false, plannedDate: date })
+            .then((response) => {
+                setLastAction(() => "Add Task");
+                setTasks(() => [...tasks, response]);
+                setShowPopup(() => false);
             });
-        });
-        // Cannot place it in state since it should be changed during rendering,
-        // and this causes unexpected rerendering
-        this.openedFirstTimeADay = openedDate !== previousOpenedDate;
-    }
+    };
 
-    render() {
-        const children = [
-            new Header().render(),
-
-            new TopPanel({
-                onSearch: this.updateQuery,
-                searchQuery: this.state.searchQuery,
-                isSearchFocused: this.state.lastAction === "Search Query",
-                onNewTaskClick: this.showPopup,
-            }).render(),
-
-            new TasksSection({
-                tasks: this.state.tasks,
-                searchQuery: this.state.searchQuery,
-                onDeleteTask: this.deleteTask,
-                onCompleteTask: this.addCompletedTask,
-            }).render(),
-        ];
-        if (this.state.showPopup) {
-            children.push(
-                new PopupContainer().render({
-                    children: [
-                        new AddTaskPopup({
-                            onCancel: this.hidePopup,
-                            onOk: this.addNewTask,
-                        }).render(),
-                    ],
-                })
-            );
-        }
-        const tasksForToday = this.getTasksForToday();
-        if (this.openedFirstTimeADay && tasksForToday.length) {
-            children.push(
-                new PopupContainer().render({
-                    children: [
-                        new TasksForTodayPopup({
-                            tasks: tasksForToday,
-                            onOk: this.hideTodayTasksPopup,
-                        }).render(),
-                    ],
-                })
-            );
-        }
-        if (this.state.isLoaded) {
-            this.openedFirstTimeADay = false;
-        }
-        return super.render({
-            children: [
-                new AppWrapper().render({
-                    children,
-                }),
-            ],
-        });
-    }
-
-    getTasksForToday = () => {
-        const currentDate = new Date().toString().slice(0, 15);
-        const todayTasks = this.state.tasks
+    const getTasksForToday = () => {
+        const currentDate = getOpenedDate();
+        const todayTasks = tasks
             .filter((task) => {
                 const newDate = new Date(task.plannedDate)
                     .toString()
@@ -141,72 +86,58 @@ export class App extends Container {
         return todayTasks;
     };
 
-    addNewTask = ({ title, date }: { title: string; date: string }) => {
-        this.server
-            .createTask({ title: title, isCompleted: false, plannedDate: date })
-            .then((response) => {
-                this.setState({
-                    ...this.state,
-                    lastAction: "Add Task",
-                    tasks: [...this.state.tasks, response],
-                    showPopup: false,
-                });
-            });
-    };
+    const ref = useRef(null);
 
-    deleteTask = (taskToDelete: Task) => {
-        this.server.deleteTask(taskToDelete).then(() => {
-            this.setState({
-                ...this.state,
-                lastAction: "Delete Task",
-                tasks: this.state.tasks.filter(
-                    (task) => task.id !== taskToDelete.id
-                ),
-            });
-        });
-    };
+    useEffect(() => {
+        ref.current.innerHTML = "";
+        const children = [
+            new Header().render(),
 
-    addCompletedTask = (taskToComplete: Task) => {
-        const completedTask = { ...taskToComplete, isCompleted: true };
+            new TopPanel({
+                onSearch: updateQuery,
+                searchQuery: searchQuery,
+                isSearchFocused: lastAction === "Search Query",
+                onNewTaskClick: () => setShowPopup(true),
+            }).render(),
 
-        this.server.updateTask(completedTask).then(() => {
-            this.setState({
-                ...this.state,
-                lastAction: "Complete Task",
-                tasks: this.state.tasks.map((task) => ({
-                    ...task,
-                    isCompleted:
-                        task.isCompleted || task.id === completedTask.id,
-                })),
-            });
-        });
-    };
+            new TasksSection({
+                tasks: tasks,
+                searchQuery: searchQuery,
+                onDeleteTask: deleteTask,
+                onCompleteTask: addCompletedTask,
+            }).render(),
+        ];
+        if (showPopup) {
+            children.push(
+                new PopupContainer().render({
+                    children: [
+                        new AddTaskPopup({
+                            onCancel: () => setShowPopup(false),
+                            onOk: addNewTask,
+                        }).render(),
+                    ],
+                })
+            );
+        }
+        const tasksForToday = getTasksForToday();
+        if (openedFirstTimeADay && tasksForToday.length) {
+            children.push(
+                new PopupContainer().render({
+                    children: [
+                        new TasksForTodayPopup({
+                            tasks: tasksForToday,
+                            onOk: () => setOpenedFirstTimeADay(false),
+                        }).render(),
+                    ],
+                })
+            );
+        }
+        ref.current.append(...children);
+    }, [tasks, searchQuery, lastAction, openedFirstTimeADay, showPopup]);
 
-    updateQuery = (query: string) => {
-        this.setState({
-            ...this.state,
-            lastAction: "Search Query",
-            searchQuery: query,
-        });
-    };
-
-    showPopup = () => {
-        this.setState({
-            ...this.state,
-            showPopup: true,
-        });
-    };
-
-    hidePopup = () => {
-        this.setState({
-            ...this.state,
-            showPopup: false,
-        });
-    };
-
-    hideTodayTasksPopup = () => {
-        this.openedFirstTimeADay = false;
-        this.update();
-    };
+    return (
+        <div className="app-container">
+            <div className="app-wrapper" ref={ref}></div>
+        </div>
+    );
 }
-*/
