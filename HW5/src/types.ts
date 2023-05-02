@@ -1,3 +1,4 @@
+import React from "react";
 import { AddTaskPopup } from "./components/AddTaskPopup/AddTaskPopup";
 import { TasksForTodayPopup } from "./components/TasksForTodayPopup/TasksForTodayPopup";
 
@@ -34,18 +35,18 @@ export interface WeatherWidgetState {
 }
 
 export interface ComponentProps {
-    onClick?: (event: Event) => void;
+    onClick?: () => void;
     styleClasses?: Array<string>;
     children?: Array<HTMLElement | string>;
 }
 
 export interface AddTaskFormProps {
-    onCancel: (event: Event) => void;
+    onCancel: () => void;
     onClickAdd: (newTask: { title: string; date: string }) => void;
 }
 
 export interface AddTaskPopupProps {
-    onCancel: (event: Event) => void;
+    onCancel: () => void;
     onOk: (arg: Object) => void;
 }
 
@@ -53,7 +54,7 @@ export interface ButtonProps {
     type?: string;
     enabled?: boolean;
     text: string;
-    onClick?: (event: Event) => void;
+    onClick?: () => void;
     styleClasses: string[];
 }
 
@@ -95,7 +96,7 @@ export interface HeadingProps {
 export interface ImageProps {
     src: string;
     styleClasses: string[];
-    onClick?: (event: Event) => void;
+    onClick?: () => void;
 }
 
 export interface InputTextProps {
@@ -119,7 +120,7 @@ export interface ListProps {
 }
 
 export interface PopupContainerProps {
-    popupComponent: AddTaskPopup | TasksForTodayPopup;
+    children: React.ReactNode;
 }
 
 export interface SearchProps {
@@ -135,7 +136,7 @@ export interface TaskTitleInputProps {
 }
 
 export interface TasksForTodayPopupProps {
-    onOk: (arg: Object) => void;
+    onOk: () => void;
     tasks: Array<string>;
 }
 
@@ -154,6 +155,7 @@ export interface TextProps {
 export interface TopPanelProps {
     onSearch: (query: string) => void;
     searchQuery: string;
-    isSearchFocused: boolean;
-    onNewTaskClick: (event: Event) => void;
+    onNewTaskClick: (
+        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => void;
 }

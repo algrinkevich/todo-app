@@ -8,13 +8,13 @@ import { TasksForTodayPopup } from "../TasksForTodayPopup/TasksForTodayPopup";
 
 import "./App.css";
 import { Task } from "../../types";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const getOpenedDate = () => {
     return new Date().toString().slice(0, 15);
 };
 
-export function App() {
+export const App = () => {
     const [tasks, setTasks] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [lastAction, setLastAction] = useState(null);
@@ -24,13 +24,14 @@ export function App() {
     const server = new TaskAppService();
 
     useEffect(() => {
-        localStorage.setItem("lastOpened", getOpenedDate());
-    }, []);
-
-    useEffect(() => {
         const previousOpenedDate = localStorage.getItem("lastOpened");
-        setOpenedFirstTimeADay(getOpenedDate() !== previousOpenedDate);
-    }, []);
+        setOpenedFirstTimeADay(
+            () => openedFirstTimeADay || getOpenedDate() !== previousOpenedDate
+        );
+        if (tasks.length) {
+            localStorage.setItem("lastOpened", getOpenedDate());
+        }
+    }, [tasks]);
 
     useEffect(() => {
         server.getTasks().then((response) => setTasks(response));
@@ -86,58 +87,46 @@ export function App() {
         return todayTasks;
     };
 
-    const ref = useRef(null);
-
-    useEffect(() => {
-        ref.current.innerHTML = "";
-        const children = [
-            new Header().render(),
-
-            new TopPanel({
-                onSearch: updateQuery,
-                searchQuery: searchQuery,
-                isSearchFocused: lastAction === "Search Query",
-                onNewTaskClick: () => setShowPopup(true),
-            }).render(),
-
-            new TasksSection({
-                tasks: tasks,
-                searchQuery: searchQuery,
-                onDeleteTask: deleteTask,
-                onCompleteTask: addCompletedTask,
-            }).render(),
-        ];
-        if (showPopup) {
-            children.push(
-                new PopupContainer().render({
-                    children: [
-                        new AddTaskPopup({
-                            onCancel: () => setShowPopup(false),
-                            onOk: addNewTask,
-                        }).render(),
-                    ],
-                })
-            );
-        }
-        const tasksForToday = getTasksForToday();
-        if (openedFirstTimeADay && tasksForToday.length) {
-            children.push(
-                new PopupContainer().render({
-                    children: [
-                        new TasksForTodayPopup({
-                            tasks: tasksForToday,
-                            onOk: () => setOpenedFirstTimeADay(false),
-                        }).render(),
-                    ],
-                })
-            );
-        }
-        ref.current.append(...children);
-    }, [tasks, searchQuery, lastAction, openedFirstTimeADay, showPopup]);
+    const popups = [];
+    if (showPopup) {
+        popups.push(
+            <PopupContainer>
+                <AddTaskPopup
+                    onOk={addNewTask}
+                    onCancel={() => setShowPopup(false)}
+                />
+            </PopupContainer>
+        );
+    }
+    const tasksForToday = getTasksForToday();
+    if (openedFirstTimeADay && tasksForToday.length) {
+        popups.push(
+            <PopupContainer>
+                <TasksForTodayPopup
+                    tasks={tasksForToday}
+                    onOk={() => setOpenedFirstTimeADay(false)}
+                />
+            </PopupContainer>
+        );
+    }
 
     return (
         <div className="app-container">
-            <div className="app-wrapper" ref={ref}></div>
+            <div className="app-wrapper">
+                <Header />
+                <TopPanel
+                    onSearch={updateQuery}
+                    searchQuery={searchQuery}
+                    onNewTaskClick={() => setShowPopup(true)}
+                />
+                <TasksSection
+                    tasks={tasks}
+                    searchQuery={searchQuery}
+                    onDeleteTask={deleteTask}
+                    onCompleteTask={addCompletedTask}
+                />
+                {...popups}
+            </div>
         </div>
     );
-}
+};
