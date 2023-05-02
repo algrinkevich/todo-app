@@ -19,7 +19,7 @@ export const WeatherWidget = () => {
             })
             .then((response: WeatherResponse) => {
                 setWeather({
-                    temperature: response.current.temp_c,
+                    temperature: `${response.current.temp_c}°`,
                     icon: response.current.condition.icon,
                     city: response.location.name,
                 });
@@ -47,7 +47,7 @@ export const WeatherWidget = () => {
     return (
         <div className="weather">
             <img src={weather.icon} className="weather__icon" />
-            <h3 className="weather__temperature">{weather.temperature}°</h3>
+            <h3 className="weather__temperature">{weather.temperature}</h3>
             <p className="weather__city">{weather.city}</p>
         </div>
     );

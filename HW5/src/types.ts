@@ -23,7 +23,7 @@ export interface WeatherResponse {
 }
 
 export interface WeatherWidgetState {
-    temperature: number;
+    temperature: string;
     icon: string;
     city: string;
 }
