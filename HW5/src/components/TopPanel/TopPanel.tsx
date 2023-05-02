@@ -1,6 +1,7 @@
 import React from "react";
 import { TopPanelProps } from "../../types";
 import "./TopPanel.css";
+import { InputText } from "../InputText/InputText";
 
 export const TopPanel = ({
     onSearch,
@@ -12,14 +13,12 @@ export const TopPanel = ({
     };
     return (
         <div className="top-panel">
-            <input
-                placeholder="Search Task"
+            <InputText
+                onInput={onInput}
                 name="search"
                 type="search"
+                placeholder="Search Task"
                 value={searchQuery}
-                onInput={onInput}
-                autoComplete="off"
-                className="input-text"
             />
             <button
                 className="new-task-btn top-panel__new-task-btn state-btn"

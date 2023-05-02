@@ -111,13 +111,13 @@ export interface ImageProps {
 }
 
 export interface InputTextProps {
-    onInput: (event: Event) => void;
+    onInput: (event: React.FormEvent<HTMLInputElement>) => void;
     name: string;
     type: string;
     value: string;
     placeholder: string;
-    setFocus: boolean;
     styleClasses?: string[];
+    autoFocus?: boolean;
 }
 
 export interface LabelProps {
