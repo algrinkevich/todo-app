@@ -1,4 +1,4 @@
-import BucketImage from "../../images/bucket.svg";
+import BucketImage from "./assets/bucket.svg";
 import { DeleteIconProps } from "../../types";
 import "./DeleteIcon.css";
 
