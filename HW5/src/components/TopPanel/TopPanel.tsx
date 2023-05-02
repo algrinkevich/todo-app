@@ -1,7 +1,7 @@
 import React from "react";
+import { InputText } from "../InputText/InputText";
 import { TopPanelProps } from "../../types";
 import "./TopPanel.css";
-import { InputText } from "../InputText/InputText";
 
 export const TopPanel = ({
     onSearch,

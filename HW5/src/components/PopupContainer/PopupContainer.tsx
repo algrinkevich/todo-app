@@ -1,11 +1,10 @@
-import { PopupContainerProps} from "../../types";
-import "../Overlay/Overlay.css"
-
+import { PopupContainerProps } from "../../types";
+import "./PopupContainer.css";
 
 export const PopupContainer = ({ children }: PopupContainerProps) => {
     return (
         <div>
-            {children}
+            <div className="popup">{children}</div>
             <div className="overlay"></div>
         </div>
     );

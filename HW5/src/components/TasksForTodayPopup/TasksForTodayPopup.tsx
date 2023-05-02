@@ -1,5 +1,5 @@
-import "./TasksForTodayPopup.css";
 import { TasksForTodayPopupProps } from "../../types";
+import "./TasksForTodayPopup.css";
 
 export const TasksForTodayPopup = ({
     tasks,
@@ -19,7 +19,7 @@ export const TasksForTodayPopup = ({
     };
     const listItems = tasks.map((item) => <li>{item}</li>);
     return (
-        <div className="popup">
+        <>
             <h2>{getGreeting()}</h2>
             <p className="popup__text">
                 You have the next planned tasks for today:
@@ -32,6 +32,6 @@ export const TasksForTodayPopup = ({
             >
                 Ok
             </button>
-        </div>
+        </>
     );
 };

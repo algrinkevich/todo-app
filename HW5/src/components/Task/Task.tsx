@@ -1,7 +1,7 @@
 import { DeleteIcon } from "../DeleteIcon/DeleteIcon";
+import { BaseTask } from "../BaseTask/BaseTask";
 import { TaskProps } from "../../types";
 import React from "react";
-import { BaseTask } from "../BaseTask/BaseTask";
 
 export const Task = ({ task, onComplete, onDelete }: TaskProps) => {
     const onChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -9,7 +9,6 @@ export const Task = ({ task, onComplete, onDelete }: TaskProps) => {
             onComplete(task);
         }
     };
-
     const onDeleteIconClick = () => onDelete(task);
 
     return (

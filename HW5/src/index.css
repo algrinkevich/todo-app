@@ -10,3 +10,7 @@ html {
     padding: 0;
     font-family: "Nunito", sans-serif;
 }
+
+.element-whole-width {
+    width: 100%;
+}

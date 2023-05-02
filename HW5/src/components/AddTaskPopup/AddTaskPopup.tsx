@@ -1,14 +1,7 @@
 import { AddTaskPopupProps } from "../../types";
-import "../BasePopup/BasePopup.css";
-import "../AddTaskForm/AddTaskForm.css";
-import "../CancelButton/CancelButton.css";
-import "../Button/Button.css";
-import "../DatePicker/DatePicker.css";
-import "../TaskTitleInput/TaskTitleInput.css";
-
-import "../PopupButtonsContainer/PopupButtonsContainer.css";
 import React, { useState } from "react";
 import { InputText } from "../InputText/InputText";
+import "./AddTaskPopup.css";
 
 export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
     const getCurrentDate = () => {
@@ -45,7 +38,7 @@ export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
     };
 
     return (
-        <div className="popup">
+        <>
             <h2>Add New Task</h2>
             <form className="create-task-form" onSubmit={addTask}>
                 <InputText
@@ -81,6 +74,6 @@ export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
                     </button>
                 </div>
             </form>
-        </div>
+        </>
     );
 };
