@@ -9,3 +9,42 @@
 .task-row__title {
     flex-basis: 23.8125em;
 }
+
+.checkbox {
+    appearance: none;
+    position: relative;
+    margin: 0;
+    background: #ffffff;
+    border: 2px solid #d3d3d3;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.checkbox:checked {
+    background: #3c86f4;
+    border: 2px solid #3c86f4;
+    background-image: url(../../images/check.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.checkbox:disabled {
+    background: #d3d3d3;
+    background-image: url(../../images/check.svg);
+    border: 2px solid #d3d3d3;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: not-allowed;
+}
+
+.task-row__date {
+    margin: 0;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.3333em;
+    color: #838383;
+}
+

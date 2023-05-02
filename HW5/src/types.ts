@@ -65,18 +65,29 @@ export interface CheckboxProps {
 
 export interface BaseTaskProps {
     task: Task;
+    isChecked: boolean;
+    isDisabled: boolean;
+    onChange?: (event: React.FormEvent<HTMLInputElement>) => void;
+    children?: React.ReactNode;
+    labelStyles?: string[];
 }
 
-export interface TaskProps extends BaseTaskProps {
+export interface TaskProps {
+    task: Task;
     onComplete: (task: Task) => void;
     onDelete: (task: Task) => void;
 }
 
-export interface BaseTaskListProps {
+export interface CompletedTaskProps {
+    task: Task;
+}
+
+export interface CompletedTaskListProps {
     tasks: Task[];
 }
 
-export interface TaskListProps extends BaseTaskListProps {
+export interface TaskListProps {
+    tasks: Task[];
     onDeleteTask: (task: Task) => void;
     onCompleteTask: (task: Task) => void;
     searchQuery: string;

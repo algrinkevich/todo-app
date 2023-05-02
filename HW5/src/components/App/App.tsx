@@ -17,7 +17,6 @@ const getOpenedDate = () => {
 export const App = () => {
     const [tasks, setTasks] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
-    const [lastAction, setLastAction] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
     const [openedFirstTimeADay, setOpenedFirstTimeADay] = useState(false);
 
@@ -38,13 +37,11 @@ export const App = () => {
     }, []);
 
     const updateQuery = (query: string) => {
-        setLastAction(() => "Search Query");
         setSearchQuery(() => query);
     };
 
     const deleteTask = (taskToDelete: Task) => {
         server.deleteTask(taskToDelete).then(() => {
-            setLastAction(() => "Delete Task");
             setTasks(() => tasks.filter((task) => task.id !== taskToDelete.id));
         });
     };
@@ -53,7 +50,6 @@ export const App = () => {
         const completedTask = { ...taskToComplete, isCompleted: true };
 
         server.updateTask(completedTask).then(() => {
-            setLastAction(() => "Complete Task");
             setTasks(() =>
                 tasks.map((task) => ({
                     ...task,
@@ -68,7 +64,6 @@ export const App = () => {
         server
             .createTask({ title: title, isCompleted: false, plannedDate: date })
             .then((response) => {
-                setLastAction(() => "Add Task");
                 setTasks(() => [...tasks, response]);
                 setShowPopup(() => false);
             });
