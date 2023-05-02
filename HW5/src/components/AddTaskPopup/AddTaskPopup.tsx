@@ -5,6 +5,7 @@ import "../AddTaskForm/AddTaskForm.css";
 import "../CancelButton/CancelButton.css";
 import "../Button/Button.css";
 import "../DatePicker/DatePicker.css";
+import "../TaskTitleInput/TaskTitleInput.css";
 
 import "../PopupButtonsContainer/PopupButtonsContainer.css";
 import React, { useState } from "react";
