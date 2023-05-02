@@ -1,7 +1,7 @@
 import BucketImage from "../../images/bucket.svg";
-import { ComponentProps } from "../../types";
+import { DeleteIconProps } from "../../types";
 import "./DeleteIcon.css";
 
-export const DeleteIcon = ({ onClick }: ComponentProps) => {
+export const DeleteIcon = ({ onClick }: DeleteIconProps) => {
     return <img src={BucketImage} onClick={onClick} className="bucket-icon" />;
 };
