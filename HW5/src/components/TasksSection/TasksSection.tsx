@@ -3,6 +3,7 @@ import { Task } from "../Task/Task";
 import { CompletedTask } from "../CompletedTask/CompletedTask";
 import { TasksSectionProps } from "../../types";
 import "./TasksSection.css";
+import { useMemo } from "react";
 
 export const TasksSection = ({
     tasks,
@@ -10,22 +11,30 @@ export const TasksSection = ({
     onCompleteTask,
     searchQuery,
 }: TasksSectionProps) => {
-    const notCompletedTasks = tasks
-        .filter((task) => !task.isCompleted)
-        .filter((task) =>
-            task.title.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-        .map((task) => (
-            <Task
-                key={task.id}
-                task={task}
-                onDelete={onDeleteTask}
-                onComplete={onCompleteTask}
-            />
-        ));
-    const completedTasks = tasks
-        .filter((task) => task.isCompleted)
-        .map((task) => <CompletedTask key={task.id} task={task} />);
+    const notCompletedTasks = useMemo(
+        () =>
+            tasks
+                .filter((task) => !task.isCompleted)
+                .filter((task) =>
+                    task.title.toLowerCase().includes(searchQuery.toLowerCase())
+                )
+                .map((task) => (
+                    <Task
+                        key={task.id}
+                        task={task}
+                        onDelete={onDeleteTask}
+                        onComplete={onCompleteTask}
+                    />
+                )),
+        [tasks, searchQuery, onDeleteTask, onCompleteTask]
+    );
+    const completedTasks = useMemo(
+        () =>
+            tasks
+                .filter((task) => task.isCompleted)
+                .map((task) => <CompletedTask key={task.id} task={task} />),
+        [tasks]
+    );
 
     return (
         <section className="tasks-section">

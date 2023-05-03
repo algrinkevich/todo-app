@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import { InputTextProps } from "../../types";
 import "./InputText.css";
 
@@ -12,12 +12,12 @@ export const InputText = ({
     autoFocus
 }: InputTextProps) => {
     const ref = useRef(null);
-    const onInputEvent = () => {
+    const onInputEvent = useCallback(() => {
         if (!ref) {
             return;
         }
         onInput(ref.current.value);
-    };
+    }, [onInput, ref]);
     return (
         <input
             placeholder={placeholder}

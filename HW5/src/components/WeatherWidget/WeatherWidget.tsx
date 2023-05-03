@@ -9,9 +9,9 @@ export const WeatherWidget = () => {
         icon: null,
         city: null,
     });
-    const server = new WeatherService();
 
     const updateWeather = ({ latitude, longitude }: CityCoords) => {
+        const server = new WeatherService();
         server
             .getWeather({
                 latitude: latitude,
