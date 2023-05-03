@@ -98,7 +98,7 @@ export const App = () => {
         popups.push(
             <PopupContainer>
                 <TasksForTodayPopup
-                    tasks={tasksForToday}
+                    taskTitles={tasksForToday}
                     onOk={() => setOpenedFirstTimeADay(false)}
                 />
             </PopupContainer>

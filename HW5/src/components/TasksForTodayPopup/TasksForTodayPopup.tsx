@@ -2,7 +2,7 @@ import { TasksForTodayPopupProps } from "../../types";
 import "./TasksForTodayPopup.css";
 
 export const TasksForTodayPopup = ({
-    tasks,
+    taskTitles,
     onOk,
 }: TasksForTodayPopupProps) => {
     const getGreeting = () => {
@@ -17,7 +17,7 @@ export const TasksForTodayPopup = ({
             return "Good Night";
         }
     };
-    const listItems = tasks.map((item) => <li>{item}</li>);
+    const listItems = taskTitles.map((title) => <li>{title}</li>);
     return (
         <>
             <h2>{getGreeting()}</h2>

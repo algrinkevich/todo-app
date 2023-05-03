@@ -3,7 +3,6 @@ const path = require("path");
 
 module.exports = (env, argv) => {
     const mode = argv.mode || "development";
-    console.log("qwert: ", mode);
     return {
         plugins: [
             new HtmlWebpackPlugin({

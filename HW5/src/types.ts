@@ -57,7 +57,7 @@ export interface CompletedTaskProps {
 }
 
 export interface InputTextProps {
-    onInput: (event: React.FormEvent<HTMLInputElement>) => void;
+    onInput: (text: string) => void;
     name: string;
     type: string;
     value: string;
@@ -72,7 +72,7 @@ export interface PopupContainerProps {
 
 export interface TasksForTodayPopupProps {
     onOk: () => void;
-    tasks: string[];
+    taskTitles: string[];
 }
 
 export interface TasksSectionProps {

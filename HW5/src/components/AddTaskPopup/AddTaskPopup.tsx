@@ -1,5 +1,5 @@
 import { AddTaskPopupProps } from "../../types";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { InputText } from "../InputText/InputText";
 import "./AddTaskPopup.css";
 
@@ -10,10 +10,9 @@ export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
 
     const [addButtonDisabled, setAddButtonDisabled] = useState(true);
     const [title, setTitle] = useState("");
-    const [date, setDate] = useState(getCurrentDate());
+    const refDatePicker = useRef(null);
 
-    const changeButtonState = (event: React.FormEvent<HTMLInputElement>) => {
-        const value = event.currentTarget.value;
+    const changeButtonState = (value: string) => {
         if (value) {
             setAddButtonDisabled(() => false);
         } else {
@@ -23,6 +22,7 @@ export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
     };
 
     const addTask = (event: React.FormEvent<HTMLFormElement>) => {
+        const date = refDatePicker.current.valueAsDate.toISOString().slice(0, 10);
         event.preventDefault();
         if (!title || !date) {
             return;
@@ -31,10 +31,6 @@ export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
             title: title,
             date: date,
         });
-    };
-
-    const setSelectedDate = (event: React.FormEvent<HTMLInputElement>) => {
-        setDate(event.currentTarget.valueAsDate.toISOString().slice(0, 10));
     };
 
     return (
@@ -54,8 +50,8 @@ export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
                     className="popup__date-picker date-picker"
                     name="planned-date"
                     type="date"
-                    defaultValue={date}
-                    onInput={setSelectedDate}
+                    defaultValue={getCurrentDate()}
+                    ref={refDatePicker}
                 />
                 <div className="buttons-container">
                     <button

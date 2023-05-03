@@ -8,13 +8,10 @@ export const TopPanel = ({
     searchQuery,
     onNewTaskClick,
 }: TopPanelProps) => {
-    const onInput = (event: React.FormEvent<HTMLInputElement>) => {
-        return onSearch(event.currentTarget.value);
-    };
     return (
         <div className="top-panel">
             <InputText
-                onInput={onInput}
+                onInput={onSearch}
                 name="search"
                 type="search"
                 placeholder="Search Task"
