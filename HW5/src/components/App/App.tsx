@@ -44,32 +44,49 @@ export const App = () => {
     }, [tasks]);
 
     useEffect(() => {
-        server.getTasks().then((response) => setTasks(response));
+        let isCanceled = false;
+        server.getTasks().then((response) => {
+            if (isCanceled) {
+                return;
+            }
+            setTasks(response);
+        });
+        return () => {
+            isCanceled = true;
+        };
     }, []);
 
     const updateQuery = useCallback((query: string) => {
         setSearchQuery(() => query);
     }, []);
 
-    const deleteTask = useCallback((taskToDelete: Task) => {
-        server.deleteTask(taskToDelete).then(() => {
-            setTasks(() => tasks.filter((task) => task.id !== taskToDelete.id));
-        });
-    }, [tasks]);
+    const deleteTask = useCallback(
+        (taskToDelete: Task) => {
+            server.deleteTask(taskToDelete).then(() => {
+                setTasks(() =>
+                    tasks.filter((task) => task.id !== taskToDelete.id)
+                );
+            });
+        },
+        [tasks]
+    );
 
-    const addCompletedTask = useCallback((taskToComplete: Task) => {
-        const completedTask = { ...taskToComplete, isCompleted: true };
-        
-        server.updateTask(completedTask).then(() => {
-            setTasks(() =>
-                tasks.map((task) => ({
-                    ...task,
-                    isCompleted:
-                        task.isCompleted || task.id === completedTask.id,
-                }))
-            );
-        });
-    }, [tasks]);
+    const addCompletedTask = useCallback(
+        (taskToComplete: Task) => {
+            const completedTask = { ...taskToComplete, isCompleted: true };
+
+            server.updateTask(completedTask).then(() => {
+                setTasks(() =>
+                    tasks.map((task) => ({
+                        ...task,
+                        isCompleted:
+                            task.isCompleted || task.id === completedTask.id,
+                    }))
+                );
+            });
+        },
+        [tasks]
+    );
 
     const addNewTask = useCallback(
         ({ title, date }: { title: string; date: string }) => {
