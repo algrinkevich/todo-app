@@ -3,6 +3,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { InputText } from "../InputText/InputText";
 import "./AddTaskPopup.css";
 import { TaskTag } from "../TaskTag/TaskTag";
+import { TaskTagList } from "../TaskTagList/TaskTagList";
 
 const getCurrentDate = () => {
     return new Date().toISOString().slice(0, 10);
@@ -55,20 +56,7 @@ export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
                     autoFocus={true}
                 />
                 <div className="pickers-container">
-                    <div className="tags-container">
-                        {Object.values(TaskTagEnum).map(
-                            (value: TaskTagEnum) => (
-                                <TaskTag
-                                    key={value}
-                                    name={value}
-                                    onChecked={setTag}
-                                    isSelectable={true}
-                                    isDisabled={false}
-                                />
-                            )
-                        )}
-                    </div>
-
+                    <TaskTagList onChecked={setTag} />
                     <input
                         className="popup__date-picker date-picker"
                         name="planned-date"
