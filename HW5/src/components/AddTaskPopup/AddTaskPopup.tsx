@@ -21,17 +21,22 @@ export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
         setTitle(() => value);
     }, []);
 
-    const addTask = useCallback((event: React.FormEvent<HTMLFormElement>) => {
-        const date = refDatePicker.current.valueAsDate.toISOString().slice(0, 10);
-        event.preventDefault();
-        if (!title || !date) {
-            return;
-        }
-        onOk({
-            title: title,
-            date: date,
-        });
-    }, [title, refDatePicker, onOk]);
+    const addTask = useCallback(
+        (event: React.FormEvent<HTMLFormElement>) => {
+            const date = refDatePicker.current.valueAsDate
+                .toISOString()
+                .slice(0, 10);
+            event.preventDefault();
+            if (!title || !date) {
+                return;
+            }
+            onOk({
+                title: title,
+                date: date,
+            });
+        },
+        [title, refDatePicker, onOk]
+    );
 
     return (
         <>
@@ -46,13 +51,67 @@ export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
                     value={title}
                     autoFocus={true}
                 />
-                <input
-                    className="popup__date-picker date-picker"
-                    name="planned-date"
-                    type="date"
-                    defaultValue={getCurrentDate()}
-                    ref={refDatePicker}
-                />
+                <div className="pickers-container">
+                    <div className="tags-container">
+                        <label
+                            className="radio-container radio-container--health-tag"
+                            htmlFor="health"
+                        >
+                            health
+                            <input
+                                type="radio"
+                                id="health"
+                                className="radio-button radio-button--health-tag"
+                                name="task-tag"
+                            />
+                        </label>
+                        <label
+                            className="radio-container radio-container--work-tag"
+                            htmlFor="work"
+                        >
+                            work
+                            <input
+                                type="radio"
+                                id="work"
+                                className="radio-button radio-button--work-tag"
+                                name="task-tag"
+                            />
+                        </label>
+                        <label
+                            className="radio-container radio-container--home-tag"
+                            htmlFor="home"
+                        >
+                            home
+                            <input
+                                type="radio"
+                                id="home"
+                                className="radio-button radio-button--home-tag"
+                                name="task-tag"
+                            />
+                        </label>
+                        <label
+                            className="radio-container radio-container--other-tag"
+                            htmlFor="other"
+                        >
+                            other
+                            <input
+                                type="radio"
+                                id="other"
+                                className="radio-button radio-button--other-tag"
+                                name="task-tag"
+                            />
+                        </label>
+                    </div>
+
+                    <input
+                        className="popup__date-picker date-picker"
+                        name="planned-date"
+                        type="date"
+                        defaultValue={getCurrentDate()}
+                        ref={refDatePicker}
+                    />
+                </div>
+
                 <div className="buttons-container">
                     <button
                         className="cancel-btn"
