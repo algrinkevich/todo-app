@@ -5,6 +5,7 @@ import "./TopPanel.css";
 
 export const TopPanel = ({
     onSearch,
+    onTagChecked,
     searchQuery,
     onNewTaskClick,
 }: TopPanelProps) => {
@@ -25,7 +26,7 @@ export const TopPanel = ({
                     + New Task
                 </button>
             </div>
-            <TaskTagList onChecked={null} />
+            <TaskTagList onChecked={onTagChecked} />
         </div>
     );
 };

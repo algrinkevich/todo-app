@@ -88,6 +88,7 @@ export interface TasksSectionProps {
     onDeleteTask: (task: Task) => void;
     onCompleteTask: (task: Task) => void;
     searchQuery: string;
+    searchTag: TaskTagEnum
 }
 
 export interface TopPanelProps {
@@ -96,4 +97,5 @@ export interface TopPanelProps {
     onNewTaskClick: (
         event: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => void;
+    onTagChecked: (tagName: string) => void;
 }

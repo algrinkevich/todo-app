@@ -10,6 +10,7 @@ export const TasksSection = ({
     onDeleteTask,
     onCompleteTask,
     searchQuery,
+    searchTag
 }: TasksSectionProps) => {
     const notCompletedTasks = useMemo(
         () =>
@@ -18,6 +19,7 @@ export const TasksSection = ({
                 .filter((task) =>
                     task.title.toLowerCase().includes(searchQuery.toLowerCase())
                 )
+                .filter(task => !searchTag || task.tag === searchTag)
                 .map((task) => (
                     <Task
                         key={task.id}
@@ -26,7 +28,7 @@ export const TasksSection = ({
                         onComplete={onCompleteTask}
                     />
                 )),
-        [tasks, searchQuery, onDeleteTask, onCompleteTask]
+        [tasks, searchQuery, searchTag, onDeleteTask, onCompleteTask]
     );
     const completedTasks = useMemo(
         () =>

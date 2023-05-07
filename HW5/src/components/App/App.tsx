@@ -30,6 +30,7 @@ export const App = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [showPopup, setShowPopup] = useState(false);
     const [openedFirstTimeADay, setOpenedFirstTimeADay] = useState(false);
+    const [searchTag, setSearchTag] = useState(null);
 
     const server = new TaskAppService();
 
@@ -59,6 +60,11 @@ export const App = () => {
     const updateQuery = useCallback((query: string) => {
         setSearchQuery(() => query);
     }, []);
+
+    const updateSearchTag = useCallback(
+        (tag: TaskTagEnum) => setSearchTag(() => tag),
+        []
+    );
 
     const deleteTask = useCallback(
         (taskToDelete: Task) => {
@@ -147,12 +153,14 @@ export const App = () => {
                     onSearch={updateQuery}
                     searchQuery={searchQuery}
                     onNewTaskClick={handleShowPopup}
+                    onTagChecked={updateSearchTag}
                 />
                 <TasksSection
                     tasks={tasks}
                     searchQuery={searchQuery}
                     onDeleteTask={deleteTask}
                     onCompleteTask={addCompletedTask}
+                    searchTag={searchTag}
                 />
                 {...popups}
             </div>
