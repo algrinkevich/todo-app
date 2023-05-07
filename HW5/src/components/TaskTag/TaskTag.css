@@ -59,3 +59,8 @@
     background: #FFECC7;
     color: #EA8C00;
 }
+
+.radio-container--disabled {
+    background: #F5F5F5;
+    color: #838383;
+}

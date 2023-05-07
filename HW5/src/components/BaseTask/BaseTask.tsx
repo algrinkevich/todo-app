@@ -1,4 +1,5 @@
-import { BaseTaskProps } from "../../types";
+import { BaseTaskProps, TaskTagEnum } from "../../types";
+import { TaskTag } from "../TaskTag/TaskTag";
 import "./BaseTask.css";
 
 export const BaseTask = ({
@@ -59,9 +60,16 @@ export const BaseTask = ({
                 value={task.title}
                 onChange={onChange}
             />
-            <label className={["task-row__title", ...(labelStyles || [])].join(" ")}>
+            <label
+                className={["task-row__title", ...(labelStyles || [])].join(
+                    " "
+                )}
+            >
                 {task.title}
-                <p className="task-row__date">{formattedDate}</p>
+                <div className="tag-and-date-container">
+                    <TaskTag name={task.tag} isSelectable={false} isDisabled={isDisabled}/>
+                    <p className="task-row__date">{formattedDate}</p>
+                </div>
             </label>
             {children}
         </div>

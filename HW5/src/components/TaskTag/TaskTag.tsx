@@ -22,23 +22,32 @@ const NAME_TO_CLASS_MAPPING = {
 
 export const TaskTag = ({
     name,
-    onChecked,
+    onChecked = null,
+    isSelectable,
+    isDisabled,
 }: {
     name: TaskTagEnum;
-    onChecked: (tagName: string) => void;
+    onChecked?: (tagName: string) => void;
+    isSelectable: boolean;
+    isDisabled: boolean;
 }) => {
     return (
         <label
-            className={`radio-container ${NAME_TO_CLASS_MAPPING[name].containerClass}`}
+            className={[
+                "radio-container",
+                NAME_TO_CLASS_MAPPING[name].containerClass,
+                isDisabled ? "radio-container--disabled" : "",
+            ].join(" ")}
             htmlFor={name}
         >
             {name}
             <input
+                disabled={!isSelectable}
                 type="radio"
                 id={name}
-                className={`radio-button ${NAME_TO_CLASS_MAPPING[name].radioClass}`}
+                className={`${NAME_TO_CLASS_MAPPING[name].radioClass} radio-button`}
                 name="task-tag"
-                onChange={() => onChecked(name)}
+                onChange={() => onChecked && onChecked(name)}
             />
         </label>
     );

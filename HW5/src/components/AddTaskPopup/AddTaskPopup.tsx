@@ -62,6 +62,8 @@ export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
                                     key={value}
                                     name={value}
                                     onChecked={setTag}
+                                    isSelectable={true}
+                                    isDisabled={false}
                                 />
                             )
                         )}
