@@ -5,10 +5,18 @@ export interface CityCoords {
     longitude: number;
 }
 
+export enum TaskTagEnum {
+    Health = "health",
+    Work = "work",
+    Home = "home",
+    Other = "other",
+}
+
 export interface Task {
     title: string;
     isCompleted: boolean;
     plannedDate: string;
+    tag: TaskTagEnum;
     id?: number;
 }
 

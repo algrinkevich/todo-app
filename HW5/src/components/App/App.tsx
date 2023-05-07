@@ -7,7 +7,7 @@ import { AddTaskPopup } from "../AddTaskPopup/AddTaskPopup";
 import { TasksForTodayPopup } from "../TasksForTodayPopup/TasksForTodayPopup";
 
 import "./App.css";
-import { Task } from "../../types";
+import { Task, TaskTagEnum } from "../../types";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 const getOpenedDate = () => {
@@ -89,12 +89,21 @@ export const App = () => {
     );
 
     const addNewTask = useCallback(
-        ({ title, date }: { title: string; date: string }) => {
+        ({
+            title,
+            date,
+            tag,
+        }: {
+            title: string;
+            date: string;
+            tag: TaskTagEnum;
+        }) => {
             server
                 .createTask({
                     title: title,
                     isCompleted: false,
                     plannedDate: date,
+                    tag: tag,
                 })
                 .then((response) => {
                     setTasks(() => [...tasks, response]);

@@ -19,6 +19,7 @@ export class TaskAppService extends BaseService {
             title: task.title,
             isCompleted: task.isCompleted,
             plannedDate: task.plannedDate,
+            tag: task.tag
         });
     }
 

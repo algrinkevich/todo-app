@@ -1,7 +1,8 @@
-import { AddTaskPopupProps } from "../../types";
+import { AddTaskPopupProps, TaskTagEnum } from "../../types";
 import React, { useCallback, useRef, useState } from "react";
 import { InputText } from "../InputText/InputText";
 import "./AddTaskPopup.css";
+import { TaskTag } from "../TaskTag/TaskTag";
 
 const getCurrentDate = () => {
     return new Date().toISOString().slice(0, 10);
@@ -10,6 +11,7 @@ const getCurrentDate = () => {
 export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
     const [addButtonDisabled, setAddButtonDisabled] = useState(true);
     const [title, setTitle] = useState("");
+    const [tag, setTag] = useState(null);
     const refDatePicker = useRef(null);
 
     const changeButtonState = useCallback((value: string) => {
@@ -27,15 +29,16 @@ export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
                 .toISOString()
                 .slice(0, 10);
             event.preventDefault();
-            if (!title || !date) {
+            if (!title || !date || !tag) {
                 return;
             }
             onOk({
                 title: title,
                 date: date,
+                tag: tag,
             });
         },
-        [title, refDatePicker, onOk]
+        [title, refDatePicker, tag, onOk]
     );
 
     return (
@@ -53,54 +56,15 @@ export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
                 />
                 <div className="pickers-container">
                     <div className="tags-container">
-                        <label
-                            className="radio-container radio-container--health-tag"
-                            htmlFor="health"
-                        >
-                            health
-                            <input
-                                type="radio"
-                                id="health"
-                                className="radio-button radio-button--health-tag"
-                                name="task-tag"
-                            />
-                        </label>
-                        <label
-                            className="radio-container radio-container--work-tag"
-                            htmlFor="work"
-                        >
-                            work
-                            <input
-                                type="radio"
-                                id="work"
-                                className="radio-button radio-button--work-tag"
-                                name="task-tag"
-                            />
-                        </label>
-                        <label
-                            className="radio-container radio-container--home-tag"
-                            htmlFor="home"
-                        >
-                            home
-                            <input
-                                type="radio"
-                                id="home"
-                                className="radio-button radio-button--home-tag"
-                                name="task-tag"
-                            />
-                        </label>
-                        <label
-                            className="radio-container radio-container--other-tag"
-                            htmlFor="other"
-                        >
-                            other
-                            <input
-                                type="radio"
-                                id="other"
-                                className="radio-button radio-button--other-tag"
-                                name="task-tag"
-                            />
-                        </label>
+                        {Object.values(TaskTagEnum).map(
+                            (value: TaskTagEnum) => (
+                                <TaskTag
+                                    key={value}
+                                    name={value}
+                                    onChecked={setTag}
+                                />
+                            )
+                        )}
                     </div>
 
                     <input
