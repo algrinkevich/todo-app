@@ -10,7 +10,7 @@ export const TasksSection = ({
     onDeleteTask,
     onCompleteTask,
     searchQuery,
-    searchTag
+    searchTag,
 }: TasksSectionProps) => {
     const notCompletedTasks = useMemo(
         () =>
@@ -19,7 +19,7 @@ export const TasksSection = ({
                 .filter((task) =>
                     task.title.toLowerCase().includes(searchQuery.toLowerCase())
                 )
-                .filter(task => !searchTag || task.tag === searchTag)
+                .filter((task) => !searchTag || task.tag === searchTag)
                 .map((task) => (
                     <Task
                         key={task.id}

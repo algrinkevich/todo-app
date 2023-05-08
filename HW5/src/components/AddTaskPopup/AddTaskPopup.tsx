@@ -14,6 +14,7 @@ export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
     const [title, setTitle] = useState("");
     const [tag, setTag] = useState(null);
     const refDatePicker = useRef(null);
+    console.log("RERENDER POPUP!!!!");
 
     const changeButtonState = useCallback((value: string) => {
         if (value) {

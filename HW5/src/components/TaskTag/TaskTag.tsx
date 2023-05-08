@@ -3,52 +3,58 @@ import "./TaskTag.css";
 
 const NAME_TO_CLASS_MAPPING = {
     health: {
-        containerClass: "radio-container--health-tag",
+        tagClass: "task-tag--health-tag",
         radioClass: "radio-button--health-tag",
     },
     work: {
-        containerClass: "radio-container--work-tag",
+        tagClass: "task-tag--work-tag",
         radioClass: "radio-button--work-tag",
     },
     home: {
-        containerClass: "radio-container--home-tag",
+        tagClass: "task-tag--home-tag",
         radioClass: "radio-button--home-tag",
     },
     other: {
-        containerClass: "radio-container--other-tag",
+        tagClass: "task-tag--other-tag",
         radioClass: "radio-button--other-tag",
     },
 };
 
 export const TaskTag = ({
     name,
-    onChecked = null,
+    onChange = null,
     isSelectable,
     isDisabled,
+    isChecked = false,
 }: {
     name: TaskTagEnum;
-    onChecked?: (tagName: string) => void;
+    onChange?: (tagName: string, checked: boolean) => void;
     isSelectable: boolean;
     isDisabled: boolean;
+    isChecked?: boolean;
 }) => {
     return (
-        <label
+        <div
             className={[
-                "radio-container",
-                NAME_TO_CLASS_MAPPING[name].containerClass,
-                isDisabled ? "radio-container--disabled" : "",
+                "task-tag",
+                NAME_TO_CLASS_MAPPING[name].tagClass,
+                isDisabled ? "task-tag--disabled" : "",
             ].join(" ")}
-            htmlFor={name}
+            data-checked={isChecked}
+            onClick={(event) => {
+                if (!isSelectable) {
+                    return;
+                }
+                const isNowChecked = !(
+                    event.currentTarget.dataset.checked === "true"
+                );
+                event.currentTarget.dataset.checked = isNowChecked.toString();
+                if (onChange) {
+                    onChange(name, isNowChecked);
+                }
+            }}
         >
             {name}
-            <input
-                disabled={!isSelectable}
-                type="radio"
-                id={name}
-                className={`${NAME_TO_CLASS_MAPPING[name].radioClass} radio-button`}
-                name="task-tag"
-                onChange={() => onChecked && onChecked(name)}
-            />
-        </label>
+        </div>
     );
 };

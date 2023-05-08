@@ -1,66 +1,55 @@
-.radio-container {
-    position: relative;
+.task-tag {
     width: fit-content;
     height: fit-content;
-    background: rgba(60, 134, 244, 0.31);
     border-radius: 0.5em;
-    color: #0053CF;
     font-family: 'Inter', sans-serif;
     font-weight: 500;
     font-size: 12px;
     line-height: 1.25em;
     padding: 0.166667em 0.6666667em;
-}
-
-.radio-button {
-    position: absolute;
-    appearance: none;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    margin: 0;
     cursor: pointer;
-    border-radius: 0.5em;
+    user-select: none;
+    -webkit-user-select: none;
+    border: 1px solid transparent;
 }
 
-.radio-button--health-tag:checked {
-    border: 1px solid #0053CF;
-}
-
-.radio-button--work-tag:checked {
-    border: 1px solid #9747FF;
-}
-
-.radio-button--home-tag:checked {
-    border: 1px solid #639462;
-}
-
-.radio-button--other-tag:checked {
-    border: 1px solid #EA8C00;
-}
-
-.radio-container--health-tag {
+.task-tag--health-tag {
     background: rgba(60, 134, 244, 0.31);
     color: #0053CF;
 }
 
-.radio-container--work-tag {
+.task-tag--work-tag {
     background: #E8D7FF;
     color: #9747FF;
 }
 
-.radio-container--home-tag {
+.task-tag--home-tag {
     background: #E2F7E2;
     color: #639462;
 }
 
-.radio-container--other-tag {
+.task-tag--other-tag {
     background: #FFECC7;
     color: #EA8C00;
 }
 
-.radio-container--disabled {
+.task-tag--disabled {
     background: #F5F5F5;
     color: #838383;
+}
+
+.task-tag--health-tag[data-checked="true"] {
+    border: 1px solid #0053CF;
+}
+
+.task-tag--work-tag[data-checked="true"]{
+    border: 1px solid #9747FF;
+}
+
+.task-tag--home-tag[data-checked="true"] {
+    border: 1px solid #639462;
+}
+
+.task-tag--other-tag[data-checked="true"] {
+    border: 1px solid #EA8C00;
 }
