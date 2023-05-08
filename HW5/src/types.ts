@@ -102,4 +102,5 @@ export interface TopPanelProps {
         event: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => void;
     onTagChecked?: (tagName: string) => void;
+    searchTag?: TaskTagEnum
 }

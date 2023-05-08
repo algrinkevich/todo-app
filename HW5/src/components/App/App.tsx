@@ -9,7 +9,13 @@ import { TasksForTodayPopup } from "../TasksForTodayPopup/TasksForTodayPopup";
 import { Task, TaskTagEnum } from "../../types";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import "./App.css";
-import { Routes, Route, Outlet } from "react-router-dom";
+import {
+    Routes,
+    Route,
+    Outlet,
+    useSearchParams,
+    Navigate,
+} from "react-router-dom";
 
 const getOpenedDate = () => {
     return new Date().toString().slice(0, 15);
@@ -28,10 +34,12 @@ const getTasksForToday = (tasks: Task[]) => {
 
 export const App = () => {
     const [tasks, setTasks] = useState([]);
-    const [searchQuery, setSearchQuery] = useState("");
     const [showPopup, setShowPopup] = useState(false);
     const [editableTask, setEditableTask] = useState(null);
     const [openedFirstTimeADay, setOpenedFirstTimeADay] = useState(false);
+
+    const [searchParams, _] = useSearchParams();
+    const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
 
     const server = new TaskAppService();
 
@@ -194,8 +202,9 @@ export const App = () => {
 
     return (
         <Routes>
+            <Route path="/" element={<Navigate to="/tasks" />} />
             <Route
-                path="/"
+                path="/tasks"
                 element={
                     <div className="app-container">
                         <div className="app-wrapper">
@@ -211,10 +220,7 @@ export const App = () => {
                     </div>
                 }
             >
-                <Route path="tasks">
-                    <Route index path=":tagName" element={makeTaskSection()} />
-                    <Route index element={makeTaskSection()} />
-                </Route>
+                <Route path=":tagName" element={makeTaskSection()} />
                 <Route index element={makeTaskSection()} />
             </Route>
         </Routes>

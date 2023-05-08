@@ -2,7 +2,12 @@ import { InputText } from "../InputText/InputText";
 import { TaskTagEnum, TopPanelProps } from "../../types";
 import { TaskTagList } from "../TaskTagList/TaskTagList";
 
-import { useNavigate, useParams } from "react-router-dom";
+import {
+    useNavigate,
+    useParams,
+    useSearchParams,
+    createSearchParams,
+} from "react-router-dom";
 import "./TopPanel.css";
 
 export const TopPanel = ({
@@ -12,25 +17,40 @@ export const TopPanel = ({
     onNewTaskClick,
 }: TopPanelProps) => {
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
+    searchQuery = searchParams.get("q") || "";
+
     const onTagCheckedWrapper = (name: string) => {
-        if (!name) {
-            navigate("/tasks");
-        } else {
-            navigate(`/tasks/${name}`);
-        }
+        const navigateOptions = {
+            search: `?${createSearchParams(searchParams)}`,
+            pathname: name ? `/tasks/${name}` : "/tasks",
+        };
+        navigate(navigateOptions);
         onTagChecked && onTagChecked(name);
     };
-    const {tagName} = useParams();
+
+    const { tagName } = useParams();
     let searchTag: TaskTagEnum = null;
     if (tagName) {
-        [searchTag] = Object.values(TaskTagEnum).filter((value) => value === tagName);
+        [searchTag] = Object.values(TaskTagEnum).filter(
+            (value) => value === tagName
+        );
     }
-  
+
+    const onSearchWrapper = (query: string) => {
+        const navigateOptions = {
+            search: `?${createSearchParams({ q: query })}`,
+            pathname: tagName ? `/tasks/${tagName}` : "/tasks",
+        };
+        navigate(navigateOptions);
+        onSearch(query);
+    };
+
     return (
         <div className="top-panel">
             <div className="search-and-button-container">
                 <InputText
-                    onInput={onSearch}
+                    onInput={onSearchWrapper}
                     name="search"
                     type="search"
                     placeholder="Search Task"
