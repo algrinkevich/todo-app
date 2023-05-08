@@ -8,6 +8,7 @@ import { useMemo } from "react";
 export const TasksSection = ({
     tasks,
     onDeleteTask,
+    onEditTask,
     onCompleteTask,
     searchQuery,
     searchTag,
@@ -26,6 +27,7 @@ export const TasksSection = ({
                         task={task}
                         onDelete={onDeleteTask}
                         onComplete={onCompleteTask}
+                        onEdit={onEditTask}
                     />
                 )),
         [tasks, searchQuery, searchTag, onDeleteTask, onCompleteTask]

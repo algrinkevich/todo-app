@@ -43,6 +43,8 @@ export interface DeleteIconProps {
 export interface AddTaskPopupProps {
     onCancel: () => void;
     onOk: (arg: Object) => void;
+    mode: 'edit' | 'new';
+    task?: Task;
 }
 
 export interface BaseTaskProps {
@@ -58,6 +60,7 @@ export interface TaskProps {
     task: Task;
     onComplete: (task: Task) => void;
     onDelete: (task: Task) => void;
+    onEdit: (task: Task) => void;
 }
 
 export interface CompletedTaskProps {
@@ -86,6 +89,7 @@ export interface TasksForTodayPopupProps {
 export interface TasksSectionProps {
     tasks: Array<Task>;
     onDeleteTask: (task: Task) => void;
+    onEditTask: (task: Task) => void;
     onCompleteTask: (task: Task) => void;
     searchQuery: string;
     searchTag: TaskTagEnum

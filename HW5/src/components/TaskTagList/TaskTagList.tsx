@@ -5,11 +5,13 @@ import "./TaskTagList.css";
 
 export const TaskTagList = ({
     onChecked,
+    initTag = null
 }: {
-    onChecked: (tagName: string) => void;
+    onChecked: (tagName: TaskTagEnum) => void;
+    initTag?: TaskTagEnum;
 }) => {
-    const [checkedTag, setCheckedTag] = useState(null);
-    const onCheckedWrapper = (name: string, isChecked: boolean) => {
+    const [checkedTag, setCheckedTag] = useState(initTag);
+    const onCheckedWrapper = (name: TaskTagEnum, isChecked: boolean) => {
         const newTagName = isChecked ? name : null;
         setCheckedTag(newTagName);
         onChecked(newTagName);

@@ -29,6 +29,7 @@ export const App = () => {
     const [tasks, setTasks] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [showPopup, setShowPopup] = useState(false);
+    const [editableTask, setEditableTask] = useState(null);
     const [openedFirstTimeADay, setOpenedFirstTimeADay] = useState(false);
     const [searchTag, setSearchTag] = useState(null);
 
@@ -97,18 +98,18 @@ export const App = () => {
     const addNewTask = useCallback(
         ({
             title,
-            date,
+            plannedDate,
             tag,
         }: {
             title: string;
-            date: string;
+            plannedDate: string;
             tag: TaskTagEnum;
         }) => {
             server
                 .createTask({
                     title: title,
                     isCompleted: false,
-                    plannedDate: date,
+                    plannedDate: plannedDate,
                     tag: tag,
                 })
                 .then((response) => {
@@ -119,17 +120,50 @@ export const App = () => {
         [tasks]
     );
 
+    const updateTask = useCallback((task: Task) => {
+        server.updateTask(task).then(response => {
+            const newTasks = tasks.map((task) => task.id === response.id ? response : task);
+            setTasks(() => newTasks);
+            setEditableTask((): null => null);
+        })
+    }, [tasks]);
+
     const handleShowPopup = useCallback(() => setShowPopup(true), []);
     const handleHidePopup = useCallback(() => setShowPopup(false), []);
+    const resetEditableTask = useCallback(() => {
+        setEditableTask(null);
+    }, []);
+
+    const handleShowEditPopup = useCallback(
+        (task: Task) => setEditableTask(task),
+        []
+    );
 
     const popups = [];
     if (showPopup) {
         popups.push(
             <PopupContainer>
-                <AddTaskPopup onOk={addNewTask} onCancel={handleHidePopup} />
+                <AddTaskPopup
+                    mode="new"
+                    onOk={addNewTask}
+                    onCancel={handleHidePopup}
+                />
             </PopupContainer>
         );
     }
+    if (editableTask) {
+        popups.push(
+            <PopupContainer>
+                <AddTaskPopup
+                    mode="edit"
+                    onOk={updateTask}
+                    onCancel={resetEditableTask}
+                    task={editableTask}
+                />
+            </PopupContainer>
+        );
+    }
+
     const tasksForToday = useMemo(
         () => getTasksForToday(tasks),
         [tasks, getOpenedDate()]
@@ -161,6 +195,7 @@ export const App = () => {
                     onDeleteTask={deleteTask}
                     onCompleteTask={addCompletedTask}
                     searchTag={searchTag}
+                    onEditTask={handleShowEditPopup}
                 />
                 {...popups}
             </div>
