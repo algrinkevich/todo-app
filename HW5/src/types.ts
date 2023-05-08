@@ -101,5 +101,5 @@ export interface TopPanelProps {
     onNewTaskClick: (
         event: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => void;
-    onTagChecked: (tagName: string) => void;
+    onTagChecked?: (tagName: string) => void;
 }

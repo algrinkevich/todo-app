@@ -6,9 +6,10 @@ import { PopupContainer } from "../PopupContainer/PopupContainer";
 import { AddTaskPopup } from "../AddTaskPopup/AddTaskPopup";
 import { TasksForTodayPopup } from "../TasksForTodayPopup/TasksForTodayPopup";
 
-import "./App.css";
 import { Task, TaskTagEnum } from "../../types";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import "./App.css";
+import { Routes, Route, Outlet } from "react-router-dom";
 
 const getOpenedDate = () => {
     return new Date().toString().slice(0, 15);
@@ -31,7 +32,6 @@ export const App = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [editableTask, setEditableTask] = useState(null);
     const [openedFirstTimeADay, setOpenedFirstTimeADay] = useState(false);
-    const [searchTag, setSearchTag] = useState(null);
 
     const server = new TaskAppService();
 
@@ -61,11 +61,6 @@ export const App = () => {
     const updateQuery = useCallback((query: string) => {
         setSearchQuery(() => query);
     }, []);
-
-    const updateSearchTag = useCallback(
-        (tag: TaskTagEnum) => setSearchTag(() => tag),
-        []
-    );
 
     const deleteTask = useCallback(
         (taskToDelete: Task) => {
@@ -120,13 +115,18 @@ export const App = () => {
         [tasks]
     );
 
-    const updateTask = useCallback((task: Task) => {
-        server.updateTask(task).then(response => {
-            const newTasks = tasks.map((task) => task.id === response.id ? response : task);
-            setTasks(() => newTasks);
-            setEditableTask((): null => null);
-        })
-    }, [tasks]);
+    const updateTask = useCallback(
+        (task: Task) => {
+            server.updateTask(task).then((response) => {
+                const newTasks = tasks.map((task) =>
+                    task.id === response.id ? response : task
+                );
+                setTasks(() => newTasks);
+                setEditableTask((): null => null);
+            });
+        },
+        [tasks]
+    );
 
     const handleShowPopup = useCallback(() => setShowPopup(true), []);
     const handleHidePopup = useCallback(() => setShowPopup(false), []);
@@ -179,26 +179,64 @@ export const App = () => {
         );
     }
 
+    const makeTaskSection = (searchTag?: TaskTagEnum) => {
+        return (
+            <TasksSection
+                tasks={tasks}
+                searchQuery={searchQuery}
+                onDeleteTask={deleteTask}
+                onCompleteTask={addCompletedTask}
+                searchTag={searchTag}
+                onEditTask={handleShowEditPopup}
+            />
+        );
+    };
+
     return (
-        <div className="app-container">
-            <div className="app-wrapper">
-                <Header />
-                <TopPanel
-                    onSearch={updateQuery}
-                    searchQuery={searchQuery}
-                    onNewTaskClick={handleShowPopup}
-                    onTagChecked={updateSearchTag}
-                />
-                <TasksSection
-                    tasks={tasks}
-                    searchQuery={searchQuery}
-                    onDeleteTask={deleteTask}
-                    onCompleteTask={addCompletedTask}
-                    searchTag={searchTag}
-                    onEditTask={handleShowEditPopup}
-                />
-                {...popups}
-            </div>
-        </div>
+        <Routes>
+            <Route
+                path="/"
+                element={
+                    <div className="app-container">
+                        <div className="app-wrapper">
+                            <Header />
+                            <TopPanel
+                                onSearch={updateQuery}
+                                searchQuery={searchQuery}
+                                onNewTaskClick={handleShowPopup}
+                            />
+                            {...popups}
+                            <Outlet />
+                        </div>
+                    </div>
+                }
+            >
+                <Route path="tasks">
+                    <Route index path=":tagName" element={makeTaskSection()} />
+                    <Route index element={makeTaskSection()} />
+                </Route>
+                <Route index element={makeTaskSection()} />
+            </Route>
+        </Routes>
+        // <div className="app-container">
+        //     <div className="app-wrapper">
+        //         <Header />
+        //         <TopPanel
+        //             onSearch={updateQuery}
+        //             searchQuery={searchQuery}
+        //             onNewTaskClick={handleShowPopup}
+        //             onTagChecked={updateSearchTag}
+        //         />
+        //         <TasksSection
+        //             tasks={tasks}
+        //             searchQuery={searchQuery}
+        //             onDeleteTask={deleteTask}
+        //             onCompleteTask={addCompletedTask}
+        //             searchTag={searchTag}
+        //             onEditTask={handleShowEditPopup}
+        //         />
+        //         {...popups}
+        //     </div>
+        // </div>
     );
 };

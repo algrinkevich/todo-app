@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TaskTagEnum } from "../../types";
 import { TaskTag } from "../TaskTag/TaskTag";
 import "./TaskTagList.css";
 
 export const TaskTagList = ({
     onChecked,
-    initTag = null
+    initTag = null,
 }: {
     onChecked: (tagName: TaskTagEnum) => void;
     initTag?: TaskTagEnum;

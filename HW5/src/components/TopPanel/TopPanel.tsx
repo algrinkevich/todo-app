@@ -1,6 +1,8 @@
 import { InputText } from "../InputText/InputText";
-import { TopPanelProps } from "../../types";
+import { TaskTagEnum, TopPanelProps } from "../../types";
 import { TaskTagList } from "../TaskTagList/TaskTagList";
+
+import { useNavigate, useParams } from "react-router-dom";
 import "./TopPanel.css";
 
 export const TopPanel = ({
@@ -9,6 +11,21 @@ export const TopPanel = ({
     searchQuery,
     onNewTaskClick,
 }: TopPanelProps) => {
+    const navigate = useNavigate();
+    const onTagCheckedWrapper = (name: string) => {
+        if (!name) {
+            navigate("/tasks");
+        } else {
+            navigate(`/tasks/${name}`);
+        }
+        onTagChecked && onTagChecked(name);
+    };
+    const {tagName} = useParams();
+    let searchTag: TaskTagEnum = null;
+    if (tagName) {
+        [searchTag] = Object.values(TaskTagEnum).filter((value) => value === tagName);
+    }
+  
     return (
         <div className="top-panel">
             <div className="search-and-button-container">
@@ -26,7 +43,7 @@ export const TopPanel = ({
                     + New Task
                 </button>
             </div>
-            <TaskTagList onChecked={onTagChecked} />
+            <TaskTagList onChecked={onTagCheckedWrapper} initTag={searchTag} />
         </div>
     );
 };

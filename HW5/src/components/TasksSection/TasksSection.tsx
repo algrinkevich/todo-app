@@ -4,6 +4,7 @@ import { CompletedTask } from "../CompletedTask/CompletedTask";
 import { TasksSectionProps } from "../../types";
 import "./TasksSection.css";
 import { useMemo } from "react";
+import { useParams } from 'react-router-dom';
 
 export const TasksSection = ({
     tasks,
@@ -11,8 +12,9 @@ export const TasksSection = ({
     onEditTask,
     onCompleteTask,
     searchQuery,
-    searchTag,
 }: TasksSectionProps) => {
+    const {tagName} = useParams();
+    console.log(tagName)
     const notCompletedTasks = useMemo(
         () =>
             tasks
@@ -20,7 +22,7 @@ export const TasksSection = ({
                 .filter((task) =>
                     task.title.toLowerCase().includes(searchQuery.toLowerCase())
                 )
-                .filter((task) => !searchTag || task.tag === searchTag)
+                .filter((task) => !tagName || task.tag === tagName)
                 .map((task) => (
                     <Task
                         key={task.id}
@@ -30,7 +32,7 @@ export const TasksSection = ({
                         onEdit={onEditTask}
                     />
                 )),
-        [tasks, searchQuery, searchTag, onDeleteTask, onCompleteTask]
+        [tasks, searchQuery, tagName, onDeleteTask, onCompleteTask]
     );
     const completedTasks = useMemo(
         () =>
