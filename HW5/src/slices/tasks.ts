@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Task } from "../types";
 import { RootState } from "../store";
 import { TaskAppService } from "../services/TaskAppService";
-import { BaseThunkAPI } from "@reduxjs/toolkit/dist/createAsyncThunk";
 
 const initialState: Task[] = [];
 

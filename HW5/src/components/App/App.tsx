@@ -8,7 +8,6 @@ import {
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { TaskAppService } from "../../services/TaskAppService";
 import { Header } from "../Header/Header";
 import { TopPanel } from "../TopPanel/TopPanel";
 import { TasksSection } from "../TasksSection/TasksSection";
@@ -16,16 +15,13 @@ import { PopupContainer } from "../PopupContainer/PopupContainer";
 import { AddTaskPopup } from "../AddTaskPopup/AddTaskPopup";
 import { TasksForTodayPopup } from "../TasksForTodayPopup/TasksForTodayPopup";
 import { Task, TaskTagEnum } from "../../types";
+import { AppDispatch } from "../../store";
 import {
     fetchTasks,
     tasksSelector,
-    deleteTask,
-    updateTask,
-    addTask,
 } from "../../slices/tasks";
 
 import "./App.css";
-import { AppDispatch } from "../../store";
 
 const getOpenedDate = () => {
     return new Date().toString().slice(0, 15);
@@ -52,8 +48,6 @@ export const App = () => {
     const [searchParams, _] = useSearchParams();
     const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
 
-    const server = new TaskAppService();
-
     useEffect(() => {
         const previousOpenedDate = localStorage.getItem("lastOpened");
         setOpenedFirstTimeADay(
@@ -72,47 +66,12 @@ export const App = () => {
         setSearchQuery(() => query);
     }, []);
 
-    const deleteTask_ = useCallback(
-        (taskToDelete: Task) => {
-            dispatch(deleteTask(taskToDelete));
-        },
-        [tasks]
-    );
-
-    const addCompletedTask = useCallback(
-        (taskToComplete: Task) => {
-            const completedTask = { ...taskToComplete, isCompleted: true };
-            dispatch(updateTask(completedTask));
-        },
-        [tasks]
-    );
-
-    const addNewTask = useCallback(
-        ({
-            title,
-            plannedDate,
-            tag,
-        }: {
-            title: string;
-            plannedDate: string;
-            tag: TaskTagEnum;
-        }) => {
-            dispatch(
-                addTask({
-                    title: title,
-                    isCompleted: false,
-                    plannedDate: plannedDate,
-                    tag: tag,
-                })
-            );
-            setShowPopup(() => false);
-        },
-        [tasks]
-    );
+    const addNewTask = useCallback(() => {
+        setShowPopup(() => false);
+    }, [tasks]);
 
     const updateTask_ = useCallback(
         (task: Task) => {
-            dispatch(updateTask(task));
             setEditableTask((): null => null);
         },
         [tasks]
@@ -173,8 +132,6 @@ export const App = () => {
         return (
             <TasksSection
                 searchQuery={searchQuery}
-                onDeleteTask={deleteTask_}
-                onCompleteTask={addCompletedTask}
                 searchTag={searchTag}
                 onEditTask={handleShowEditPopup}
             />

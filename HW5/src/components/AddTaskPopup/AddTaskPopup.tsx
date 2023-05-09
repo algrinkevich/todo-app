@@ -1,8 +1,13 @@
-import { AddTaskPopupProps, Task, TaskTagEnum } from "../../types";
 import React, { useCallback, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+
 import { InputText } from "../InputText/InputText";
-import "./AddTaskPopup.css";
 import { TaskTagList } from "../TaskTagList/TaskTagList";
+import { addTask, updateTask } from "../../slices/tasks";
+import { AddTaskPopupProps, Task } from "../../types";
+import { AppDispatch } from "../../store";
+
+import "./AddTaskPopup.css";
 
 const getCurrentDate = () => {
     return new Date().toISOString().slice(0, 10);
@@ -14,7 +19,9 @@ export const AddTaskPopup = ({
     mode,
     task,
 }: AddTaskPopupProps) => {
-    const [addButtonDisabled, setAddButtonDisabled] = useState(mode !== 'edit');
+    const dispatch = useDispatch<AppDispatch>();
+
+    const [addButtonDisabled, setAddButtonDisabled] = useState(mode !== "edit");
     const [title, setTitle] = useState(mode === "edit" ? task.title : "");
     const [tag, setTag] = useState(mode === "edit" ? task.tag : null);
     const refDatePicker = useRef(null);
@@ -28,7 +35,7 @@ export const AddTaskPopup = ({
         setTitle(() => value);
     }, []);
 
-    const addTask = useCallback(
+    const addTaskOnSubmit = useCallback(
         (event: React.FormEvent<HTMLFormElement>) => {
             const date = refDatePicker.current.valueAsDate
                 .toISOString()
@@ -41,11 +48,14 @@ export const AddTaskPopup = ({
                 title: title,
                 plannedDate: date,
                 tag: tag,
-                isCompleted: false
+                isCompleted: false,
             };
             if (task) {
                 taskInfo.id = task.id;
             }
+            const action =
+                mode === "new" ? addTask(taskInfo) : updateTask(taskInfo);
+            dispatch(action);
             onOk(taskInfo);
         },
         [title, refDatePicker, tag, onOk]
@@ -54,12 +64,12 @@ export const AddTaskPopup = ({
     const popupTitle = mode === "new" ? "Add New Task" : "Edit Task";
     const popupSaveTitle = mode === "new" ? "Add Task" : "Save";
 
-    const defaultDate = mode === 'new' ? getCurrentDate() : task.plannedDate;
+    const defaultDate = mode === "new" ? getCurrentDate() : task.plannedDate;
 
     return (
         <>
             <h2>{popupTitle}</h2>
-            <form className="create-task-form" onSubmit={addTask}>
+            <form className="create-task-form" onSubmit={addTaskOnSubmit}>
                 <InputText
                     onInput={changeButtonState}
                     name="taskTitle"

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { TaskList } from "../TaskList/TaskList";
@@ -10,15 +10,12 @@ import { tasksSelector } from "../../slices/tasks";
 
 import "./TasksSection.css";
 
-
 export const TasksSection = ({
-    onDeleteTask,
     onEditTask,
-    onCompleteTask,
     searchQuery,
 }: TasksSectionProps) => {
     const tasks = useSelector(tasksSelector);
-    const {tagName} = useParams();
+    const { tagName } = useParams();
 
     const notCompletedTasks = useMemo(
         () =>
@@ -32,12 +29,10 @@ export const TasksSection = ({
                     <Task
                         key={task.id}
                         task={task}
-                        onDelete={onDeleteTask}
-                        onComplete={onCompleteTask}
                         onEdit={onEditTask}
                     />
                 )),
-        [tasks, searchQuery, tagName, onDeleteTask, onCompleteTask]
+        [tasks, searchQuery, tagName]
     );
     const completedTasks = useMemo(
         () =>

@@ -43,7 +43,7 @@ export interface DeleteIconProps {
 export interface AddTaskPopupProps {
     onCancel: () => void;
     onOk: (arg: Object) => void;
-    mode: 'edit' | 'new';
+    mode: "edit" | "new";
     task?: Task;
 }
 
@@ -58,8 +58,6 @@ export interface BaseTaskProps {
 
 export interface TaskProps {
     task: Task;
-    onComplete: (task: Task) => void;
-    onDelete: (task: Task) => void;
     onEdit: (task: Task) => void;
 }
 
@@ -87,11 +85,9 @@ export interface TasksForTodayPopupProps {
 }
 
 export interface TasksSectionProps {
-    onDeleteTask: (task: Task) => void;
     onEditTask: (task: Task) => void;
-    onCompleteTask: (task: Task) => void;
     searchQuery: string;
-    searchTag: TaskTagEnum
+    searchTag: TaskTagEnum;
 }
 
 export interface TopPanelProps {
@@ -101,5 +97,5 @@ export interface TopPanelProps {
         event: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => void;
     onTagChecked?: (tagName: string) => void;
-    searchTag?: TaskTagEnum
+    searchTag?: TaskTagEnum;
 }
