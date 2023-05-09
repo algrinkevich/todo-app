@@ -19,12 +19,14 @@ export class TaskAppService extends BaseService {
             title: task.title,
             isCompleted: task.isCompleted,
             plannedDate: task.plannedDate,
-            tag: task.tag
+            tag: task.tag,
         });
     }
 
     deleteTask(task: Task) {
-        return super.delete(`${this.TASK_API_PREFIX}/${task.id}`);
+        return super
+            .delete(`${this.TASK_API_PREFIX}/${task.id}`)
+            .then(() => task);
     }
 
     updateTask(task: Task): Promise<Task> {

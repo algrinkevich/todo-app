@@ -15,18 +15,17 @@ import { TasksSection } from "../TasksSection/TasksSection";
 import { PopupContainer } from "../PopupContainer/PopupContainer";
 import { AddTaskPopup } from "../AddTaskPopup/AddTaskPopup";
 import { TasksForTodayPopup } from "../TasksForTodayPopup/TasksForTodayPopup";
-import { tasksSelector } from "../../slices/tasks";
 import { Task, TaskTagEnum } from "../../types";
 import {
-    taskAdded,
-    taskUpdated,
-    tasksLoaded,
-    taskDeleted,
-    taskCompleted,
+    fetchTasks,
+    tasksSelector,
+    deleteTask,
+    updateTask,
+    addTask,
 } from "../../slices/tasks";
 
 import "./App.css";
-
+import { AppDispatch } from "../../store";
 
 const getOpenedDate = () => {
     return new Date().toString().slice(0, 15);
@@ -44,7 +43,7 @@ const getTasksForToday = (tasks: Task[]) => {
 };
 
 export const App = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const tasks = useSelector(tasksSelector);
     const [showPopup, setShowPopup] = useState(false);
     const [editableTask, setEditableTask] = useState(null);
@@ -66,27 +65,16 @@ export const App = () => {
     }, [tasks]);
 
     useEffect(() => {
-        let isCanceled = false;
-        server.getTasks().then((response) => {
-            if (isCanceled) {
-                return;
-            }
-            dispatch(tasksLoaded(response));
-        });
-        return () => {
-            isCanceled = true;
-        };
+        dispatch(fetchTasks());
     }, []);
 
     const updateQuery = useCallback((query: string) => {
         setSearchQuery(() => query);
     }, []);
 
-    const deleteTask = useCallback(
+    const deleteTask_ = useCallback(
         (taskToDelete: Task) => {
-            server.deleteTask(taskToDelete).then(() => {
-                dispatch(taskDeleted(taskToDelete));
-            });
+            dispatch(deleteTask(taskToDelete));
         },
         [tasks]
     );
@@ -94,9 +82,7 @@ export const App = () => {
     const addCompletedTask = useCallback(
         (taskToComplete: Task) => {
             const completedTask = { ...taskToComplete, isCompleted: true };
-            server.updateTask(completedTask).then(() => {
-                dispatch(taskCompleted(completedTask));
-            });
+            dispatch(updateTask(completedTask));
         },
         [tasks]
     );
@@ -111,27 +97,23 @@ export const App = () => {
             plannedDate: string;
             tag: TaskTagEnum;
         }) => {
-            server
-                .createTask({
+            dispatch(
+                addTask({
                     title: title,
                     isCompleted: false,
                     plannedDate: plannedDate,
                     tag: tag,
                 })
-                .then((response) => {
-                    dispatch(taskAdded(response));
-                    setShowPopup(() => false);
-                });
+            );
+            setShowPopup(() => false);
         },
         [tasks]
     );
 
-    const updateTask = useCallback(
+    const updateTask_ = useCallback(
         (task: Task) => {
-            server.updateTask(task).then((response) => {
-                dispatch(taskUpdated(response));
-                setEditableTask((): null => null);
-            });
+            dispatch(updateTask(task));
+            setEditableTask((): null => null);
         },
         [tasks]
     );
@@ -164,7 +146,7 @@ export const App = () => {
             <PopupContainer>
                 <AddTaskPopup
                     mode="edit"
-                    onOk={updateTask}
+                    onOk={updateTask_}
                     onCancel={resetEditableTask}
                     task={editableTask}
                 />
@@ -191,7 +173,7 @@ export const App = () => {
         return (
             <TasksSection
                 searchQuery={searchQuery}
-                onDeleteTask={deleteTask}
+                onDeleteTask={deleteTask_}
                 onCompleteTask={addCompletedTask}
                 searchTag={searchTag}
                 onEditTask={handleShowEditPopup}
