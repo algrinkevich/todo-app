@@ -16,6 +16,15 @@ import {
     useSearchParams,
     Navigate,
 } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store";
+import {
+    taskAdded,
+    taskUpdated,
+    tasksLoaded,
+    taskDeleted,
+    taskCompleted,
+} from "../../slices/tasks";
 
 const getOpenedDate = () => {
     return new Date().toString().slice(0, 15);
@@ -33,7 +42,8 @@ const getTasksForToday = (tasks: Task[]) => {
 };
 
 export const App = () => {
-    const [tasks, setTasks] = useState([]);
+    const dispatch = useDispatch();
+    const tasks = useSelector((state: RootState) => state.tasks);
     const [showPopup, setShowPopup] = useState(false);
     const [editableTask, setEditableTask] = useState(null);
     const [openedFirstTimeADay, setOpenedFirstTimeADay] = useState(false);
@@ -59,7 +69,7 @@ export const App = () => {
             if (isCanceled) {
                 return;
             }
-            setTasks(response);
+            dispatch(tasksLoaded(response));
         });
         return () => {
             isCanceled = true;
@@ -73,9 +83,7 @@ export const App = () => {
     const deleteTask = useCallback(
         (taskToDelete: Task) => {
             server.deleteTask(taskToDelete).then(() => {
-                setTasks(() =>
-                    tasks.filter((task) => task.id !== taskToDelete.id)
-                );
+                dispatch(taskDeleted(taskToDelete));
             });
         },
         [tasks]
@@ -84,15 +92,8 @@ export const App = () => {
     const addCompletedTask = useCallback(
         (taskToComplete: Task) => {
             const completedTask = { ...taskToComplete, isCompleted: true };
-
             server.updateTask(completedTask).then(() => {
-                setTasks(() =>
-                    tasks.map((task) => ({
-                        ...task,
-                        isCompleted:
-                            task.isCompleted || task.id === completedTask.id,
-                    }))
-                );
+                dispatch(taskCompleted(completedTask));
             });
         },
         [tasks]
@@ -116,7 +117,7 @@ export const App = () => {
                     tag: tag,
                 })
                 .then((response) => {
-                    setTasks(() => [...tasks, response]);
+                    dispatch(taskAdded(response));
                     setShowPopup(() => false);
                 });
         },
@@ -126,10 +127,7 @@ export const App = () => {
     const updateTask = useCallback(
         (task: Task) => {
             server.updateTask(task).then((response) => {
-                const newTasks = tasks.map((task) =>
-                    task.id === response.id ? response : task
-                );
-                setTasks(() => newTasks);
+                dispatch(taskUpdated(response));
                 setEditableTask((): null => null);
             });
         },
@@ -224,25 +222,5 @@ export const App = () => {
                 <Route index element={makeTaskSection()} />
             </Route>
         </Routes>
-        // <div className="app-container">
-        //     <div className="app-wrapper">
-        //         <Header />
-        //         <TopPanel
-        //             onSearch={updateQuery}
-        //             searchQuery={searchQuery}
-        //             onNewTaskClick={handleShowPopup}
-        //             onTagChecked={updateSearchTag}
-        //         />
-        //         <TasksSection
-        //             tasks={tasks}
-        //             searchQuery={searchQuery}
-        //             onDeleteTask={deleteTask}
-        //             onCompleteTask={addCompletedTask}
-        //             searchTag={searchTag}
-        //             onEditTask={handleShowEditPopup}
-        //         />
-        //         {...popups}
-        //     </div>
-        // </div>
     );
 };
