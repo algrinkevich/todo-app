@@ -54,6 +54,4 @@ export const addTask = createAsyncThunk("tasks/addTask", (task: Task) => {
     return server.createTask(task);
 });
 
-//export const { taskAdded } = tasksSlice.actions;
-
 export default tasksSlice.reducer;

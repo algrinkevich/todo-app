@@ -10,10 +10,7 @@ import { tasksSelector } from "../../slices/tasks";
 
 import "./TasksSection.css";
 
-export const TasksSection = ({
-    onEditTask,
-    searchQuery,
-}: TasksSectionProps) => {
+export const TasksSection = ({ searchQuery }: TasksSectionProps) => {
     const tasks = useSelector(tasksSelector);
     const { tagName } = useParams();
 
@@ -25,13 +22,7 @@ export const TasksSection = ({
                     task.title.toLowerCase().includes(searchQuery.toLowerCase())
                 )
                 .filter((task) => !tagName || task.tag === tagName)
-                .map((task) => (
-                    <Task
-                        key={task.id}
-                        task={task}
-                        onEdit={onEditTask}
-                    />
-                )),
+                .map((task) => <Task key={task.id} task={task} />),
         [tasks, searchQuery, tagName]
     );
     const completedTasks = useMemo(

@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { InputText } from "../InputText/InputText";
 import { TaskTagList } from "../TaskTagList/TaskTagList";
@@ -7,23 +7,28 @@ import { addTask, updateTask } from "../../slices/tasks";
 import { AddTaskPopupProps, Task } from "../../types";
 import { AppDispatch } from "../../store";
 
+import {
+    editableTaskSelector,
+    hideAddPopup,
+    hideEditPopup,
+} from "../../slices/popups";
+
 import "./AddTaskPopup.css";
+
 
 const getCurrentDate = () => {
     return new Date().toISOString().slice(0, 10);
 };
 
-export const AddTaskPopup = ({
-    onCancel,
-    onOk,
-    mode,
-    task,
-}: AddTaskPopupProps) => {
+export const AddTaskPopup = ({ mode }: AddTaskPopupProps) => {
     const dispatch = useDispatch<AppDispatch>();
+    const editableTask = useSelector(editableTaskSelector);
 
     const [addButtonDisabled, setAddButtonDisabled] = useState(mode !== "edit");
-    const [title, setTitle] = useState(mode === "edit" ? task.title : "");
-    const [tag, setTag] = useState(mode === "edit" ? task.tag : null);
+    const [title, setTitle] = useState(
+        mode === "edit" ? editableTask.title : ""
+    );
+    const [tag, setTag] = useState(mode === "edit" ? editableTask.tag : null);
     const refDatePicker = useRef(null);
 
     const changeButtonState = useCallback((value: string) => {
@@ -50,21 +55,32 @@ export const AddTaskPopup = ({
                 tag: tag,
                 isCompleted: false,
             };
-            if (task) {
-                taskInfo.id = task.id;
+
+            if (mode === "new") {
+                dispatch(hideAddPopup());
+                dispatch(addTask(taskInfo));
+            } else {
+                taskInfo.id = editableTask.id;
+                dispatch(hideEditPopup());
+                dispatch(updateTask(taskInfo));
             }
-            const action =
-                mode === "new" ? addTask(taskInfo) : updateTask(taskInfo);
-            dispatch(action);
-            onOk(taskInfo);
         },
-        [title, refDatePicker, tag, onOk]
+        [title, refDatePicker, tag]
     );
 
     const popupTitle = mode === "new" ? "Add New Task" : "Edit Task";
     const popupSaveTitle = mode === "new" ? "Add Task" : "Save";
 
-    const defaultDate = mode === "new" ? getCurrentDate() : task.plannedDate;
+    const defaultDate =
+        mode === "new" ? getCurrentDate() : editableTask.plannedDate;
+
+    const onCancelButtonClick = () => {
+        if (mode === "new") {
+            dispatch(hideAddPopup());
+        } else {
+            dispatch(hideEditPopup());
+        }
+    };
 
     return (
         <>
@@ -94,7 +110,7 @@ export const AddTaskPopup = ({
                     <button
                         className="cancel-btn"
                         type="reset"
-                        onClick={onCancel}
+                        onClick={onCancelButtonClick}
                     >
                         Cancel
                     </button>

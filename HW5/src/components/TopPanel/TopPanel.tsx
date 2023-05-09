@@ -1,21 +1,25 @@
-import { InputText } from "../InputText/InputText";
-import { TaskTagEnum, TopPanelProps } from "../../types";
-import { TaskTagList } from "../TaskTagList/TaskTagList";
-
+import { useDispatch } from "react-redux";
 import {
     useNavigate,
     useParams,
     useSearchParams,
     createSearchParams,
 } from "react-router-dom";
+
+import { InputText } from "../InputText/InputText";
+import { TaskTagEnum, TopPanelProps } from "../../types";
+import { TaskTagList } from "../TaskTagList/TaskTagList";
+import { showAddPopup } from "../../slices/popups";
+import { AppDispatch } from "../../store";
+
 import "./TopPanel.css";
 
 export const TopPanel = ({
     onSearch,
     onTagChecked,
     searchQuery,
-    onNewTaskClick,
 }: TopPanelProps) => {
+    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     searchQuery = searchParams.get("q") || "";
@@ -46,6 +50,8 @@ export const TopPanel = ({
         onSearch(query);
     };
 
+    const onButtonClick = () => dispatch(showAddPopup());
+
     return (
         <div className="top-panel">
             <div className="search-and-button-container">
@@ -58,7 +64,7 @@ export const TopPanel = ({
                 />
                 <button
                     className="new-task-btn top-panel__new-task-btn state-btn"
-                    onClick={onNewTaskClick}
+                    onClick={onButtonClick}
                 >
                     + New Task
                 </button>

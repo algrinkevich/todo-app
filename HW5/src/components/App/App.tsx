@@ -17,9 +17,10 @@ import { TasksForTodayPopup } from "../TasksForTodayPopup/TasksForTodayPopup";
 import { Task, TaskTagEnum } from "../../types";
 import { AppDispatch } from "../../store";
 import {
-    fetchTasks,
-    tasksSelector,
-} from "../../slices/tasks";
+    showAddPopupSelector,
+    showEditPopupSelector,
+} from "../../slices/popups";
+import { fetchTasks, tasksSelector } from "../../slices/tasks";
 
 import "./App.css";
 
@@ -41,8 +42,8 @@ const getTasksForToday = (tasks: Task[]) => {
 export const App = () => {
     const dispatch = useDispatch<AppDispatch>();
     const tasks = useSelector(tasksSelector);
-    const [showPopup, setShowPopup] = useState(false);
-    const [editableTask, setEditableTask] = useState(null);
+    const showAddPopup = useSelector(showAddPopupSelector);
+    const showEditPopup = useSelector(showEditPopupSelector);
     const [openedFirstTimeADay, setOpenedFirstTimeADay] = useState(false);
 
     const [searchParams, _] = useSearchParams();
@@ -66,49 +67,18 @@ export const App = () => {
         setSearchQuery(() => query);
     }, []);
 
-    const addNewTask = useCallback(() => {
-        setShowPopup(() => false);
-    }, [tasks]);
-
-    const updateTask_ = useCallback(
-        (task: Task) => {
-            setEditableTask((): null => null);
-        },
-        [tasks]
-    );
-
-    const handleShowPopup = useCallback(() => setShowPopup(true), []);
-    const handleHidePopup = useCallback(() => setShowPopup(false), []);
-    const resetEditableTask = useCallback(() => {
-        setEditableTask(null);
-    }, []);
-
-    const handleShowEditPopup = useCallback(
-        (task: Task) => setEditableTask(task),
-        []
-    );
-
     const popups = [];
-    if (showPopup) {
+    if (showAddPopup) {
         popups.push(
             <PopupContainer>
-                <AddTaskPopup
-                    mode="new"
-                    onOk={addNewTask}
-                    onCancel={handleHidePopup}
-                />
+                <AddTaskPopup mode="new" />
             </PopupContainer>
         );
     }
-    if (editableTask) {
+    if (showEditPopup) {
         popups.push(
             <PopupContainer>
-                <AddTaskPopup
-                    mode="edit"
-                    onOk={updateTask_}
-                    onCancel={resetEditableTask}
-                    task={editableTask}
-                />
+                <AddTaskPopup mode="edit" />
             </PopupContainer>
         );
     }
@@ -129,13 +99,7 @@ export const App = () => {
     }
 
     const makeTaskSection = (searchTag?: TaskTagEnum) => {
-        return (
-            <TasksSection
-                searchQuery={searchQuery}
-                searchTag={searchTag}
-                onEditTask={handleShowEditPopup}
-            />
-        );
+        return <TasksSection searchQuery={searchQuery} searchTag={searchTag} />;
     };
 
     return (
@@ -150,7 +114,6 @@ export const App = () => {
                             <TopPanel
                                 onSearch={updateQuery}
                                 searchQuery={searchQuery}
-                                onNewTaskClick={handleShowPopup}
                             />
                             {...popups}
                             <Outlet />

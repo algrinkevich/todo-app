@@ -7,8 +7,9 @@ import { BaseTask } from "../BaseTask/BaseTask";
 import { AppDispatch } from "../../store";
 import { deleteTask, updateTask } from "../../slices/tasks";
 import { TaskProps } from "../../types";
+import { showEditPopup } from "../../slices/popups";
 
-export const Task = ({ task, onEdit }: TaskProps) => {
+export const Task = ({ task }: TaskProps) => {
     const dispatch = useDispatch<AppDispatch>();
 
     const onChange = useCallback(
@@ -24,7 +25,10 @@ export const Task = ({ task, onEdit }: TaskProps) => {
         () => dispatch(deleteTask(task)),
         [task, dispatch]
     );
-    const onEditIconClick = useCallback(() => onEdit(task), [task, onEdit]);
+    const onEditIconClick = useCallback(
+        () => dispatch(showEditPopup(task)),
+        [task, dispatch]
+    );
 
     return (
         <BaseTask

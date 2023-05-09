@@ -20,6 +20,11 @@ export interface Task {
     id?: number;
 }
 
+export interface PopupsState {
+    showAddPopup: boolean;
+    editableTask: Task
+}
+
 export interface WeatherResponse {
     current: {
         temp_c: number;
@@ -41,10 +46,7 @@ export interface DeleteIconProps {
 }
 
 export interface AddTaskPopupProps {
-    onCancel: () => void;
-    onOk: (arg: Object) => void;
     mode: "edit" | "new";
-    task?: Task;
 }
 
 export interface BaseTaskProps {
@@ -58,7 +60,6 @@ export interface BaseTaskProps {
 
 export interface TaskProps {
     task: Task;
-    onEdit: (task: Task) => void;
 }
 
 export interface CompletedTaskProps {
@@ -85,7 +86,6 @@ export interface TasksForTodayPopupProps {
 }
 
 export interface TasksSectionProps {
-    onEditTask: (task: Task) => void;
     searchQuery: string;
     searchTag: TaskTagEnum;
 }
@@ -93,9 +93,6 @@ export interface TasksSectionProps {
 export interface TopPanelProps {
     onSearch: (query: string) => void;
     searchQuery: string;
-    onNewTaskClick: (
-        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) => void;
     onTagChecked?: (tagName: string) => void;
     searchTag?: TaskTagEnum;
 }
