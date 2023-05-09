@@ -87,7 +87,6 @@ export interface TasksForTodayPopupProps {
 }
 
 export interface TasksSectionProps {
-    tasks: Array<Task>;
     onDeleteTask: (task: Task) => void;
     onEditTask: (task: Task) => void;
     onCompleteTask: (task: Task) => void;

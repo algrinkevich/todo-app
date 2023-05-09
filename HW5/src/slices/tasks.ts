@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Task } from "../types";
+import { RootState } from "../store"; 
 
 const initialState: Task[] = [];
 
@@ -31,6 +32,8 @@ const tasksSlice = createSlice({
     },
 });
 
+export const tasksSelector = (state: RootState) => state.tasks;
+
 export const {
     taskAdded,
     taskUpdated,
@@ -38,4 +41,5 @@ export const {
     taskDeleted,
     taskCompleted,
 } = tasksSlice.actions;
+
 export default tasksSlice.reducer;

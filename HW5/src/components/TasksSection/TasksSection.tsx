@@ -1,20 +1,25 @@
+import { useMemo } from "react";
+import { useParams } from 'react-router-dom';
+import { useSelector } from "react-redux";
+
 import { TaskList } from "../TaskList/TaskList";
 import { Task } from "../Task/Task";
 import { CompletedTask } from "../CompletedTask/CompletedTask";
 import { TasksSectionProps } from "../../types";
+import { tasksSelector } from "../../slices/tasks";
+
 import "./TasksSection.css";
-import { useMemo } from "react";
-import { useParams } from 'react-router-dom';
+
 
 export const TasksSection = ({
-    tasks,
     onDeleteTask,
     onEditTask,
     onCompleteTask,
     searchQuery,
 }: TasksSectionProps) => {
+    const tasks = useSelector(tasksSelector);
     const {tagName} = useParams();
-    console.log(tagName)
+
     const notCompletedTasks = useMemo(
         () =>
             tasks

@@ -1,14 +1,3 @@
-import { TaskAppService } from "../../services/TaskAppService";
-import { Header } from "../Header/Header";
-import { TopPanel } from "../TopPanel/TopPanel";
-import { TasksSection } from "../TasksSection/TasksSection";
-import { PopupContainer } from "../PopupContainer/PopupContainer";
-import { AddTaskPopup } from "../AddTaskPopup/AddTaskPopup";
-import { TasksForTodayPopup } from "../TasksForTodayPopup/TasksForTodayPopup";
-
-import { Task, TaskTagEnum } from "../../types";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import "./App.css";
 import {
     Routes,
     Route,
@@ -16,8 +5,18 @@ import {
     useSearchParams,
     Navigate,
 } from "react-router-dom";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../store";
+
+import { TaskAppService } from "../../services/TaskAppService";
+import { Header } from "../Header/Header";
+import { TopPanel } from "../TopPanel/TopPanel";
+import { TasksSection } from "../TasksSection/TasksSection";
+import { PopupContainer } from "../PopupContainer/PopupContainer";
+import { AddTaskPopup } from "../AddTaskPopup/AddTaskPopup";
+import { TasksForTodayPopup } from "../TasksForTodayPopup/TasksForTodayPopup";
+import { tasksSelector } from "../../slices/tasks";
+import { Task, TaskTagEnum } from "../../types";
 import {
     taskAdded,
     taskUpdated,
@@ -25,6 +24,9 @@ import {
     taskDeleted,
     taskCompleted,
 } from "../../slices/tasks";
+
+import "./App.css";
+
 
 const getOpenedDate = () => {
     return new Date().toString().slice(0, 15);
@@ -43,7 +45,7 @@ const getTasksForToday = (tasks: Task[]) => {
 
 export const App = () => {
     const dispatch = useDispatch();
-    const tasks = useSelector((state: RootState) => state.tasks);
+    const tasks = useSelector(tasksSelector);
     const [showPopup, setShowPopup] = useState(false);
     const [editableTask, setEditableTask] = useState(null);
     const [openedFirstTimeADay, setOpenedFirstTimeADay] = useState(false);
@@ -188,7 +190,6 @@ export const App = () => {
     const makeTaskSection = (searchTag?: TaskTagEnum) => {
         return (
             <TasksSection
-                tasks={tasks}
                 searchQuery={searchQuery}
                 onDeleteTask={deleteTask}
                 onCompleteTask={addCompletedTask}
