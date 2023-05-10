@@ -1,10 +1,5 @@
-import {
-    Routes,
-    Route,
-    Outlet,
-    Navigate,
-} from "react-router-dom";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Routes, Route, Outlet, Navigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Header } from "../Header/Header";
@@ -13,7 +8,7 @@ import { TasksSection } from "../TasksSection/TasksSection";
 import { PopupContainer } from "../PopupContainer/PopupContainer";
 import { AddTaskPopup } from "../AddTaskPopup/AddTaskPopup";
 import { TasksForTodayPopup } from "../TasksForTodayPopup/TasksForTodayPopup";
-import { Task, TaskTagEnum } from "../../types";
+import { Task } from "../../types";
 import { AppDispatch } from "../../store";
 import {
     showAddPopupSelector,
@@ -102,11 +97,6 @@ export const App = () => {
             </PopupContainer>
         );
     }
-
-    const makeTaskSection = (searchTag?: TaskTagEnum) => {
-        return <TasksSection searchTag={searchTag} />;
-    };
-
     return (
         <Routes>
             <Route path="/" element={<Navigate to="/tasks" />} />
@@ -123,8 +113,8 @@ export const App = () => {
                     </div>
                 }
             >
-                <Route path=":tagName" element={makeTaskSection()} />
-                <Route index element={makeTaskSection()} />
+                <Route path=":tagName" element={<TasksSection />} />
+                <Route index element={<TasksSection />} />
             </Route>
         </Routes>
     );

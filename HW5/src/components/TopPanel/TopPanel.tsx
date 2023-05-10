@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import { InputText } from "../InputText/InputText";
-import { TaskTagEnum, TopPanelProps } from "../../types";
+import { TaskTagEnum } from "../../types";
 import { TaskTagList } from "../TaskTagList/TaskTagList";
 import { showAddPopup } from "../../slices/popups";
 import { setQuery } from "../../slices/search";
@@ -16,9 +16,7 @@ import { AppDispatch } from "../../store";
 import "./TopPanel.css";
 import { useEffect } from "react";
 
-export const TopPanel = ({
-    onTagChecked,
-}: TopPanelProps) => {
+export const TopPanel = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const [searchParams, _] = useSearchParams();
@@ -34,7 +32,6 @@ export const TopPanel = ({
             pathname: name ? `/tasks/${name}` : "/tasks",
         };
         navigate(navigateOptions);
-        onTagChecked && onTagChecked(name);
     };
 
     const { tagName } = useParams();

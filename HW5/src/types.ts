@@ -84,12 +84,3 @@ export interface TasksForTodayPopupProps {
     onOk: () => void;
     taskTitles: string[];
 }
-
-export interface TasksSectionProps {
-    searchTag: TaskTagEnum;
-}
-
-export interface TopPanelProps {
-    onTagChecked?: (tagName: string) => void;
-    searchTag?: TaskTagEnum;
-}

@@ -5,13 +5,12 @@ import { useSelector } from "react-redux";
 import { TaskList } from "../TaskList/TaskList";
 import { Task } from "../Task/Task";
 import { CompletedTask } from "../CompletedTask/CompletedTask";
-import { TasksSectionProps } from "../../types";
 import { tasksSelector } from "../../slices/tasks";
 import { querySelector } from "../../slices/search";
 
 import "./TasksSection.css";
 
-export const TasksSection = ({}: TasksSectionProps) => {
+export const TasksSection = () => {
     const searchQuery = useSelector(querySelector);
     const tasks = useSelector(tasksSelector);
     const { tagName } = useParams();
