@@ -20,7 +20,12 @@ import {
     showAddPopupSelector,
     showEditPopupSelector,
 } from "../../slices/popups";
-import { fetchTasks, tasksSelector } from "../../slices/tasks";
+import {
+    CURRENT_TASKS,
+    fetchTasks,
+    reinitFromLocalStorage,
+    tasksSelector,
+} from "../../slices/tasks";
 
 import "./App.css";
 
@@ -58,6 +63,14 @@ export const App = () => {
             localStorage.setItem("lastOpened", getOpenedDate());
         }
     }, [tasks]);
+
+    useEffect(() => {
+        addEventListener("storage", (event) => {
+            if (event.key === CURRENT_TASKS) {
+                dispatch(reinitFromLocalStorage());
+            }
+        });
+    }, []);
 
     useEffect(() => {
         dispatch(fetchTasks());

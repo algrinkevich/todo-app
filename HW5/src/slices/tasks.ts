@@ -3,12 +3,19 @@ import { Task } from "../types";
 import { RootState } from "../store";
 import { TaskAppService } from "../services/TaskAppService";
 
+
+export const CURRENT_TASKS = "currentTasks";
+
 const initialState: Task[] = [];
 
 const tasksSlice = createSlice({
     name: "tasks",
     initialState,
-    reducers: {},
+    reducers: {
+        reinitFromLocalStorage(state) {
+            return JSON.parse(localStorage.getItem(CURRENT_TASKS)) || [];
+        }
+    },
     extraReducers(builder) {
         builder
             .addCase(fetchTasks.fulfilled, (state, action) => {
@@ -54,4 +61,5 @@ export const addTask = createAsyncThunk("tasks/addTask", (task: Task) => {
     return server.createTask(task);
 });
 
+export const { reinitFromLocalStorage } = tasksSlice.actions;
 export default tasksSlice.reducer;
