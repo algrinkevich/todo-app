@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { PopupsState, Task } from "../types";
+import { PopupsState } from "../types";
 
 const initialState: PopupsState = {
     showAddPopup: false,

@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import tasksReducer, { CURRENT_TASKS } from "./slices/tasks";
 import popupsReducer from "./slices/popups";
+import searchReducer from "./slices/search";
 
 const store = configureStore({
     reducer: {
         tasks: tasksReducer,
         popups: popupsReducer,
+        search: searchReducer
     },
 });
 

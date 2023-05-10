@@ -86,13 +86,10 @@ export interface TasksForTodayPopupProps {
 }
 
 export interface TasksSectionProps {
-    searchQuery: string;
     searchTag: TaskTagEnum;
 }
 
 export interface TopPanelProps {
-    onSearch: (query: string) => void;
-    searchQuery: string;
     onTagChecked?: (tagName: string) => void;
     searchTag?: TaskTagEnum;
 }

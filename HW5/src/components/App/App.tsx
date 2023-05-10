@@ -2,7 +2,6 @@ import {
     Routes,
     Route,
     Outlet,
-    useSearchParams,
     Navigate,
 } from "react-router-dom";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -51,9 +50,6 @@ export const App = () => {
     const showEditPopup = useSelector(showEditPopupSelector);
     const [openedFirstTimeADay, setOpenedFirstTimeADay] = useState(false);
 
-    const [searchParams, _] = useSearchParams();
-    const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
-
     useEffect(() => {
         const previousOpenedDate = localStorage.getItem("lastOpened");
         setOpenedFirstTimeADay(
@@ -74,10 +70,6 @@ export const App = () => {
 
     useEffect(() => {
         dispatch(fetchTasks());
-    }, []);
-
-    const updateQuery = useCallback((query: string) => {
-        setSearchQuery(() => query);
     }, []);
 
     const popups = [];
@@ -112,7 +104,7 @@ export const App = () => {
     }
 
     const makeTaskSection = (searchTag?: TaskTagEnum) => {
-        return <TasksSection searchQuery={searchQuery} searchTag={searchTag} />;
+        return <TasksSection searchTag={searchTag} />;
     };
 
     return (
@@ -124,10 +116,7 @@ export const App = () => {
                     <div className="app-container">
                         <div className="app-wrapper">
                             <Header />
-                            <TopPanel
-                                onSearch={updateQuery}
-                                searchQuery={searchQuery}
-                            />
+                            <TopPanel />
                             {...popups}
                             <Outlet />
                         </div>

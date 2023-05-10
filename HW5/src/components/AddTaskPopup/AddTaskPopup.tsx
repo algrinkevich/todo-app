@@ -1,10 +1,10 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { InputText } from "../InputText/InputText";
 import { TaskTagList } from "../TaskTagList/TaskTagList";
 import { addTask, updateTask } from "../../slices/tasks";
-import { AddTaskPopupProps, Task, TaskTagEnum } from "../../types";
+import { AddTaskPopupProps, Task } from "../../types";
 import { AppDispatch } from "../../store";
 
 import {
