@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { InputText } from "../InputText/InputText";
 import { TaskTagList } from "../TaskTagList/TaskTagList";
 import { addTask, updateTask } from "../../slices/tasks";
-import { AddTaskPopupProps, Task } from "../../types";
+import { AddTaskPopupProps, Task, TaskTagEnum } from "../../types";
 import { AppDispatch } from "../../store";
 
 import {
@@ -24,34 +24,27 @@ export const AddTaskPopup = ({ mode }: AddTaskPopupProps) => {
     const dispatch = useDispatch<AppDispatch>();
     const editableTask = useSelector(editableTaskSelector);
 
-    const [addButtonDisabled, setAddButtonDisabled] = useState(mode !== "edit");
     const [title, setTitle] = useState(
         mode === "edit" ? editableTask.title : ""
     );
     const [tag, setTag] = useState(mode === "edit" ? editableTask.tag : null);
-    const refDatePicker = useRef(null);
+    const [taskDate, setTaskDate] = useState(mode === "new" ? getCurrentDate() : editableTask.plannedDate);
+    let addButtonDisabled = mode !== "edit";
+    addButtonDisabled = !(title && tag && taskDate);
 
-    const changeButtonState = useCallback((value: string) => {
-        if (value) {
-            setAddButtonDisabled(() => false);
-        } else {
-            setAddButtonDisabled(() => true);
-        }
-        setTitle(() => value);
-    }, []);
+    const onDatePickerChange = (event: React.FormEvent<HTMLInputElement>) => {
+        setTaskDate(event.currentTarget.value);
+    }
 
     const addTaskOnSubmit = useCallback(
         (event: React.FormEvent<HTMLFormElement>) => {
-            const date = refDatePicker.current.valueAsDate
-                .toISOString()
-                .slice(0, 10);
             event.preventDefault();
-            if (!title || !date || !tag) {
+            if (!title || !taskDate || !tag) {
                 return;
             }
             const taskInfo: Task = {
                 title: title,
-                plannedDate: date,
+                plannedDate: taskDate,
                 tag: tag,
                 isCompleted: false,
             };
@@ -65,14 +58,11 @@ export const AddTaskPopup = ({ mode }: AddTaskPopupProps) => {
                 dispatch(updateTask(taskInfo));
             }
         },
-        [title, refDatePicker, tag]
+        [title, taskDate, tag]
     );
 
     const popupTitle = mode === "new" ? "Add New Task" : "Edit Task";
     const popupSaveTitle = mode === "new" ? "Add Task" : "Save";
-
-    const defaultDate =
-        mode === "new" ? getCurrentDate() : editableTask.plannedDate;
 
     const onCancelButtonClick = () => {
         if (mode === "new") {
@@ -87,7 +77,7 @@ export const AddTaskPopup = ({ mode }: AddTaskPopupProps) => {
             <h2>{popupTitle}</h2>
             <form className="create-task-form" onSubmit={addTaskOnSubmit}>
                 <InputText
-                    onInput={changeButtonState}
+                    onInput={setTitle}
                     name="taskTitle"
                     type="text"
                     placeholder="Task Title"
@@ -101,8 +91,8 @@ export const AddTaskPopup = ({ mode }: AddTaskPopupProps) => {
                         className="popup__date-picker date-picker"
                         name="planned-date"
                         type="date"
-                        defaultValue={defaultDate}
-                        ref={refDatePicker}
+                        defaultValue={taskDate}
+                        onChange={onDatePickerChange}
                     />
                 </div>
 
