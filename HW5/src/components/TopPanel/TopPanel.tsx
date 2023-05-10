@@ -1,4 +1,5 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useCallback, useEffect } from "react";
 import {
     useNavigate,
     useParams,
@@ -7,57 +8,63 @@ import {
 } from "react-router-dom";
 
 import { InputText } from "../InputText/InputText";
-import { TaskTagEnum } from "../../types";
 import { TaskTagList } from "../TaskTagList/TaskTagList";
 import { showAddPopup } from "../../slices/popups";
-import { setQuery } from "../../slices/search";
+import {
+    querySelector,
+    setQuery,
+    setTag,
+    tagSelector,
+} from "../../slices/search";
 import { AppDispatch } from "../../store";
 
 import "./TopPanel.css";
-import { useEffect } from "react";
 
 export const TopPanel = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
+    const searchQuery = useSelector(querySelector);
+    const tagName = useSelector(tagSelector);
     const [searchParams, _] = useSearchParams();
-    const searchQuery = searchParams.get("q") || "";
+    const { pathTagName } = useParams();
 
     useEffect(() => {
-        dispatch(setQuery(searchQuery));
-    }, []);
+        dispatch(setQuery(searchParams.get("q") || ""));
+        dispatch(setTag(pathTagName));
+    }, [pathTagName]);
 
-    const onTagCheckedWrapper = (name: string) => {
+    useEffect(() => {
         const navigateOptions = {
-            search: `?${createSearchParams(searchParams)}`,
-            pathname: name ? `/tasks/${name}` : "/tasks",
-        };
-        navigate(navigateOptions);
-    };
-
-    const { tagName } = useParams();
-    let searchTag: TaskTagEnum = null;
-    if (tagName) {
-        [searchTag] = Object.values(TaskTagEnum).filter(
-            (value) => value === tagName
-        );
-    }
-
-    const onSearchWrapper = (query: string) => {
-        const navigateOptions = {
-            search: `?${createSearchParams({ q: query })}`,
+            search: `?${createSearchParams({ q: searchQuery })}`,
             pathname: tagName ? `/tasks/${tagName}` : "/tasks",
         };
         navigate(navigateOptions);
-        dispatch(setQuery(query));
-    };
+    }, [searchQuery, tagName]);
 
-    const onButtonClick = () => dispatch(showAddPopup());
+    const onTagChecked = useCallback(
+        (name: string) => {
+            dispatch(setTag(name));
+        },
+        [dispatch, setTag]
+    );
+
+    const onSearch = useCallback(
+        (query: string) => {
+            dispatch(setQuery(query));
+        },
+        [dispatch, setQuery]
+    );
+
+    const onButtonClick = useCallback(
+        () => dispatch(showAddPopup()),
+        [dispatch, showAddPopup]
+    );
 
     return (
         <div className="top-panel">
             <div className="search-and-button-container">
                 <InputText
-                    onInput={onSearchWrapper}
+                    onInput={onSearch}
                     name="search"
                     type="search"
                     placeholder="Search Task"
@@ -70,7 +77,7 @@ export const TopPanel = () => {
                     + New Task
                 </button>
             </div>
-            <TaskTagList onChecked={onTagCheckedWrapper} initTag={searchTag} />
+            <TaskTagList onChecked={onTagChecked} initTag={tagName} />
         </div>
     );
 };

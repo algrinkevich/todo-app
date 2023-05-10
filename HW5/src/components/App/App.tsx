@@ -113,7 +113,7 @@ export const App = () => {
                     </div>
                 }
             >
-                <Route path=":tagName" element={<TasksSection />} />
+                <Route path=":pathTagName" element={<TasksSection />} />
                 <Route index element={<TasksSection />} />
             </Route>
         </Routes>

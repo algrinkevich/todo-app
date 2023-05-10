@@ -1,19 +1,18 @@
 import { useMemo } from "react";
-import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { TaskList } from "../TaskList/TaskList";
 import { Task } from "../Task/Task";
 import { CompletedTask } from "../CompletedTask/CompletedTask";
 import { tasksSelector } from "../../slices/tasks";
-import { querySelector } from "../../slices/search";
+import { querySelector, tagSelector } from "../../slices/search";
 
 import "./TasksSection.css";
 
 export const TasksSection = () => {
     const searchQuery = useSelector(querySelector);
     const tasks = useSelector(tasksSelector);
-    const { tagName } = useParams();
+    const tagName = useSelector(tagSelector);
 
     const notCompletedTasks = useMemo(
         () =>

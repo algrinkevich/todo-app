@@ -1,8 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { SearchState } from "../types";
 
-const initialState = {
+
+const initialState: SearchState = {
     query: "",
+    tag: null,
 };
 
 const searchSlice = createSlice({
@@ -12,9 +15,13 @@ const searchSlice = createSlice({
         setQuery(state, action) {
             state.query = action.payload;
         },
+        setTag(state, action) {
+            state.tag = action.payload;
+        },
     },
 });
 
-export const { setQuery } = searchSlice.actions;
+export const { setQuery, setTag } = searchSlice.actions;
 export const querySelector = (state: RootState) => state.search.query;
+export const tagSelector = (state: RootState) => state.search.tag;
 export default searchSlice.reducer;

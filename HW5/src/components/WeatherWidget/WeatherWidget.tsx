@@ -1,6 +1,6 @@
+import { useEffect, useState } from "react";
 import { WeatherService } from "../../services/WeatherService";
 import { WeatherResponse, CityCoords, WeatherWidgetState } from "../../types";
-import { useEffect, useMemo, useState } from "react";
 import "./WeatherWidget.css";
 
 export const WeatherWidget = () => {

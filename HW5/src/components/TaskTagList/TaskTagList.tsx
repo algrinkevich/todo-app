@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { TaskTagEnum } from "../../types";
 import { TaskTag } from "../TaskTag/TaskTag";
 import "./TaskTagList.css";
@@ -11,11 +11,14 @@ export const TaskTagList = ({
     initTag?: TaskTagEnum;
 }) => {
     const [checkedTag, setCheckedTag] = useState(initTag);
-    const onCheckedWrapper = (name: TaskTagEnum, isChecked: boolean) => {
+    useEffect(() => {
+        setCheckedTag(initTag);
+    }, [initTag])
+    const onCheckedWrapper = useCallback((name: TaskTagEnum, isChecked: boolean) => {
         const newTagName = isChecked ? name : null;
         setCheckedTag(newTagName);
         onChecked(newTagName);
-    };
+    }, [setCheckedTag, onChecked]);
 
     return (
         <div className="tags-container">

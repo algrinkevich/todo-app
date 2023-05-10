@@ -25,6 +25,11 @@ export interface PopupsState {
     editableTask: Task
 }
 
+export interface SearchState {
+    query: string;
+    tag: TaskTagEnum;
+}
+
 export interface WeatherResponse {
     current: {
         temp_c: number;
