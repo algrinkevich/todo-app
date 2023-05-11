@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
 import { InputText } from "../InputText/InputText";
 import { TopPanelProps } from "../../types";
+
 import "./TopPanel.css";
+
 
 export const TopPanel = ({
     onSearch,

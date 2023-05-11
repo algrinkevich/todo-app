@@ -1,9 +1,12 @@
+import { useMemo } from "react";
+
 import { TaskList } from "../TaskList/TaskList";
 import { Task } from "../Task/Task";
 import { CompletedTask } from "../CompletedTask/CompletedTask";
 import { TasksSectionProps } from "../../types";
+
 import "./TasksSection.css";
-import { useMemo } from "react";
+
 
 export const TasksSection = ({
     tasks,

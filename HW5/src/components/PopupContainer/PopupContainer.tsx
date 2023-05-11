@@ -1,5 +1,7 @@
 import { PopupContainerProps } from "../../types";
+
 import "./PopupContainer.css";
+
 
 export const PopupContainer = ({ children }: PopupContainerProps) => {
     return (

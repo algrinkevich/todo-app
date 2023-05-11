@@ -1,3 +1,5 @@
+import { useCallback, useEffect, useMemo, useState } from "react";
+
 import { TaskAppService } from "../../services/TaskAppService";
 import { Header } from "../Header/Header";
 import { TopPanel } from "../TopPanel/TopPanel";
@@ -5,10 +7,10 @@ import { TasksSection } from "../TasksSection/TasksSection";
 import { PopupContainer } from "../PopupContainer/PopupContainer";
 import { AddTaskPopup } from "../AddTaskPopup/AddTaskPopup";
 import { TasksForTodayPopup } from "../TasksForTodayPopup/TasksForTodayPopup";
+import { Task } from "../../types";
 
 import "./App.css";
-import { Task } from "../../types";
-import { useCallback, useEffect, useMemo, useState } from "react";
+
 
 const getOpenedDate = () => {
     return new Date().toString().slice(0, 15);

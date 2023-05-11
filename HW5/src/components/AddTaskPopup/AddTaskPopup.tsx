@@ -1,7 +1,10 @@
-import { AddTaskPopupProps } from "../../types";
 import React, { useCallback, useRef, useState } from "react";
+
+import { AddTaskPopupProps } from "../../types";
 import { InputText } from "../InputText/InputText";
+
 import "./AddTaskPopup.css";
+
 
 const getCurrentDate = () => {
     return new Date().toISOString().slice(0, 10);
@@ -21,17 +24,22 @@ export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
         setTitle(() => value);
     }, []);
 
-    const addTask = useCallback((event: React.FormEvent<HTMLFormElement>) => {
-        const date = refDatePicker.current.valueAsDate.toISOString().slice(0, 10);
-        event.preventDefault();
-        if (!title || !date) {
-            return;
-        }
-        onOk({
-            title: title,
-            date: date,
-        });
-    }, [title, refDatePicker, onOk]);
+    const addTask = useCallback(
+        (event: React.FormEvent<HTMLFormElement>) => {
+            const date = refDatePicker.current.valueAsDate
+                .toISOString()
+                .slice(0, 10);
+            event.preventDefault();
+            if (!title || !date) {
+                return;
+            }
+            onOk({
+                title: title,
+                date: date,
+            });
+        },
+        [title, refDatePicker, onOk]
+    );
 
     return (
         <>

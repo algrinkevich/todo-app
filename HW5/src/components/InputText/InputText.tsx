@@ -1,6 +1,9 @@
 import { useCallback, useRef } from "react";
+
 import { InputTextProps } from "../../types";
+
 import "./InputText.css";
+
 
 export const InputText = ({
     placeholder,
@@ -9,7 +12,7 @@ export const InputText = ({
     value,
     styleClasses,
     onInput,
-    autoFocus
+    autoFocus,
 }: InputTextProps) => {
     const ref = useRef(null);
     const onInputEvent = useCallback(() => {

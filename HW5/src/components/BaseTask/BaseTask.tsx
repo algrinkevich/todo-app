@@ -1,5 +1,7 @@
 import { BaseTaskProps } from "../../types";
+
 import "./BaseTask.css";
+
 
 export const BaseTask = ({
     task,
@@ -59,7 +61,11 @@ export const BaseTask = ({
                 value={task.title}
                 onChange={onChange}
             />
-            <label className={["task-row__title", ...(labelStyles || [])].join(" ")}>
+            <label
+                className={["task-row__title", ...(labelStyles || [])].join(
+                    " "
+                )}
+            >
                 {task.title}
                 <p className="task-row__date">{formattedDate}</p>
             </label>

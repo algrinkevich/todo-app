@@ -1,5 +1,6 @@
 import React from "react";
 
+
 export interface CityCoords {
     latitude: number;
     longitude: number;
