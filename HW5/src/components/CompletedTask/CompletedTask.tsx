@@ -8,8 +8,8 @@ export const CompletedTask = ({ task }: CompletedTaskProps) => {
     return (
         <BaseTask
             task={task}
-            isChecked={true}
-            isDisabled={true}
+            isChecked
+            isDisabled
             labelStyles={["task-row__title--completed"]}
         />
     );
