@@ -64,11 +64,13 @@ export const App = () => {
 
     const deleteTask = useCallback(
         (taskToDelete: Task) => {
-            server.deleteTask(taskToDelete).then(() => {
+            server.deleteTask(taskToDelete)
+            .then(() => {
                 setTasks(() =>
                     tasks.filter((task) => task.id !== taskToDelete.id)
                 );
-            });
+            })
+            .catch((error) => alert(`${error.message}. Deleting task is missing.`));
         },
         [tasks]
     );
