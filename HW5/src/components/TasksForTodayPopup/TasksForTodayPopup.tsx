@@ -4,7 +4,6 @@ import { TasksForTodayPopupProps } from "../../types";
 
 import "./TasksForTodayPopup.css";
 
-
 const getGreeting = (currenHours: number) => {
     if (currenHours >= 5 && currenHours < 12) {
         return "Good Morning";
@@ -24,7 +23,7 @@ export const TasksForTodayPopup = ({
     const currenHours = new Date().getHours();
     const greeting = useMemo(() => getGreeting(currenHours), [currenHours]);
     const listItems = useMemo(
-        () => taskTitles.map((title) => <li>{title}</li>),
+        () => taskTitles.map((title, index) => <li key={index}>{title}</li>),
         [taskTitles]
     );
     return (
