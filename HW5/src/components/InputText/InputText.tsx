@@ -16,7 +16,7 @@ export const InputText = ({
 }: InputTextProps) => {
     const ref = useRef(null);
     const onInputEvent = useCallback(() => {
-        if (!ref) {
+        if (!ref.current) {
             return;
         }
         onInput(ref.current.value);
