@@ -16,11 +16,7 @@ export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
     const refDatePicker = useRef(null);
 
     const changeButtonState = useCallback((value: string) => {
-        if (value) {
-            setAddButtonDisabled(() => false);
-        } else {
-            setAddButtonDisabled(() => true);
-        }
+        setAddButtonDisabled(() => !value);
         setTitle(() => value);
     }, []);
 
