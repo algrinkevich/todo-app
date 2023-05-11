@@ -11,7 +11,6 @@ import { Task } from "../../types";
 
 import "./App.css";
 
-
 const getOpenedDate = () => {
     return new Date().toString().slice(0, 15);
 };
@@ -64,13 +63,16 @@ export const App = () => {
 
     const deleteTask = useCallback(
         (taskToDelete: Task) => {
-            server.deleteTask(taskToDelete)
-            .then(() => {
-                setTasks(() =>
-                    tasks.filter((task) => task.id !== taskToDelete.id)
+            server
+                .deleteTask(taskToDelete)
+                .then(() => {
+                    setTasks(() =>
+                        tasks.filter((task) => task.id !== taskToDelete.id)
+                    );
+                })
+                .catch((error) =>
+                    alert(`${error.message}. Deleting task is missing.`)
                 );
-            })
-            .catch((error) => alert(`${error.message}. Deleting task is missing.`));
         },
         [tasks]
     );
@@ -111,9 +113,9 @@ export const App = () => {
     const handleShowPopup = useCallback(() => setShowPopup(true), []);
     const handleHidePopup = useCallback(() => setShowPopup(false), []);
 
-    const popups = [];
+    let popup = null;
     if (showPopup) {
-        popups.push(
+        popup = (
             <PopupContainer>
                 <AddTaskPopup onOk={addNewTask} onCancel={handleHidePopup} />
             </PopupContainer>
@@ -124,7 +126,7 @@ export const App = () => {
         [tasks, getOpenedDate()]
     );
     if (openedFirstTimeADay && tasksForToday.length) {
-        popups.push(
+        popup = (
             <PopupContainer>
                 <TasksForTodayPopup
                     taskTitles={tasksForToday}
@@ -149,7 +151,7 @@ export const App = () => {
                     onDeleteTask={deleteTask}
                     onCompleteTask={addCompletedTask}
                 />
-                {...popups}
+                {popup}
             </div>
         </div>
     );
