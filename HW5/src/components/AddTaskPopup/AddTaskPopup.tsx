@@ -26,8 +26,8 @@ export const AddTaskPopup = ({ onCancel, onOk }: AddTaskPopupProps) => {
 
     const addTask = useCallback(
         (event: React.FormEvent<HTMLFormElement>) => {
-            const date = refDatePicker.current.valueAsDate
-                .toISOString()
+            const date = refDatePicker.current?.valueAsDate
+                ?.toISOString()
                 .slice(0, 10);
             event.preventDefault();
             if (!title || !date) {
