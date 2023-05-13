@@ -1,6 +1,7 @@
 import { BaseService } from "./BaseService";
 import { CityCoords, WeatherResponse } from "../types";
 
+
 const WEATHER_SERVICE_BASE_URL = "http://api.weatherapi.com/v1";
 const WEATHER_SERVICE_API_KEY = "aaf607ad42a54fe4985111445231604";
 

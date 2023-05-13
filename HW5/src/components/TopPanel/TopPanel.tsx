@@ -20,6 +20,7 @@ import { AppDispatch } from "../../store";
 
 import "./TopPanel.css";
 
+
 export const TopPanel = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
@@ -59,7 +60,6 @@ export const TopPanel = () => {
         () => dispatch(showAddPopup()),
         [dispatch, showAddPopup]
     );
-
     return (
         <div className="top-panel">
             <div className="search-and-button-container">

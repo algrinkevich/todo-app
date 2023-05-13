@@ -9,6 +9,7 @@ import { deleteTask, updateTask } from "../../slices/tasks";
 import { TaskProps } from "../../types";
 import { showEditPopup } from "../../slices/popups";
 
+
 export const Task = ({ task }: TaskProps) => {
     const dispatch = useDispatch<AppDispatch>();
 

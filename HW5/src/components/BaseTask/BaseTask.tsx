@@ -1,6 +1,8 @@
-import { BaseTaskProps, TaskTagEnum } from "../../types";
+import { BaseTaskProps } from "../../types";
 import { TaskTag } from "../TaskTag/TaskTag";
+
 import "./BaseTask.css";
+
 
 export const BaseTask = ({
     task,
@@ -67,7 +69,11 @@ export const BaseTask = ({
             >
                 {task.title}
                 <div className="tag-and-date-container">
-                    <TaskTag name={task.tag} isSelectable={false} isDisabled={isDisabled}/>
+                    <TaskTag
+                        name={task.tag}
+                        isSelectable={false}
+                        isDisabled={isDisabled}
+                    />
                     <p className="task-row__date">{formattedDate}</p>
                 </div>
             </label>

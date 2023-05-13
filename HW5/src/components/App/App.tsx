@@ -23,6 +23,7 @@ import {
 
 import "./App.css";
 
+
 const getOpenedDate = () => {
     return new Date().toString().slice(0, 15);
 };
@@ -67,16 +68,16 @@ export const App = () => {
         dispatch(fetchTasks());
     }, []);
 
-    const popups = [];
+    let popup = null;
     if (showAddPopup) {
-        popups.push(
+        popup = (
             <PopupContainer>
                 <AddTaskPopup mode="new" />
             </PopupContainer>
         );
     }
     if (showEditPopup) {
-        popups.push(
+        popup = (
             <PopupContainer>
                 <AddTaskPopup mode="edit" />
             </PopupContainer>
@@ -88,7 +89,7 @@ export const App = () => {
         [tasks, getOpenedDate()]
     );
     if (openedFirstTimeADay && tasksForToday.length) {
-        popups.push(
+        popup = (
             <PopupContainer>
                 <TasksForTodayPopup
                     taskTitles={tasksForToday}
@@ -107,7 +108,7 @@ export const App = () => {
                         <div className="app-wrapper">
                             <Header />
                             <TopPanel />
-                            {...popups}
+                            {popup}
                             <Outlet />
                         </div>
                     </div>

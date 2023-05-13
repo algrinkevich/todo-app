@@ -15,7 +15,6 @@ import {
 
 import "./AddTaskPopup.css";
 
-
 const getCurrentDate = () => {
     return new Date().toISOString().slice(0, 10);
 };
@@ -23,18 +22,19 @@ const getCurrentDate = () => {
 export const AddTaskPopup = ({ mode }: AddTaskPopupProps) => {
     const dispatch = useDispatch<AppDispatch>();
     const editableTask = useSelector(editableTaskSelector);
-
     const [title, setTitle] = useState(
         mode === "edit" ? editableTask.title : ""
     );
     const [tag, setTag] = useState(mode === "edit" ? editableTask.tag : null);
-    const [taskDate, setTaskDate] = useState(mode === "new" ? getCurrentDate() : editableTask.plannedDate);
+    const [taskDate, setTaskDate] = useState(
+        mode === "new" ? getCurrentDate() : editableTask.plannedDate
+    );
     let addButtonDisabled = mode !== "edit";
     addButtonDisabled = !(title && tag && taskDate);
 
     const onDatePickerChange = (event: React.FormEvent<HTMLInputElement>) => {
         setTaskDate(event.currentTarget.value);
-    }
+    };
 
     const addTaskOnSubmit = useCallback(
         (event: React.FormEvent<HTMLFormElement>) => {
@@ -71,7 +71,6 @@ export const AddTaskPopup = ({ mode }: AddTaskPopupProps) => {
             dispatch(hideEditPopup());
         }
     };
-
     return (
         <>
             <h2>{popupTitle}</h2>

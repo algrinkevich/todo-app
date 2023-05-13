@@ -9,6 +9,7 @@ import { querySelector, tagSelector } from "../../slices/search";
 
 import "./TasksSection.css";
 
+
 export const TasksSection = () => {
     const searchQuery = useSelector(querySelector);
     const tasks = useSelector(tasksSelector);
