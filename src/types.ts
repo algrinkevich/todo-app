@@ -1,9 +1,5 @@
-import { AddTaskPopup } from "./components/AddTaskPopup/AddTaskPopup";
-import { TasksForTodayPopup } from "./components/TasksForTodayPopup/TasksForTodayPopup";
+import React from "react";
 
-export interface RenderArgs {
-    children: Array<HTMLElement | string>;
-}
 
 export interface CityCoords {
     latitude: number;
@@ -28,115 +24,56 @@ export interface WeatherResponse {
 }
 
 export interface WeatherWidgetState {
-    temperature: number;
+    temperature: string;
     icon: string;
     city: string;
 }
 
-export interface ComponentProps {
-    onClick?: (event: Event) => void;
-    styleClasses?: Array<string>;
-    children?: Array<HTMLElement | string>;
-}
-
-export interface AddTaskFormProps {
-    onCancel: (event: Event) => void;
-    onClickAdd: (newTask: { title: string; date: string }) => void;
+export interface DeleteIconProps {
+    onClick?: () => void;
 }
 
 export interface AddTaskPopupProps {
-    onCancel: (event: Event) => void;
+    onCancel: () => void;
     onOk: (arg: Object) => void;
-}
-
-export interface ButtonProps {
-    type?: string;
-    enabled?: boolean;
-    text: string;
-    onClick?: (event: Event) => void;
-    styleClasses: string[];
-}
-
-export interface CheckboxProps {
-    title: string;
-    onChecked?: (title: string) => void;
 }
 
 export interface BaseTaskProps {
     task: Task;
+    isChecked: boolean;
+    isDisabled: boolean;
+    onChange?: (event: React.FormEvent<HTMLInputElement>) => void;
+    children?: React.ReactNode;
+    labelStyles?: string[];
 }
 
-export interface TaskProps extends BaseTaskProps {
+export interface TaskProps {
+    task: Task;
     onComplete: (task: Task) => void;
     onDelete: (task: Task) => void;
 }
 
-export interface BaseTaskListProps {
-    tasks: Task[];
-}
-
-export interface TaskListProps extends BaseTaskListProps {
-    onDeleteTask: (task: Task) => void;
-    onCompleteTask: (task: Task) => void;
-    searchQuery: string;
-}
-
-export interface DatePickerProps {
-    name: string;
-    styleClasses: string[];
-}
-
-export interface HeadingProps {
-    text: string;
-    level: number;
-    styleClasses?: string[];
-}
-
-export interface ImageProps {
-    src: string;
-    styleClasses: string[];
-    onClick?: (event: Event) => void;
+export interface CompletedTaskProps {
+    task: Task;
 }
 
 export interface InputTextProps {
-    onInput: (event: Event) => void;
+    onInput: (text: string) => void;
     name: string;
     type: string;
     value: string;
     placeholder: string;
-    setFocus: boolean;
     styleClasses?: string[];
-}
-
-export interface LabelProps {
-    title: string;
-    date: string;
-    styleClasses: string[];
-}
-
-export interface ListProps {
-    styleClasses: string[];
+    autoFocus?: boolean;
 }
 
 export interface PopupContainerProps {
-    popupComponent: AddTaskPopup | TasksForTodayPopup;
-}
-
-export interface SearchProps {
-    onSearch: (query: string) => void;
-    query: string;
-    isFocused: boolean;
-    placeholder: string;
-}
-
-export interface TaskTitleInputProps {
-    addButton: HTMLButtonElement;
-    type: string;
+    children: React.ReactNode;
 }
 
 export interface TasksForTodayPopupProps {
-    onOk: (arg: Object) => void;
-    tasks: Array<string>;
+    onOk: () => void;
+    taskTitles: string[];
 }
 
 export interface TasksSectionProps {
@@ -146,14 +83,10 @@ export interface TasksSectionProps {
     searchQuery: string;
 }
 
-export interface TextProps {
-    text: string;
-    styleClasses: string[];
-}
-
 export interface TopPanelProps {
     onSearch: (query: string) => void;
     searchQuery: string;
-    isSearchFocused: boolean;
-    onNewTaskClick: (event: Event) => void;
+    onNewTaskClick: (
+        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => void;
 }

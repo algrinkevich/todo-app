@@ -1,0 +1,65 @@
+.create-task-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup__date-picker {
+    position: relative;
+    margin-top: 1.125em;
+    margin-bottom: 5.75em;
+    align-self: flex-end;
+}
+
+.cancel-btn {
+    width: 49%;
+    height: 3.25em;
+    padding: 0;
+    border: none;
+    background: #fff;
+    color: #0053cf;
+    font-family: "Nunito";
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 1.25em;
+    border-radius: 0.75em;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background: #f5f5f5;
+}
+
+.date-picker {
+    font-family: "Nunito";
+    padding: 0.625em 1em;
+    background: #ffffff;
+    border: 2px solid rgba(60, 134, 244, 0.6);
+    border-radius: 0.75em;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25em;
+    color: #1d1d1d;
+    width: 8.125em;
+}
+
+.date-picker::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+
+.popup__input-text {
+    margin-top: 2.375em;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
