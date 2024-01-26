@@ -1,0 +1,24 @@
+.weather {
+    display: flex;
+    align-items: center;
+}
+
+.weather__temperature {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 2em;
+    margin: 0 5.2778em 0 0;
+}
+
+.weather__city {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 2em;
+    color: #838383;
+    margin: 0;
+}
+
+.weather__icon {
+    width: 3.5625em;
+    margin-right: 1.375em;
+}
