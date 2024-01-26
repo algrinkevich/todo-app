@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Routes, Route, Outlet, Navigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import { TaskAppService } from "../../services/TaskAppService";
 import { Header } from "../Header/Header";
 import { TopPanel } from "../TopPanel/TopPanel";
 import { TasksSection } from "../TasksSection/TasksSection";
@@ -8,8 +9,20 @@ import { PopupContainer } from "../PopupContainer/PopupContainer";
 import { AddTaskPopup } from "../AddTaskPopup/AddTaskPopup";
 import { TasksForTodayPopup } from "../TasksForTodayPopup/TasksForTodayPopup";
 import { Task } from "../../types";
+import { AppDispatch } from "../../store";
+import {
+    showAddPopupSelector,
+    showEditPopupSelector,
+} from "../../slices/popups";
+import {
+    CURRENT_TASKS,
+    fetchTasks,
+    reinitFromLocalStorage,
+    tasksSelector,
+} from "../../slices/tasks";
 
 import "./App.css";
+
 
 const getOpenedDate = () => {
     return new Date().toString().slice(0, 15);
@@ -27,12 +40,11 @@ const getTasksForToday = (tasks: Task[]) => {
 };
 
 export const App = () => {
-    const [tasks, setTasks] = useState([]);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [showPopup, setShowPopup] = useState(false);
+    const dispatch = useDispatch<AppDispatch>();
+    const tasks = useSelector(tasksSelector);
+    const showAddPopup = useSelector(showAddPopupSelector);
+    const showEditPopup = useSelector(showEditPopupSelector);
     const [openedFirstTimeADay, setOpenedFirstTimeADay] = useState(false);
-
-    const server = new TaskAppService();
 
     useEffect(() => {
         const previousOpenedDate = localStorage.getItem("lastOpened");
@@ -45,82 +57,33 @@ export const App = () => {
     }, [tasks]);
 
     useEffect(() => {
-        let isCanceled = false;
-        server.getTasks().then((response) => {
-            if (isCanceled) {
-                return;
+        addEventListener("storage", (event) => {
+            if (event.key === CURRENT_TASKS) {
+                dispatch(reinitFromLocalStorage());
             }
-            setTasks(response);
         });
-        return () => {
-            isCanceled = true;
-        };
     }, []);
 
-    const updateQuery = useCallback((query: string) => {
-        setSearchQuery(() => query);
+    useEffect(() => {
+        dispatch(fetchTasks());
     }, []);
-
-    const deleteTask = useCallback(
-        (taskToDelete: Task) => {
-            server
-                .deleteTask(taskToDelete)
-                .then(() => {
-                    setTasks(() =>
-                        tasks.filter((task) => task.id !== taskToDelete.id)
-                    );
-                })
-                .catch((error) =>
-                    alert(`${error.message}. Deleting task is missing.`)
-                );
-        },
-        [tasks]
-    );
-
-    const addCompletedTask = useCallback(
-        (taskToComplete: Task) => {
-            const completedTask = { ...taskToComplete, isCompleted: true };
-
-            server.updateTask(completedTask).then(() => {
-                setTasks(() =>
-                    tasks.map((task) => ({
-                        ...task,
-                        isCompleted:
-                            task.isCompleted || task.id === completedTask.id,
-                    }))
-                );
-            });
-        },
-        [tasks]
-    );
-
-    const addNewTask = useCallback(
-        ({ title, date }: { title: string; date: string }) => {
-            server
-                .createTask({
-                    title: title,
-                    isCompleted: false,
-                    plannedDate: date,
-                })
-                .then((response) => {
-                    setTasks(() => [...tasks, response]);
-                    setShowPopup(() => false);
-                });
-        },
-        [tasks]
-    );
-
-    const handleShowPopup = useCallback(() => setShowPopup(true), []);
-    const handleHidePopup = useCallback(() => setShowPopup(false), []);
 
     let popup = null;
-    if (showPopup) {
+    if (showAddPopup) {
         popup = (
             <PopupContainer>
-                <AddTaskPopup onOk={addNewTask} onCancel={handleHidePopup} />
+                <AddTaskPopup mode="new" />
             </PopupContainer>
         );
     }
+    if (showEditPopup) {
+        popup = (
+            <PopupContainer>
+                <AddTaskPopup mode="edit" />
+            </PopupContainer>
+        );
+    }
+
     const tasksForToday = useMemo(
         () => getTasksForToday(tasks),
         [tasks, getOpenedDate()]
@@ -135,24 +98,25 @@ export const App = () => {
             </PopupContainer>
         );
     }
-
     return (
-        <div className="app-container">
-            <div className="app-wrapper">
-                <Header />
-                <TopPanel
-                    onSearch={updateQuery}
-                    searchQuery={searchQuery}
-                    onNewTaskClick={handleShowPopup}
-                />
-                <TasksSection
-                    tasks={tasks}
-                    searchQuery={searchQuery}
-                    onDeleteTask={deleteTask}
-                    onCompleteTask={addCompletedTask}
-                />
-                {popup}
-            </div>
-        </div>
+        <Routes>
+            <Route path="/" element={<Navigate to="/tasks" />} />
+            <Route
+                path="/tasks"
+                element={
+                    <div className="app-container">
+                        <div className="app-wrapper">
+                            <Header />
+                            <TopPanel />
+                            {popup}
+                            <Outlet />
+                        </div>
+                    </div>
+                }
+            >
+                <Route path=":pathTagName" element={<TasksSection />} />
+                <Route index element={<TasksSection />} />
+            </Route>
+        </Routes>
     );
 };

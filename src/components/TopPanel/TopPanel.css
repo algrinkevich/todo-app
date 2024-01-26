@@ -1,8 +1,14 @@
-.top-panel {
+.search-and-button-container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+}
+
+.top-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
 }
 
 .top-panel__new-task-btn {

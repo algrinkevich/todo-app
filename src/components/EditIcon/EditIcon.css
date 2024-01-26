@@ -1,12 +1,13 @@
-.bucket-icon {
+.edit-icon {
     filter: var(--grey-icon);
     cursor: pointer;
+    width: 1.125em;
 }
 
-.bucket-icon:hover {
+.edit-icon:hover {
     filter: var(--light-blue-icon);
 }
 
-.bucket-icon:active {
+.edit-icon:active {
     filter: var(--blue-icon);
 }

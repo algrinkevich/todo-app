@@ -6,11 +6,29 @@ export interface CityCoords {
     longitude: number;
 }
 
+export enum TaskTagEnum {
+    Health = "health",
+    Work = "work",
+    Home = "home",
+    Other = "other",
+}
+
 export interface Task {
     title: string;
     isCompleted: boolean;
     plannedDate: string;
+    tag: TaskTagEnum;
     id?: number;
+}
+
+export interface PopupsState {
+    showAddPopup: boolean;
+    editableTask: Task
+}
+
+export interface SearchState {
+    query: string;
+    tag: TaskTagEnum;
 }
 
 export interface WeatherResponse {
@@ -34,8 +52,7 @@ export interface DeleteIconProps {
 }
 
 export interface AddTaskPopupProps {
-    onCancel: () => void;
-    onOk: (arg: Object) => void;
+    mode: "edit" | "new";
 }
 
 export interface BaseTaskProps {
@@ -49,8 +66,6 @@ export interface BaseTaskProps {
 
 export interface TaskProps {
     task: Task;
-    onComplete: (task: Task) => void;
-    onDelete: (task: Task) => void;
 }
 
 export interface CompletedTaskProps {
@@ -74,19 +89,4 @@ export interface PopupContainerProps {
 export interface TasksForTodayPopupProps {
     onOk: () => void;
     taskTitles: string[];
-}
-
-export interface TasksSectionProps {
-    tasks: Array<Task>;
-    onDeleteTask: (task: Task) => void;
-    onCompleteTask: (task: Task) => void;
-    searchQuery: string;
-}
-
-export interface TopPanelProps {
-    onSearch: (query: string) => void;
-    searchQuery: string;
-    onNewTaskClick: (
-        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) => void;
 }

@@ -4,31 +4,36 @@
       "title": "Task7",
       "isCompleted": true,
       "plannedDate": "2023-04-17",
-      "id": 13
+      "id": 13,
+      "tag": "home"
     },
     {
       "title": "Task 8",
       "isCompleted": false,
       "plannedDate": "2023-05-27",
-      "id": 17
+      "id": 17,
+      "tag": "work"
     },
     {
       "title": "Do laundry",
       "isCompleted": false,
       "plannedDate": "2023-04-19",
-      "id": 19
+      "id": 19,
+      "tag": "other"
     },
     {
       "title": "Task with long TitleTask with long TitleTask with long TitleTask with long TitleTask with long Title Task with long Title",
       "isCompleted": false,
       "plannedDate": "2023-04-19",
-      "id": 21
+      "id": 21,
+      "tag": "health"
     },
     {
       "title": "Grow tree",
       "isCompleted": true,
       "plannedDate": "2023-04-19",
-      "id": 27
+      "id": 27,
+      "tag": "work"
     }
   ]
 }

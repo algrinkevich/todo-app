@@ -47,3 +47,11 @@
     line-height: 1.3333em;
     color: #838383;
 }
+
+.tag-and-date-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.625em;
+    margin-top: 0.375em;
+}

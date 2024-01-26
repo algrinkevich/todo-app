@@ -23,7 +23,7 @@ module.exports = (env, argv) => {
                     type: "asset/resource",
                     generator: {
                         outputPath: "images/",
-                        publicPath: "images/",
+                        publicPath: "/images/",
                     },
                 },
                 {
@@ -50,9 +50,11 @@ module.exports = (env, argv) => {
             clean: true,
             filename: "index.js",
             path: path.resolve(__dirname, "dist"),
+            publicPath: "/"
         },
         devServer: {
             open: true,
+            historyApiFallback: true,
         },
     };
 };

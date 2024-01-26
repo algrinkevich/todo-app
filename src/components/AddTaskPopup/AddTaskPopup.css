@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+
 .create-task-form {
     display: flex;
     flex-direction: column;
@@ -6,8 +8,7 @@
 .popup__date-picker {
     position: relative;
     margin-top: 1.125em;
-    margin-bottom: 5.75em;
-    align-self: flex-end;
+    margin-bottom: 1.125em;
 }
 
 .cancel-btn {
@@ -62,4 +63,13 @@
 .buttons-container {
     display: flex;
     justify-content: space-between;
+    margin-top: 2em;
 }
+
+.pickers-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
