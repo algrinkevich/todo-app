@@ -8,7 +8,7 @@ export enum BackendType {
 }
 
 const config: Config  = {
-    backend: BackendType.LOCAL_STORAGE,
+    backend: BackendType.SERVER,
 };
 
 export default config;
